@@ -1,0 +1,15 @@
+{
+    "name": "dana-bos/backend",
+    "description": "Backend PHP Native untuk Aplikasi Dana Bos",
+    "type": "project",
+    "require": {
+        "php": ">=7.4",
+        "phpoffice/phpspreadsheet": "^1.28",
+        "tecnickcom/tcpdf": "^6.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "DanaBos\\": "src/"
+        }
+    }
+}
