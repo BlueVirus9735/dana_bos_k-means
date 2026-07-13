@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { apiFetch } from '@/lib/api';
 import {
   MapPin, Plus, X, Pencil, Trash2, Search,
   CheckCircle2, AlertCircle, Home, Layers, AlertTriangle, Users,
@@ -92,7 +93,7 @@ export default function KecamatanPage() {
 
   const fetchKecamatan = async () => {
     try {
-      const res = await fetch('http://localhost:8000/kecamatan.php', { credentials: 'include' });
+      const res = await apiFetch('/kecamatan.php', {}, router);
       const data = await res.json();
       setKecamatan(Array.isArray(data) ? data : []);
     } catch (e) {
@@ -107,9 +108,9 @@ export default function KecamatanPage() {
     e.preventDefault();
     setSaving(true);
     try {
-      const url    = editingId ? `http://localhost:8000/kecamatan.php?id=${editingId}` : 'http://localhost:8000/kecamatan.php';
-      const method = editingId ? 'PUT' : 'POST';
-      const body   = {
+      const method  = editingId ? 'PUT' : 'POST';
+      const url     = editingId ? `/kecamatan.php?id=${editingId}` : '/kecamatan.php';
+      const body    = {
         ...(editingId ? { id: editingId } : {}),
         nama_kecamatan:          formData.nama_kecamatan,
         kode_kecamatan:          formData.kode_kecamatan,
@@ -128,12 +129,10 @@ export default function KecamatanPage() {
         longitude: formData.longitude !== '' ? formData.longitude : null,
       };
 
-      const res = await fetch(url, {
-        credentials: 'include',
+      const res = await apiFetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
-      });
+      }, router);
 
       if (res.ok) {
         closeForm();
@@ -175,7 +174,7 @@ export default function KecamatanPage() {
   const handleDelete = async (id: number, nama: string) => {
     if (!confirm(`Yakin ingin menghapus kecamatan "${nama}"?`)) return;
     try {
-      const res = await fetch(`http://localhost:8000/kecamatan.php?id=${id}`, {
+      const res = await apiFetch(`/kecamatan.php?id=${id}`, {
         credentials: 'include', method: 'DELETE',
       });
       if (res.ok) { fetchKecamatan(); showToast('Kecamatan berhasil dihapus.', 'success'); }
@@ -190,17 +189,16 @@ export default function KecamatanPage() {
   );
 
   return (
+    <>
     <div className="space-y-6 animate-in">
       {/* Header */}
       <div className="page-header">
         <div>
           <h1 className="page-title flex items-center gap-2">
-            <span className="h-9 w-9 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400">
-              <MapPin size={20} />
-            </span>
+            <MapPin size={20} className="text-[var(--accent-hover)]" />
             Data Kecamatan
           </h1>
-          <p className="page-subtitle mt-1">Kelola data kecamatan beserta rincian fasilitas dan kelas</p>
+          <p className="page-subtitle">Kelola data kecamatan beserta rincian fasilitas dan kelas</p>
         </div>
         <button
           onClick={() => { setShowForm(true); setEditingId(null); setFormData(emptyForm); }}
@@ -233,8 +231,8 @@ export default function KecamatanPage() {
           <div className="p-8 space-y-3">{[...Array(5)].map((_,i) => <div key={i} className="skeleton h-10 w-full"/>)}</div>
         ) : filtered.length === 0 ? (
           <div className="py-20 text-center">
-            <MapPin size={40} className="mx-auto text-slate-300 mb-3" />
-            <p className="text-slate-400 font-medium">
+            <MapPin size={40} className="w-10 h-10 mx-auto text-[var(--text-muted)] mb-3" />
+            <p style={{ fontSize: 13, fontWeight: 500, color: 'var(--text-secondary)' }}>
               {search ? 'Tidak ada hasil pencarian' : 'Belum ada data kecamatan'}
             </p>
           </div>
@@ -263,20 +261,20 @@ export default function KecamatanPage() {
                         <div className="text-[10px] text-slate-400 font-mono mt-0.5">{item.kode_kecamatan}</div>
                       </td>
                       <td>
-                        <div className="badge bg-slate-800/50 text-slate-300 border border-white/10">{item.tahun_ajaran || '—'}</div>
+                        <div className="badge" style={{ background: 'var(--bg-hover)', color: 'var(--text-secondary)', border: '1px solid var(--border)' }}>{item.tahun_ajaran || '—'}</div>
                       </td>
                       <td>
-                        <div className="text-sm font-semibold tabular-nums text-slate-200 mb-0.5">Total: {item.jumlah_ruang_kelas ?? 0}</div>
-                        <div className="flex items-center gap-1.5 text-[10px] font-medium">
-                          <span className="text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded">{item.ruang_kelas_baik ?? 0}</span>
-                          <span className="text-amber-600 bg-amber-500/10 px-1.5 py-0.5 rounded">{item.ruang_kelas_rusak_ringan ?? 0}</span>
-                          <span className="text-red-600 bg-rose-500/10 px-1.5 py-0.5 rounded">{item.ruang_kelas_rusak_berat ?? 0}</span>
+                        <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 2 }}>Total: {item.jumlah_ruang_kelas ?? 0}</div>
+                        <div className="flex items-center gap-1.5" style={{ fontSize: 11, fontWeight: 500 }}>
+                          <span className="badge-green rounded px-1.5 py-0.5">{item.ruang_kelas_baik ?? 0}</span>
+                          <span className="badge-amber rounded px-1.5 py-0.5">{item.ruang_kelas_rusak_ringan ?? 0}</span>
+                          <span className="badge-red rounded px-1.5 py-0.5">{item.ruang_kelas_rusak_berat ?? 0}</span>
                         </div>
                       </td>
-                      <td className="tabular-nums font-medium text-indigo-400">
-                        {totalFasilitas} <span className="text-xs text-slate-400 font-normal">item</span>
+                      <td className="tabular-nums font-medium" style={{ color: 'var(--accent-hover)' }}>
+                        {totalFasilitas} <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>item</span>
                       </td>
-                      <td className="tabular-nums font-medium text-slate-200">{item.jumlah_rombongan_belajar ?? 0}</td>
+                      <td className="tabular-nums font-medium" style={{ color: 'var(--text-primary)' }}>{item.jumlah_rombongan_belajar ?? 0}</td>
                       <td>
                         <div className="flex items-center gap-2">
                           <button onClick={() => handleEdit(item)} className="btn-edit"><Pencil size={13}/> Edit</button>
@@ -291,28 +289,26 @@ export default function KecamatanPage() {
           </div>
         )}
       </div>
+    </div>
 
-      {/* Modal Form - Adjusted to fit 10 fields */}
+      {/* Modal Form */}
       {showForm && (
-        <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm overflow-y-auto" onClick={e => e.target === e.currentTarget && closeForm()}>
-          <div className="min-h-full flex items-center justify-center p-4 sm:p-6">
-            <div className="bg-slate-900/60 backdrop-blur-md rounded-xl shadow-2xl w-full max-w-4xl flex flex-col" onClick={e => e.stopPropagation()}>
-              <div className="flex items-center justify-between p-5 border-b border-white/10 shrink-0">
-                <div className="flex items-center gap-3">
-                  <div className="h-9 w-9 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400">
-                    <MapPin size={18} />
-                  </div>
-                  <div>
-                    <h2 className="text-base font-bold text-slate-100">{editingId ? 'Edit Kecamatan' : 'Tambah Kecamatan'}</h2>
-                    <p className="text-xs text-slate-400">Lengkapi data rincian kelas dan fasilitas</p>
-                  </div>
+        <div className="modal-overlay" onClick={e => e.target === e.currentTarget && closeForm()}>
+          <div className="modal-box" onClick={e => e.stopPropagation()} style={{ maxWidth: 800 }}>
+            <div className="modal-header">
+              <div className="flex items-center gap-3">
+                <MapPin size={18} color="var(--accent-hover)" />
+                <div>
+                  <h2 style={{ fontSize: 15, fontWeight: 600, color: 'var(--text-primary)', lineHeight: 1.2 }}>{editingId ? 'Edit Kecamatan' : 'Tambah Kecamatan'}</h2>
+                  <p style={{ fontSize: 12, color: 'var(--text-muted)' }}>Lengkapi data rincian kelas dan fasilitas</p>
                 </div>
-                <button onClick={closeForm} className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-400">
-                  <X size={18}/>
-                </button>
               </div>
+              <button onClick={closeForm} style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}>
+                <X size={18}/>
+              </button>
+            </div>
 
-              <div className="p-5 sm:p-6 space-y-6">
+            <div className="modal-body space-y-6">
               <form id="kecamatan-form" onSubmit={handleSubmit} className="space-y-6">
                 
                 {/* Info Dasar */}
@@ -324,8 +320,8 @@ export default function KecamatanPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Kondisi Ruang Kelas */}
-                  <div className="p-4 rounded-xl bg-slate-800/50 border border-white/10">
-                    <p className="text-xs font-bold text-slate-200 uppercase tracking-wide mb-4 flex items-center gap-2">
+                  <div style={{ padding: 16, borderRadius: 'var(--radius)', background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}>
+                    <p style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-primary)', textTransform: 'uppercase', marginBottom: 16, display: 'flex', alignItems: 'center', gap: 6 }}>
                       <Home size={14} /> Kondisi Ruang Kelas
                     </p>
                     <div className="grid grid-cols-2 gap-3">
@@ -337,8 +333,8 @@ export default function KecamatanPage() {
                   </div>
 
                   {/* Fasilitas */}
-                  <div className="p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/20">
-                    <p className="text-xs font-bold text-indigo-400 uppercase tracking-wide mb-4 flex items-center gap-2">
+                  <div style={{ padding: 16, borderRadius: 'var(--radius)', background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}>
+                    <p style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-primary)', textTransform: 'uppercase', marginBottom: 16, display: 'flex', alignItems: 'center', gap: 6 }}>
                       <Layers size={14} /> Rincian Fasilitas
                     </p>
                     <div className="grid grid-cols-2 gap-3">
@@ -352,8 +348,8 @@ export default function KecamatanPage() {
                 </div>
 
                 {/* Info Tambahan */}
-                <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
-                   <p className="text-xs font-bold text-amber-400 uppercase tracking-wide mb-4 flex items-center gap-2">
+                <div style={{ padding: 16, borderRadius: 'var(--radius)', background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}>
+                   <p style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-primary)', textTransform: 'uppercase', marginBottom: 16, display: 'flex', alignItems: 'center', gap: 6 }}>
                       <Users size={14} /> Lainnya
                     </p>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -366,17 +362,16 @@ export default function KecamatanPage() {
               </form>
             </div>
 
-              <div className="flex items-center justify-end gap-3 p-5 border-t border-white/10 bg-slate-800/50 rounded-b-xl shrink-0">
+              <div className="modal-footer">
                 <button type="button" onClick={closeForm} className="btn-secondary">Batal</button>
                 <button type="submit" form="kecamatan-form" className="btn-primary" disabled={saving}>
                   {saving ? (
-                    <><div className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin"/>Menyimpan...</>
+                    'Menyimpan...'
                   ) : (
                     editingId ? 'Simpan Perubahan' : 'Tambah Kecamatan'
                   )}
                 </button>
               </div>
-            </div>
           </div>
         </div>
       )}
@@ -387,6 +382,6 @@ export default function KecamatanPage() {
           {toast.message}
         </div>
       )}
-    </div>
+    </>
   );
 }

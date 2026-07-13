@@ -7,7 +7,7 @@ define('PYTHON_SCRIPT_PATH', __DIR__ . '/../../python/kmeans.py');
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// CORS headers
+// CORS headers — harus sebelum session_start()
 $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : 'http://localhost:3000';
 header("Access-Control-Allow-Origin: $origin");
 header('Access-Control-Allow-Credentials: true');
@@ -18,5 +18,24 @@ header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-W
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
+}
+
+/**
+ * Mulai session PHP.
+ * Request sekarang lewat Next.js proxy (same-origin), tidak perlu SameSite=None.
+ */
+function startSession() {
+    if (session_status() === PHP_SESSION_ACTIVE) return;
+
+    session_name('DANA_BOS_SID');
+    session_set_cookie_params([
+        'lifetime' => 86400,
+        'path'     => '/',
+        'domain'   => '',
+        'secure'   => false,
+        'httponly' => true,
+        'samesite' => 'Lax',
+    ]);
+    session_start();
 }
 ?>

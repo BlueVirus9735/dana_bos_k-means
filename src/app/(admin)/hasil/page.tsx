@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { BarChart3, Map, List, TrendingUp } from 'lucide-react';
 import ClusterMap from '@/components/ClusterMap';
+import { apiFetch } from '@/lib/api';
 
 interface ClusterResult {
   id: number;
@@ -46,10 +47,10 @@ interface RankingData {
   }>;
 }
 
-const CATEGORY_STYLES: Record<string, { badge: string; card: string; bar: string; text: string }> = {
-  Tinggi: { badge: 'bg-red-100 text-rose-400', card: 'bg-rose-500/10 border-rose-500/20', bar: 'bg-red-500', text: 'text-red-600' },
-  Sedang: { badge: 'bg-amber-100 text-amber-400', card: 'bg-amber-500/10 border-amber-200', bar: 'bg-amber-500', text: 'text-amber-600' },
-  Rendah: { badge: 'bg-green-100 text-emerald-400', card: 'bg-emerald-500/10 border-emerald-500/20', bar: 'bg-green-500', text: 'text-emerald-400' },
+const KAT: Record<string, { bg: string; color: string; border: string; bar: string; text: string }> = {
+  Tinggi: { bg: 'rgba(239,68,68,0.12)', color: '#ef4444', border: 'rgba(239,68,68,0.3)', bar: '#ef4444', text: '#ef4444' },
+  Sedang: { bg: 'rgba(251,191,36,0.12)', color: 'var(--amber)', border: 'rgba(251,191,36,0.3)', bar: 'var(--amber)', text: 'var(--amber)' },
+  Rendah: { bg: 'rgba(52,211,153,0.12)', color: 'var(--green)', border: 'rgba(52,211,153,0.3)', bar: 'var(--green)', text: 'var(--green)' },
 };
 
 export default function HasilPage() {
@@ -72,7 +73,8 @@ export default function HasilPage() {
 
   const fetchAvailableYears = async () => {
     try {
-      const response = await fetch('http://localhost:8000/dashboard.php', { credentials: 'include' });
+      const response = await apiFetch('/dashboard.php', {}, router);
+      if (!response.ok) return;
       const data = await response.json();
       setAvailableYears(data.available_years || []);
       if (data.available_years?.length > 0) {
@@ -91,9 +93,9 @@ export default function HasilPage() {
     setLoading(true);
     try {
       const [resultsRes, rankingRes, schoolsRes] = await Promise.all([
-        fetch(`http://localhost:8000/clustering.php?tahun_ajaran=${year}`, { credentials: 'include' }),
-        fetch(`http://localhost:8000/ranking.php?tahun_ajaran=${year}`, { credentials: 'include' }),
-        fetch(`http://localhost:8000/data_bos.php?tahun_ajaran=${year}`, { credentials: 'include' }),
+        apiFetch(`/clustering.php?tahun_ajaran=${year}`, {}, router),
+        apiFetch(`/ranking.php?tahun_ajaran=${year}`, {}, router),
+        apiFetch(`/data_bos.php?tahun_ajaran=${year}`, {}, router),
       ]);
       const resultsData = await resultsRes.json();
       const rankingData = await rankingRes.json();
@@ -120,12 +122,10 @@ export default function HasilPage() {
       <div className="page-header">
         <div>
           <h1 className="page-title flex items-center gap-2">
-            <span className="h-9 w-9 rounded-xl bg-cyan-100 flex items-center justify-center text-cyan-600">
-              <BarChart3 size={20} />
-            </span>
+            <BarChart3 size={20} className="text-[var(--accent-hover)]" />
             Hasil Clustering
           </h1>
-          <p className="page-subtitle mt-1">Analisis pengelompokan kebutuhan sarana prasarana per kecamatan</p>
+          <p className="page-subtitle">Analisis pengelompokan kebutuhan sarana prasarana per kecamatan</p>
         </div>
 
         {availableYears.length > 0 && (
@@ -146,14 +146,14 @@ export default function HasilPage() {
 
       {loading ? (
         <div className="card p-12 flex items-center justify-center gap-3">
-          <div className="h-6 w-6 border-2 border-blue-600/30 border-t-blue-600 rounded-full animate-spin" />
-          <span className="text-slate-400 font-medium">Memuat data...</span>
+          <div className="h-6 w-6 border-2 border-[var(--accent)] border-t-transparent rounded-full animate-spin" />
+          <span style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>Memuat data...</span>
         </div>
       ) : results.length === 0 ? (
         <div className="card p-16 text-center">
-          <BarChart3 size={40} className="mx-auto text-slate-300 mb-3" />
-          <h3 className="font-semibold text-slate-200">Belum ada hasil clustering</h3>
-          <p className="text-slate-400 text-sm mt-1">Jalankan proses clustering terlebih dahulu di menu Proses Clustering</p>
+          <BarChart3 size={40} color="var(--text-muted)" className="mx-auto mb-3" />
+          <h3 style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Belum ada hasil clustering</h3>
+          <p style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 4 }}>Jalankan proses clustering terlebih dahulu di menu Proses Clustering</p>
         </div>
       ) : (
         <>
@@ -162,21 +162,20 @@ export default function HasilPage() {
             {['Tinggi', 'Sedang', 'Rendah'].map((kat) => {
               const count = results.filter((r) => r.kategori_nama === kat).length;
               const total = results.length;
-              const style = CATEGORY_STYLES[kat];
+              const style = KAT[kat] || KAT['Rendah'];
               return (
                 <button
                   key={kat}
                   onClick={() => setFilterKategori(filterKategori === kat ? '' : kat)}
-                  className={`card p-5 text-left transition-all hover:-translate-y-0.5 border-2 ${
-                    filterKategori === kat ? `${style.card} border-current` : 'border-transparent hover:border-white/10'
-                  }`}
+                  className="card p-5 text-left transition-all"
+                  style={{ background: filterKategori === kat ? style.bg : undefined, border: filterKategori === kat ? `1px solid ${style.border}` : '1px solid var(--border)' }}
                 >
-                  <div className={`text-3xl font-bold ${style.text}`}>{count}</div>
-                  <div className="text-sm font-semibold text-slate-200 mt-1">Kebutuhan {kat}</div>
-                  <div className="mt-3 h-1.5 rounded-full bg-slate-100 overflow-hidden">
-                    <div className={`h-full rounded-full ${style.bar}`} style={{ width: `${(count / total) * 100}%` }} />
+                  <div style={{ fontSize: 24, fontWeight: 700, color: style.text }}>{count}</div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)', marginTop: 4 }}>Kebutuhan {kat}</div>
+                  <div style={{ marginTop: 12, height: 6, borderRadius: 3, background: 'var(--bg-hover)', overflow: 'hidden' }}>
+                    <div style={{ height: '100%', borderRadius: 3, background: style.bar, width: `${(count / total) * 100}%` }} />
                   </div>
-                  <div className="text-xs text-slate-400 mt-1">{((count / total) * 100).toFixed(0)}% dari total</div>
+                  <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 4 }}>{((count / total) * 100).toFixed(0)}% dari total</div>
                 </button>
               );
             })}
@@ -184,7 +183,7 @@ export default function HasilPage() {
 
           {/* Tabs */}
           <div className="card overflow-hidden">
-            <div className="flex border-b border-white/10">
+            <div className="flex border-b" style={{ borderColor: 'var(--border-muted)' }}>
               {[
                 { key: 'ranking', label: 'Ranking Prioritas', icon: TrendingUp },
                 { key: 'tabel', label: 'Tabel Lengkap', icon: List },
@@ -193,12 +192,13 @@ export default function HasilPage() {
                 <button
                   key={key}
                   onClick={() => setActiveTab(key as 'ranking' | 'tabel' | 'peta')}
-                  className={[
-                    'flex items-center gap-2 px-5 py-3.5 text-sm font-medium transition-colors border-b-2',
-                    activeTab === key
-                      ? 'text-indigo-400 border-blue-600 bg-indigo-500/10/30'
-                      : 'text-slate-400 border-transparent hover:text-slate-200 hover:bg-slate-800/50',
-                  ].join(' ')}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 8, padding: '14px 20px', fontSize: 13, fontWeight: 500,
+                    borderBottom: activeTab === key ? '2px solid var(--accent)' : '2px solid transparent',
+                    color: activeTab === key ? 'var(--accent)' : 'var(--text-secondary)',
+                    background: activeTab === key ? 'var(--accent-muted)' : 'transparent',
+                    cursor: 'pointer'
+                  }}
                 >
                   <Icon size={15} />
                   {label}
@@ -208,9 +208,9 @@ export default function HasilPage() {
                 <div className="ml-auto flex items-center pr-4">
                   <button
                     onClick={() => setFilterKategori('')}
-                    className="text-xs text-slate-400 hover:text-slate-200 flex items-center gap-1"
+                    style={{ fontSize: 12, color: 'var(--text-muted)', background: 'transparent', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4 }}
                   >
-                    Filter: <span className="font-semibold">{filterKategori}</span> ✕
+                    Filter: <span style={{ fontWeight: 600 }}>{filterKategori}</span> ✕
                   </button>
                 </div>
               )}
@@ -231,29 +231,31 @@ export default function HasilPage() {
                   </thead>
                   <tbody>
                     {ranking.ranking.map((item) => {
-                      const style = CATEGORY_STYLES[item.kategori_nama] ?? CATEGORY_STYLES['Rendah'];
+                      const style = KAT[item.kategori_nama] ?? KAT['Rendah'];
                       return (
                         <tr key={item.id}>
                           <td>
-                            <span className={`h-8 w-8 rounded-full flex items-center justify-center text-sm font-bold mx-auto ${
-                              item.rank <= 3 ? 'bg-amber-100 text-amber-400' : 'bg-slate-100 text-slate-300'
-                            }`}>
+                            <span style={{ width: 32, height: 32, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 700, margin: '0 auto', background: item.rank <= 3 ? 'var(--amber-bg)' : 'var(--bg-elevated)', color: item.rank <= 3 ? 'var(--amber)' : 'var(--text-muted)' }}>
                               {item.rank}
                             </span>
                           </td>
-                          <td className="font-semibold text-slate-100">{item.nama_kecamatan}</td>
+                          <td style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{item.nama_kecamatan}</td>
                           <td>
-                            <span className={`badge ${style.badge}`}>{item.kategori_nama}</span>
+                            <span style={{
+                              padding: '3px 10px', borderRadius: 20, fontSize: 12, fontWeight: 700,
+                              background: style.bg, color: style.color, border: `1px solid ${style.border}`,
+                              whiteSpace: 'nowrap',
+                            }}>{item.kategori_nama}</span>
                           </td>
                           <td>
                             <div className="flex items-center gap-2">
-                              <div className="w-20 h-1.5 rounded-full bg-slate-100 overflow-hidden">
-                                <div className="h-full bg-blue-500 rounded-full" style={{ width: `${item.priority_score}%` }} />
+                              <div style={{ width: 80, height: 6, borderRadius: 3, background: 'var(--bg-hover)', overflow: 'hidden' }}>
+                                <div style={{ height: '100%', borderRadius: 3, background: 'var(--accent)', width: `${item.priority_score}%` }} />
                               </div>
-                              <span className="text-sm font-medium tabular-nums">{item.priority_score}</span>
+                              <span style={{ fontSize: 13, fontWeight: 500 }} className="tabular-nums">{item.priority_score}</span>
                             </div>
                           </td>
-                          <td className="tabular-nums text-slate-200">{item.jumlah_siswa_total.toLocaleString('id-ID')}</td>
+                          <td className="tabular-nums" style={{ color: 'var(--text-primary)' }}>{item.jumlah_siswa_total.toLocaleString('id-ID')}</td>
                         </tr>
                       );
                     })}
@@ -284,29 +286,35 @@ export default function HasilPage() {
                     </thead>
                     <tbody>
                       {filteredResults.map((item, index) => {
-                        const style = CATEGORY_STYLES[item.kategori_nama] ?? CATEGORY_STYLES['Rendah'];
+                        const style = KAT[item.kategori_nama] ?? KAT['Rendah'];
                         const isExpanded = expandedKecamatan === item.kecamatan_id;
                         const kecamatanSchools = schoolsData.filter(s => s.kecamatan_id === item.kecamatan_id);
                         
                         return (
                           <React.Fragment key={item.id}>
-                            <tr className={isExpanded ? 'bg-indigo-500/10/30' : ''}>
-                            <td className="text-slate-400 text-sm">{index + 1}</td>
-                            <td className="font-semibold text-slate-100">{item.nama_kecamatan}</td>
-                            <td><span className={`badge ${style.badge}`}>{item.kategori_nama}</span></td>
+                            <tr style={{ background: isExpanded ? 'var(--bg-hover)' : undefined }}>
+                            <td style={{ color: 'var(--text-secondary)', fontSize: 13 }}>{index + 1}</td>
+                            <td style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{item.nama_kecamatan}</td>
+                            <td>
+                              <span style={{
+                                padding: '3px 10px', borderRadius: 20, fontSize: 12, fontWeight: 700,
+                                background: style.bg, color: style.color, border: `1px solid ${style.border}`,
+                                whiteSpace: 'nowrap',
+                              }}>{item.kategori_nama}</span>
+                            </td>
                             <td className="tabular-nums">{item.jumlah_siswa_total.toLocaleString('id-ID')}</td>
                             <td>
-                              <div className="tabular-nums font-semibold mb-0.5">{item.jumlah_ruang_kelas_total.toLocaleString('id-ID')}</div>
-                              <div className="flex items-center gap-1 text-[10px]">
-                                <span className="text-emerald-400 bg-emerald-500/10 px-1 rounded">{item.ruang_kelas_baik_total}</span>
-                                <span className="text-amber-600 bg-amber-500/10 px-1 rounded">{item.ruang_kelas_rusak_ringan_total}</span>
-                                <span className="text-red-600 bg-rose-500/10 px-1 rounded">{item.ruang_kelas_rusak_berat_total}</span>
+                              <div style={{ fontWeight: 600, marginBottom: 2 }} className="tabular-nums">{item.jumlah_ruang_kelas_total.toLocaleString('id-ID')}</div>
+                              <div className="flex items-center gap-1" style={{ fontSize: 10 }}>
+                                <span style={{ padding: '1px 4px', borderRadius: 4, background: 'rgba(52,211,153,0.1)', color: 'var(--green)', border: '1px solid rgba(52,211,153,0.3)' }}>{item.ruang_kelas_baik_total}</span>
+                                <span style={{ padding: '1px 4px', borderRadius: 4, background: 'rgba(251,191,36,0.1)', color: 'var(--amber)', border: '1px solid rgba(251,191,36,0.3)' }}>{item.ruang_kelas_rusak_ringan_total}</span>
+                                <span style={{ padding: '1px 4px', borderRadius: 4, background: 'rgba(239,68,68,0.1)', color: '#ef4444', border: '1px solid rgba(239,68,68,0.3)' }}>{item.ruang_kelas_rusak_berat_total}</span>
                               </div>
                             </td>
                             <td>
-                              <div className="tabular-nums font-medium text-indigo-400">
+                              <div className="tabular-nums font-medium" style={{ color: 'var(--accent-hover)' }}>
                                 {item.fasilitas_lapangan_olahraga_total + item.fasilitas_perpustakaan_total + item.fasilitas_uks_total + item.fasilitas_toilet_total + item.fasilitas_tempat_ibadah_total}
-                                <span className="text-[10px] text-slate-400 font-normal ml-1">item</span>
+                                <span style={{ fontSize: 10, color: 'var(--text-muted)', marginLeft: 4 }}>item</span>
                               </div>
                             </td>
                             <td className="tabular-nums text-sm">Rp {item.total_dana_bos_total.toLocaleString('id-ID')}</td>
@@ -314,7 +322,7 @@ export default function HasilPage() {
                             <td>
                               <button 
                                 onClick={() => setExpandedKecamatan(isExpanded ? null : item.kecamatan_id)}
-                                className="text-xs font-semibold text-indigo-400 hover:bg-indigo-500/10 px-3 py-1.5 rounded-lg border border-blue-200 transition-colors"
+                                style={{ fontSize: 12, fontWeight: 600, color: 'var(--accent-hover)', background: isExpanded ? 'var(--bg-hover)' : 'transparent', padding: '6px 12px', borderRadius: 'var(--radius)', border: '1px solid var(--border)', cursor: 'pointer' }}
                               >
                                 {isExpanded ? 'Tutup' : 'Lihat Sekolah'}
                               </button>
@@ -324,20 +332,20 @@ export default function HasilPage() {
                           {/* Expanded Row for Schools */}
                           {isExpanded && (
                             <tr>
-                              <td colSpan={9} className="p-0 border-b border-white/10 bg-slate-800/50/50">
-                                <div className="p-4 sm:pl-16">
-                                  <div className="bg-slate-900/60 backdrop-blur-md rounded-xl border border-white/10 overflow-hidden shadow-sm">
-                                    <div className="bg-slate-800/50 px-4 py-2.5 border-b border-white/10 flex justify-between items-center">
-                                      <h5 className="text-xs font-bold text-slate-200 uppercase tracking-wider">
+                              <td colSpan={9} style={{ padding: 0, borderBottom: '1px solid var(--border-muted)', background: 'var(--bg-hover)' }}>
+                                <div style={{ padding: '16px', paddingLeft: '64px' }}>
+                                  <div style={{ background: 'var(--bg-elevated)', borderRadius: 'var(--radius)', border: '1px solid var(--border)', overflow: 'hidden' }}>
+                                    <div style={{ background: 'var(--bg-hover)', padding: '10px 16px', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                      <h5 style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                                         Daftar Sekolah di {item.nama_kecamatan}
                                       </h5>
-                                      <span className="text-xs font-semibold text-slate-400 bg-slate-900/60 backdrop-blur-md px-2 py-1 rounded-md border border-white/10">
+                                      <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', background: 'var(--bg-elevated)', padding: '4px 8px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border)' }}>
                                         {kecamatanSchools.length} Sekolah
                                       </span>
                                     </div>
                                     <div className="overflow-x-auto">
                                       <table className="w-full text-sm">
-                                        <thead className="bg-slate-900/60 backdrop-blur-md text-slate-400 border-b border-white/10 text-xs">
+                                        <thead style={{ background: 'var(--bg-elevated)', borderBottom: '1px solid var(--border)', color: 'var(--text-secondary)', fontSize: 12 }}>
                                           <tr>
                                             <th className="px-4 py-2 font-medium text-left">NPSN</th>
                                             <th className="px-4 py-2 font-medium text-left">Nama Sekolah</th>
@@ -346,21 +354,26 @@ export default function HasilPage() {
                                             <th className="px-4 py-2 font-medium text-right">Dana BOS</th>
                                           </tr>
                                         </thead>
-                                        <tbody className="divide-y divide-slate-100">
+                                        <tbody>
                                           {kecamatanSchools.length === 0 ? (
-                                            <tr><td colSpan={5} className="px-4 py-4 text-center text-slate-400">Tidak ada data sekolah</td></tr>
+                                            <tr><td colSpan={5} className="px-4 py-4 text-center" style={{ color: 'var(--text-muted)' }}>Tidak ada data sekolah</td></tr>
                                           ) : (
                                             kecamatanSchools.map(school => (
-                                              <tr key={school.sekolah_id} className="hover:bg-slate-800/50/50">
-                                                <td className="px-4 py-2.5 font-mono text-xs text-slate-400">{school.npsn}</td>
-                                                <td className="px-4 py-2.5 font-semibold text-slate-200">{school.nama_sekolah}</td>
+                                              <tr key={school.sekolah_id} style={{ borderBottom: '1px solid var(--border-muted)' }}>
+                                                <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'var(--text-secondary)' }}>{school.npsn}</td>
+                                                <td className="px-4 py-2.5 font-semibold" style={{ color: 'var(--text-primary)' }}>{school.nama_sekolah}</td>
                                                 <td className="px-4 py-2.5">
-                                                  <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${school.jenjang === 'SD' ? 'bg-green-100 text-emerald-400' : 'bg-orange-100 text-orange-700'}`}>
+                                                  <span style={{
+                                                    fontSize: 10, padding: '2px 6px', borderRadius: 12, fontWeight: 600,
+                                                    background: school.jenjang === 'SD' ? 'rgba(52,211,153,0.12)' : 'rgba(251,191,36,0.12)',
+                                                    color: school.jenjang === 'SD' ? 'var(--green)' : 'var(--amber)',
+                                                    border: `1px solid ${school.jenjang === 'SD' ? 'rgba(52,211,153,0.3)' : 'rgba(251,191,36,0.3)'}`,
+                                                  }}>
                                                     {school.jenjang}
                                                   </span>
                                                 </td>
-                                                <td className="px-4 py-2.5 text-right tabular-nums text-slate-300">{school.jumlah_siswa.toLocaleString('id-ID')}</td>
-                                                <td className="px-4 py-2.5 text-right tabular-nums font-medium text-slate-200">Rp {Number(school.total_dana_bos).toLocaleString('id-ID')}</td>
+                                                <td className="px-4 py-2.5 text-right tabular-nums" style={{ color: 'var(--text-primary)' }}>{school.jumlah_siswa.toLocaleString('id-ID')}</td>
+                                                <td className="px-4 py-2.5 text-right tabular-nums font-medium" style={{ color: 'var(--text-primary)' }}>Rp {Number(school.total_dana_bos).toLocaleString('id-ID')}</td>
                                               </tr>
                                             ))
                                           )}

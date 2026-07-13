@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { apiFetch } from '@/lib/api';
 import { School, Plus, X, Pencil, Trash2, Search, CheckCircle2, AlertCircle } from 'lucide-react';
 
 interface Sekolah {
@@ -60,8 +61,8 @@ export default function SekolahPage() {
   const fetchData = async () => {
     try {
       const [sekolahRes, kecamatanRes] = await Promise.all([
-        fetch('http://localhost:8000/sekolah.php', { credentials: 'include' }),
-        fetch('http://localhost:8000/kecamatan.php', { credentials: 'include' }),
+        apiFetch('/sekolah.php', {}, router),
+        apiFetch('/kecamatan.php', {}, router),
       ]);
       const sekolahData = await sekolahRes.json();
       const kecData = await kecamatanRes.json();
@@ -79,16 +80,14 @@ export default function SekolahPage() {
     setSaving(true);
     try {
       const url = editingId
-        ? `http://localhost:8000/sekolah.php?id=${editingId}`
-        : 'http://localhost:8000/sekolah.php';
+        ? `/sekolah.php?id=${editingId}`
+        : '/sekolah.php';
       const method = editingId ? 'PUT' : 'POST';
 
-      const response = await fetch(url, {
-        credentials: 'include',
+      const response = await apiFetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editingId ? { ...formData, id: editingId } : formData),
-      });
+      }, router);
 
       if (response.ok) {
         closeForm();
@@ -122,11 +121,8 @@ export default function SekolahPage() {
   const handleDelete = async (id: number, nama: string) => {
     if (!confirm(`Yakin ingin menghapus sekolah "${nama}"?`)) return;
     try {
-      const response = await fetch(`http://localhost:8000/sekolah.php?id=${id}`, {
-        credentials: 'include',
-        method: 'DELETE',
-      });
-      if (response.ok) {
+      const res = await apiFetch(`/sekolah.php?id=${id}`, { method: 'DELETE' }, router);
+      if (res.ok) {
         fetchData();
         showToast('Sekolah berhasil dihapus.', 'success');
       }
@@ -153,17 +149,16 @@ export default function SekolahPage() {
   });
 
   return (
+    <>
     <div className="space-y-6 animate-in">
       {/* Page Header */}
       <div className="page-header">
         <div>
           <h1 className="page-title flex items-center gap-2">
-            <span className="h-9 w-9 rounded-xl bg-green-100 flex items-center justify-center text-emerald-400">
-              <School size={20} />
-            </span>
+            <School size={20} className="text-[var(--accent-hover)]" />
             Data Sekolah
           </h1>
-          <p className="page-subtitle mt-1">Kelola data sekolah di seluruh kecamatan</p>
+          <p className="page-subtitle">Kelola data sekolah di seluruh kecamatan</p>
         </div>
         <button
           onClick={() => { setShowForm(true); setEditingId(null); setFormData({ npsn: '', nama_sekolah: '', kecamatan_id: '', jenjang: '', alamat: '' }); }}
@@ -212,8 +207,8 @@ export default function SekolahPage() {
           </div>
         ) : filtered.length === 0 ? (
           <div className="py-20 text-center">
-            <School size={40} className="mx-auto text-slate-300 mb-3" />
-            <p className="text-slate-400 font-medium">
+            <School size={40} className="w-10 h-10 mx-auto text-[var(--text-muted)] mb-3" />
+            <p style={{ fontSize: 13, fontWeight: 500, color: 'var(--text-secondary)' }}>
               {search || filterJenjang ? 'Tidak ada hasil pencarian' : 'Belum ada data sekolah'}
             </p>
           </div>
@@ -242,10 +237,10 @@ export default function SekolahPage() {
                       <span className="font-semibold text-slate-100">{item.nama_sekolah}</span>
                     </td>
                     <td>
-                      <span className="badge bg-violet-500/10 text-purple-700">{item.nama_kecamatan}</span>
+                      <span className="badge" style={{ background: 'var(--bg-hover)', color: 'var(--text-secondary)', border: '1px solid var(--border)' }}>{item.nama_kecamatan}</span>
                     </td>
                     <td>
-                      <span className={`badge ${item.jenjang === 'SD' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-orange-50 text-orange-700'}`}>
+                      <span className="badge" style={{ background: item.jenjang === 'SD' ? 'var(--green-bg)' : 'var(--amber-bg)', color: item.jenjang === 'SD' ? 'var(--green)' : 'var(--amber)', border: '1px solid var(--border)' }}>
                         {item.jenjang}
                       </span>
                     </td>
@@ -269,6 +264,7 @@ export default function SekolahPage() {
           </div>
         )}
       </div>
+    </div>
 
       {/* Modal Form */}
       {showForm && (
@@ -276,19 +272,17 @@ export default function SekolahPage() {
           <div className="modal-box">
             <div className="modal-header">
               <div className="flex items-center gap-3">
-                <div className="h-9 w-9 rounded-lg bg-green-100 flex items-center justify-center text-emerald-400">
-                  <School size={18} />
-                </div>
+                <School size={18} color="var(--accent-hover)" />
                 <div>
-                  <h2 className="text-base font-bold text-slate-100">
+                  <h2 style={{ fontSize: 15, fontWeight: 600, color: 'var(--text-primary)', lineHeight: 1.2 }}>
                     {editingId ? 'Edit Sekolah' : 'Tambah Sekolah'}
                   </h2>
-                  <p className="text-xs text-slate-400">
+                  <p style={{ fontSize: 12, color: 'var(--text-muted)' }}>
                     {editingId ? 'Perbarui informasi sekolah' : 'Isi data sekolah baru'}
                   </p>
                 </div>
               </div>
-              <button onClick={closeForm} className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-400 transition-colors">
+              <button onClick={closeForm} style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}>
                 <X size={18} />
               </button>
             </div>
@@ -394,6 +388,6 @@ export default function SekolahPage() {
           {toast.message}
         </div>
       )}
-    </div>
+    </>
   );
 }

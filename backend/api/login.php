@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if (password_verify($password, $admin['password'])) {
         // Start session
-        session_start();
+        startSession();
         $_SESSION['admin_id'] = $admin['id'];
         $_SESSION['admin_username'] = $admin['username'];
         $_SESSION['admin_nama'] = $admin['nama'];
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 } else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Check if logged in
-    session_start();
+    startSession();
     if (isset($_SESSION['admin_id'])) {
         sendResponse([
             'logged_in' => true,
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 } else if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     // Logout
-    session_start();
+    startSession();
     session_destroy();
     sendResponse(['message' => 'Logout berhasil']);
 }

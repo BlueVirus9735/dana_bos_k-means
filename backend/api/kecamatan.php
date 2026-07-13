@@ -2,7 +2,7 @@
 require_once '../config/config.php';
 require_once '../includes/functions.php';
 
-session_start();
+startSession();
 
 if (!isset($_SESSION['admin_id'])) {
     sendError('Unauthorized', 401);
@@ -14,6 +14,22 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {
     case 'GET':
+        // ?years=1 → gabungan distinct tahun_ajaran dari kecamatan + data_sekolah
+        if (isset($_GET['years'])) {
+            $result = $conn->query("
+                SELECT tahun_ajaran FROM kecamatan   WHERE tahun_ajaran IS NOT NULL AND tahun_ajaran != ''
+                UNION
+                SELECT tahun_ajaran FROM data_sekolah WHERE tahun_ajaran IS NOT NULL AND tahun_ajaran != ''
+                ORDER BY tahun_ajaran DESC
+            ");
+            $years = [];
+            while ($row = $result->fetch_assoc()) {
+                $years[] = $row['tahun_ajaran'];
+            }
+            sendResponse($years);
+            break;
+        }
+
         if (isset($_GET['id'])) {
             $id = intval($_GET['id']);
             $stmt = $conn->prepare("SELECT * FROM kecamatan WHERE id = ?");
@@ -35,6 +51,7 @@ switch ($method) {
             sendResponse($kecamatan);
         }
         break;
+
 
     case 'POST':
         $data = json_decode(file_get_contents('php://input'), true);

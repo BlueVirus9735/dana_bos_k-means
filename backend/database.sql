@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS kecamatan (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nama_kecamatan VARCHAR(100) NOT NULL UNIQUE,
     kode_kecamatan VARCHAR(20) NOT NULL UNIQUE,
+    tahun_ajaran VARCHAR(20) NOT NULL DEFAULT '2024/2025',
     ruang_kelas_baik INT NOT NULL DEFAULT 0,
     ruang_kelas_rusak_ringan INT NOT NULL DEFAULT 0,
     ruang_kelas_rusak_berat INT NOT NULL DEFAULT 0,

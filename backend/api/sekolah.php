@@ -2,7 +2,7 @@
 require_once '../config/config.php';
 require_once '../includes/functions.php';
 
-session_start();
+startSession();
 
 // Check authentication
 if (!isset($_SESSION['admin_id'])) {

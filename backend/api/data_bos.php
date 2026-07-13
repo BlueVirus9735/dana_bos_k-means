@@ -2,7 +2,7 @@
 require_once '../config/config.php';
 require_once '../includes/functions.php';
 
-session_start();
+startSession();
 
 if (!isset($_SESSION['admin_id'])) {
     sendError('Unauthorized', 401);
@@ -35,29 +35,51 @@ switch ($method) {
 
         $tahun_ajaran = sanitizeInput($_GET['tahun_ajaran'] ?? '');
 
-        // Ambil semua sekolah beserta data BOS-nya, otomatis pakai tahun_ajaran dari kecamatan
-        $query = "
-            SELECT
-                s.id            AS sekolah_id,
-                s.npsn,
-                s.nama_sekolah,
-                s.jenjang,
-                k.id            AS kecamatan_id,
-                k.nama_kecamatan,
-                k.tahun_ajaran,
-                COALESCE(ds.id, 0)              AS data_id,
-                COALESCE(ds.jumlah_siswa, 0)    AS jumlah_siswa,
-                COALESCE(ds.total_dana_bos, 0)  AS total_dana_bos,
-                ROUND(COALESCE(ds.total_dana_bos, 0) * 0.20, 2) AS alokasi_dana_sarpras
-            FROM sekolah s
-            JOIN kecamatan k ON s.kecamatan_id = k.id
-            LEFT JOIN data_sekolah ds
-                ON ds.sekolah_id = s.id
-                AND ds.tahun_ajaran = k.tahun_ajaran
-            ORDER BY k.nama_kecamatan ASC, s.nama_sekolah ASC
-        ";
+        // Ambil semua sekolah beserta data BOS-nya, filter berdasarkan tahun_ajaran jika ada
+        if ($tahun_ajaran) {
+            $query = "
+                SELECT
+                    s.id            AS sekolah_id,
+                    s.npsn,
+                    s.nama_sekolah,
+                    s.jenjang,
+                    k.id            AS kecamatan_id,
+                    k.nama_kecamatan,
+                    COALESCE(ds.id, 0)              AS data_id,
+                    COALESCE(ds.jumlah_siswa, 0)    AS jumlah_siswa,
+                    COALESCE(ds.total_dana_bos, 0)  AS total_dana_bos,
+                    ROUND(COALESCE(ds.total_dana_bos, 0) * 0.20, 2) AS alokasi_dana_sarpras
+                FROM sekolah s
+                JOIN kecamatan k ON s.kecamatan_id = k.id
+                LEFT JOIN data_sekolah ds
+                    ON ds.sekolah_id = s.id
+                    AND ds.tahun_ajaran = ?
+                WHERE k.tahun_ajaran = ?
+                ORDER BY k.nama_kecamatan ASC, s.nama_sekolah ASC
+            ";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("ss", $tahun_ajaran, $tahun_ajaran);
+        } else {
+            $query = "
+                SELECT
+                    s.id            AS sekolah_id,
+                    s.npsn,
+                    s.nama_sekolah,
+                    s.jenjang,
+                    k.id            AS kecamatan_id,
+                    k.nama_kecamatan,
+                    COALESCE(ds.id, 0)              AS data_id,
+                    COALESCE(ds.jumlah_siswa, 0)    AS jumlah_siswa,
+                    COALESCE(ds.total_dana_bos, 0)  AS total_dana_bos,
+                    ROUND(COALESCE(ds.total_dana_bos, 0) * 0.20, 2) AS alokasi_dana_sarpras
+                FROM sekolah s
+                JOIN kecamatan k ON s.kecamatan_id = k.id
+                LEFT JOIN data_sekolah ds ON ds.sekolah_id = s.id
+                ORDER BY k.nama_kecamatan ASC, s.nama_sekolah ASC
+            ";
+            $stmt = $conn->prepare($query);
+        }
 
-        $stmt = $conn->prepare($query);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -103,17 +125,12 @@ switch ($method) {
         foreach ($entries as $entry) {
             $sekolah_id     = intval($entry['sekolah_id'] ?? 0);
             $total_dana_bos = floatval($entry['total_dana_bos'] ?? 0);
-            $jumlah_siswa   = floor($total_dana_bos / 920000); // otomatis hitung jumlah siswa
+            // Ambil jumlah siswa dari input, bukan auto-kalkulasi dari dana BOS
+            $jumlah_siswa   = intval($entry['jumlah_siswa'] ?? 0);
 
-            // Ambil tahun ajaran dari db jika tidak dikirim (meskipun frontend akan mengirimnya per entry)
             $tahun_ajaran_entry = sanitizeInput($entry['tahun_ajaran'] ?? '');
             if (empty($tahun_ajaran_entry)) {
-                $res_thn = $conn->query("SELECT k.tahun_ajaran FROM sekolah s JOIN kecamatan k ON s.kecamatan_id = k.id WHERE s.id = $sekolah_id");
-                if ($res_thn && $res_thn->num_rows > 0) {
-                    $tahun_ajaran_entry = $res_thn->fetch_assoc()['tahun_ajaran'];
-                } else {
-                    $tahun_ajaran_entry = '2024/2025';
-                }
+                $tahun_ajaran_entry = '2024/2025'; // default fallback
             }
 
             if ($sekolah_id === 0) {

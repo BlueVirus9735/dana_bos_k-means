@@ -3,13 +3,18 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { BrainCircuit, Play, CheckCircle2, AlertTriangle, ChevronRight, Layers, Activity } from 'lucide-react';
+import { apiFetch } from '@/lib/api';
+import {
+  BrainCircuit, Play, CheckCircle2, AlertTriangle,
+  ChevronRight, Info, MapPin, Users, Building2,
+  Loader2, CalendarDays, Settings2, BarChart3,
+} from 'lucide-react';
 
-interface ClusterResult {
+interface KecResult {
   kecamatan: string;
-  kategori_nama: string;
+  kategori_nama: 'Rendah' | 'Sedang' | 'Tinggi';
   cluster_kategori: number;
-  data: number[];
+  data: number[];      // [siswa, kl_baik, kl_rusak_ringan, kl_rusak_berat, jml_kelas, lap, perpus, uks, toilet, ibadah, rombel, sarpras]
 }
 
 interface ClusteringResult {
@@ -17,268 +22,374 @@ interface ClusteringResult {
   results: {
     n_clusters: number;
     inertia: number;
-    kecamatan_results: ClusterResult[];
+    kecamatan_results: KecResult[];
   };
 }
 
+// ── Warna kategori ────────────────────────────────────────────────────────────
+const KAT = {
+  Rendah: { bg: 'rgba(52,211,153,0.12)', color: 'var(--green)',  border: 'rgba(52,211,153,0.3)',  bar: 'var(--green)',  label: 'Kebutuhan Rendah' },
+  Sedang: { bg: 'rgba(251,191,36,0.12)', color: 'var(--amber)', border: 'rgba(251,191,36,0.3)',  bar: 'var(--amber)', label: 'Kebutuhan Sedang' },
+  Tinggi: { bg: 'rgba(239,68,68,0.12)',  color: '#ef4444',       border: 'rgba(239,68,68,0.3)',   bar: '#ef4444',      label: 'Kebutuhan Tinggi' },
+} as const;
+
+// Opsi K yang tersedia
+const K_OPTIONS = [
+  { k: 2, desc: '2 Cluster — Prioritas / Non-Prioritas' },
+  { k: 3, desc: '3 Cluster — Rendah / Sedang / Tinggi' },
+  { k: 4, desc: '4 Cluster — Sangat Rendah s.d. Tinggi' },
+  { k: 5, desc: '5 Cluster — Sangat detail' },
+];
+
+const fmt = (n: number) => (n ?? 0).toLocaleString('id-ID');
+
 export default function ClusteringPage() {
   const router = useRouter();
-  const [tahunAjaran, setTahunAjaran] = useState('');
-  const [nClusters, setNClusters] = useState(3);
-  const [processing, setProcessing] = useState(false);
-  const [result, setResult] = useState<ClusteringResult | null>(null);
+
+  const [tahunAjaran, setTahunAjaran]   = useState('');
+  const [nClusters, setNClusters]       = useState(3);
+  const [processing, setProcessing]     = useState(false);
+  const [result, setResult]             = useState<ClusteringResult | null>(null);
   const [availableYears, setAvailableYears] = useState<string[]>([]);
+  const [loadingYears, setLoadingYears] = useState(true);
+  const [errorMsg, setErrorMsg]         = useState('');
 
   useEffect(() => {
-    const admin = localStorage.getItem('admin');
-    if (!admin) {
-      router.push('/login');
-      return;
-    }
-    fetchAvailableYears();
+    if (!localStorage.getItem('admin')) { router.push('/login'); return; }
+    apiFetch('/kecamatan.php?years=1', {}, router)
+      .then(r => r.json())
+      .then((data: string[]) => {
+        const years = Array.isArray(data) ? data : [];
+        setAvailableYears(years);
+        if (years.length > 0) setTahunAjaran(years[0]);
+      })
+      .catch(() => {})
+      .finally(() => setLoadingYears(false));
   }, [router]);
-
-  const fetchAvailableYears = async () => {
-    try {
-      const response = await fetch('http://localhost:8000/dashboard.php', { credentials: 'include' });
-      const data = await response.json();
-      setAvailableYears(data.available_years || []);
-      if (data.available_years?.length > 0) {
-        setTahunAjaran(data.available_years[0]);
-      }
-    } catch (error) {
-      console.error('Error fetching years:', error);
-    }
-  };
 
   const handleClustering = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!tahunAjaran) return;
-
     setProcessing(true);
     setResult(null);
-
+    setErrorMsg('');
     try {
-      const response = await fetch('http://localhost:8000/clustering.php', {
-        credentials: 'include',
+      const res  = await apiFetch('/clustering.php', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tahun_ajaran: tahunAjaran, n_clusters: nClusters }),
-      });
-
-      const data = await response.json();
-      
-      if (!response.ok || data.error) {
-        alert(data.error || 'Gagal melakukan clustering. Periksa data input.');
+        body:   JSON.stringify({ tahun_ajaran: tahunAjaran, n_clusters: nClusters }),
+      }, router);
+      const data = await res.json();
+      if (!res.ok || data.error) {
+        setErrorMsg(data.error || 'Gagal melakukan clustering. Pastikan data kecamatan & BOS sudah diinput.');
         return;
       }
-      
       setResult(data);
-    } catch (error) {
-      console.error('Error clustering:', error);
-      alert('Gagal melakukan clustering. Periksa koneksi ke backend.');
+    } catch {
+      setErrorMsg('Gagal terhubung ke server. Cek koneksi backend.');
     } finally {
       setProcessing(false);
     }
   };
 
-  const getCategoryStyle = (kategori: string) => {
-    if (kategori === 'Tinggi') return { badge: 'bg-red-100 text-rose-400', bar: 'bg-red-500' };
-    if (kategori === 'Sedang') return { badge: 'bg-amber-100 text-amber-400', bar: 'bg-amber-500' };
-    return { badge: 'bg-green-100 text-emerald-400', bar: 'bg-green-500' };
-  };
-
-  const categoryCounts = result
-    ? ['Tinggi', 'Sedang', 'Rendah'].map((k) => ({
-        name: k,
-        count: result.results.kecamatan_results.filter((r) => r.kategori_nama === k).length,
-      }))
-    : [];
+  // Hitung distribusi per kategori
+  const kecResults = result?.results.kecamatan_results ?? [];
+  const distrib = (['Rendah', 'Sedang', 'Tinggi'] as const).map(k => ({
+    key: k,
+    items: kecResults.filter(r => r.kategori_nama === k),
+  }));
+  const total = kecResults.length;
 
   return (
-    <div className="space-y-6 animate-in max-w-4xl">
-      {/* Page Header */}
+    <div className="space-y-6 animate-in" style={{ maxWidth: 900 }}>
+
+      {/* ── Header ──────────────────────────────────────────── */}
       <div className="page-header">
         <div>
-          <h1 className="page-title flex items-center gap-2">
-            <span className="h-9 w-9 rounded-xl bg-rose-100 flex items-center justify-center text-rose-600">
-              <BrainCircuit size={20} />
-            </span>
+          <h1 className="page-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <BrainCircuit size={20} color="var(--accent-hover)" />
             Proses Clustering K-Means
           </h1>
-          <p className="page-subtitle mt-1">Jalankan algoritma K-Means untuk pengelompokan kecamatan</p>
+          <p className="page-subtitle">
+            Pengelompokan kecamatan berdasarkan kondisi sarpras & dana BOS
+          </p>
         </div>
+        {result && (
+          <Link href="/hasil" className="btn-primary" style={{ fontSize: 13 }}>
+            Lihat Hasil Lengkap <ChevronRight size={15} />
+          </Link>
+        )}
       </div>
 
-      {/* Parameter Card */}
-      <div className="card p-6">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="h-8 w-8 rounded-lg bg-slate-100 flex items-center justify-center">
-            <Layers size={16} className="text-slate-300" />
+      {/* ── Info strip ─────────────────────────────────────── */}
+      <div style={{
+        padding: '12px 16px', borderRadius: 'var(--radius)',
+        background: 'var(--accent-muted)', border: '1px solid rgba(99,102,241,0.25)',
+        display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: 13,
+        color: 'var(--text-primary)',
+      }}>
+        <Info size={15} color="var(--accent-hover)" style={{ flexShrink: 0, marginTop: 1 }} />
+        <span>
+          Algoritma <strong>K-Means</strong> mengelompokkan kecamatan ke dalam{' '}
+          <strong>K cluster</strong> berdasarkan 12 fitur:{' '}
+          jumlah siswa, kondisi ruang kelas (baik/rusak ringan/rusak berat), fasilitas
+          (lapangan, perpustakaan, UKS, toilet, tempat ibadah), rombongan belajar, dan
+          alokasi dana sarpras.{' '}
+          Hasilnya diberi label <strong>Rendah / Sedang / Tinggi</strong> sesuai kebutuhan sarpras.
+        </span>
+      </div>
+
+      {/* ── Form parameter ─────────────────────────────────── */}
+      <form onSubmit={handleClustering}>
+        <div className="card" style={{ padding: 24, display: 'flex', flexDirection: 'column', gap: 24 }}>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: -8 }}>
+            <Settings2 size={16} color="var(--text-muted)" />
+            <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-primary)' }}>
+              Parameter Clustering
+            </span>
           </div>
+
+          {/* Tahun Ajaran */}
           <div>
-            <h2 className="text-base font-bold text-slate-100">Parameter Clustering</h2>
-            <p className="text-xs text-slate-400">Tentukan tahun ajaran dan jumlah cluster</p>
-          </div>
-        </div>
-
-        <form onSubmit={handleClustering} className="space-y-5">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div>
-              <label className="form-label">
-                Tahun Ajaran <span className="text-red-500">*</span>
-              </label>
-              <select
-                value={tahunAjaran}
-                onChange={(e) => setTahunAjaran(e.target.value)}
-                className="form-input"
-                required
-              >
-                <option value="">Pilih Tahun Ajaran</option>
-                {availableYears.map((year) => (
-                  <option key={year} value={year}>{year}</option>
-                ))}
-              </select>
-              {availableYears.length === 0 && (
-                <p className="text-xs text-amber-600 mt-1.5 flex items-center gap-1">
-                  <AlertTriangle size={13} />
-                  Belum ada data. Upload data terlebih dahulu.
-                </p>
-              )}
-            </div>
-
-            <div>
-              <label className="form-label">
-                Jumlah Cluster (K)
-              </label>
-              <div className="flex items-center gap-3">
-                <input
-                  type="range"
-                  min="2"
-                  max="5"
-                  value={nClusters}
-                  onChange={(e) => setNClusters(parseInt(e.target.value))}
-                  className="flex-1 h-2 rounded-full accent-blue-600 cursor-pointer"
-                />
-                <span className="h-9 w-9 rounded-xl bg-indigo-500/10 text-indigo-400 font-bold text-sm flex items-center justify-center flex-shrink-0">
-                  {nClusters}
-                </span>
+            <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 10 }}>
+              <CalendarDays size={14} color="var(--accent-hover)" />
+              Tahun Ajaran
+            </label>
+            {loadingYears ? (
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center', color: 'var(--text-muted)', fontSize: 13 }}>
+                <Loader2 size={14} className="animate-spin" /> Memuat...
               </div>
-              <p className="text-xs text-slate-400 mt-1.5">
-                Default: 3 (Rendah / Sedang / Tinggi)
-              </p>
-            </div>
+            ) : availableYears.length === 0 ? (
+              <div style={{
+                padding: '12px 14px', borderRadius: 'var(--radius)',
+                background: 'rgba(251,191,36,0.08)', border: '1px solid rgba(251,191,36,0.3)',
+                display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: 'var(--amber)',
+              }}>
+                <AlertTriangle size={15} />
+                Belum ada data tahun ajaran. Masukkan data kecamatan &amp; BOS terlebih dahulu.
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                {availableYears.map(y => (
+                  <button
+                    key={y} type="button"
+                    onClick={() => setTahunAjaran(y)}
+                    style={{
+                      padding: '8px 18px', borderRadius: 'var(--radius)',
+                      border: `2px solid ${tahunAjaran === y ? 'var(--accent)' : 'var(--border)'}`,
+                      background: tahunAjaran === y ? 'var(--accent-muted)' : 'var(--bg-elevated)',
+                      color: tahunAjaran === y ? 'var(--accent-hover)' : 'var(--text-secondary)',
+                      fontWeight: tahunAjaran === y ? 700 : 500,
+                      fontSize: 14, cursor: 'pointer', transition: 'all 0.15s',
+                      display: 'flex', alignItems: 'center', gap: 6,
+                    }}
+                  >
+                    {tahunAjaran === y && <CheckCircle2 size={13} />}
+                    {y}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
-          {/* Info box */}
-          <div className="p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/20">
-            <h4 className="text-sm font-semibold text-blue-800 mb-2">Fitur yang dianalisis:</h4>
-            <div className="grid grid-cols-2 gap-2">
-              {['Alokasi Dana Sarpras', 'Kelas Baik', 'Kelas Rusak Ringan', 'Kelas Rusak Berat'].map((f) => (
-                <div key={f} className="text-xs text-indigo-400 flex items-center gap-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-blue-500 flex-shrink-0" />
-                  {f}
-                </div>
+          {/* Jumlah Cluster (K) */}
+          <div>
+            <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 10 }}>
+              <BarChart3 size={14} color="var(--accent-hover)" />
+              Jumlah Cluster (K)
+            </label>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {K_OPTIONS.map(opt => (
+                <button
+                  key={opt.k} type="button"
+                  onClick={() => setNClusters(opt.k)}
+                  style={{
+                    padding: '11px 16px', borderRadius: 'var(--radius)',
+                    border: `2px solid ${nClusters === opt.k ? 'var(--accent)' : 'var(--border)'}`,
+                    background: nClusters === opt.k ? 'var(--accent-muted)' : 'var(--bg-elevated)',
+                    cursor: 'pointer', transition: 'all 0.15s',
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    {/* Cluster dots visual */}
+                    <div style={{ display: 'flex', gap: 4 }}>
+                      {Array.from({ length: opt.k }).map((_, i) => (
+                        <span key={i} style={{
+                          width: 10, height: 10, borderRadius: '50%',
+                          background: nClusters === opt.k ? 'var(--accent)' : 'var(--border)',
+                          opacity: 0.4 + (i / opt.k) * 0.6,
+                        }} />
+                      ))}
+                    </div>
+                    <span style={{
+                      fontWeight: nClusters === opt.k ? 700 : 500,
+                      fontSize: 13,
+                      color: nClusters === opt.k ? 'var(--accent-hover)' : 'var(--text-secondary)',
+                    }}>
+                      {opt.desc}
+                    </span>
+                  </div>
+                  {nClusters === opt.k && (
+                    <CheckCircle2 size={14} color="var(--accent-hover)" />
+                  )}
+                </button>
               ))}
             </div>
           </div>
 
+          {/* Error */}
+          {errorMsg && (
+            <div style={{
+              padding: '12px 14px', borderRadius: 'var(--radius)',
+              background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.3)',
+              display: 'flex', gap: 8, alignItems: 'flex-start', fontSize: 13, color: '#ef4444',
+            }}>
+              <AlertTriangle size={15} style={{ flexShrink: 0, marginTop: 1 }} />
+              {errorMsg}
+            </div>
+          )}
+
+          {/* Submit */}
           <button
             type="submit"
-            disabled={processing || !tahunAjaran}
-            className="btn-primary w-full justify-center py-3 text-base disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={processing || !tahunAjaran || loadingYears}
+            className="btn-primary"
+            style={{ justifyContent: 'center', padding: '13px', fontSize: 15 }}
           >
             {processing ? (
-              <>
-                <div className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                Memproses Clustering...
-              </>
+              <><Loader2 size={18} className="animate-spin" /> Memproses Clustering...</>
             ) : (
-              <>
-                <Play size={18} />
-                Jalankan Clustering K-Means
-              </>
+              <><Play size={18} /> Jalankan Clustering K-Means — {tahunAjaran || '...'}</>
             )}
           </button>
-        </form>
-      </div>
+        </div>
+      </form>
 
-      {/* Result */}
+      {/* ── Hasil Clustering ───────────────────────────────── */}
       {result && (
         <div className="space-y-5 animate-in">
-          {/* Success header */}
-          <div className="card p-5 flex items-start gap-4 border-emerald-500/20 bg-emerald-500/10/50">
-            <div className="h-10 w-10 rounded-xl bg-green-100 flex items-center justify-center text-emerald-400 flex-shrink-0">
-              <CheckCircle2 size={22} />
-            </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="font-bold text-green-800 text-base">Clustering Berhasil!</h3>
-              <p className="text-sm text-emerald-400 mt-0.5">
-                Tahun ajaran <strong>{result.tahun_ajaran}</strong> — {result.results.n_clusters} cluster —
-                Inertia: <strong>{result.results.inertia.toFixed(3)}</strong>
+
+          {/* Success banner */}
+          <div style={{
+            padding: '16px 20px', borderRadius: 'var(--radius)',
+            background: 'rgba(52,211,153,0.08)', border: '1px solid rgba(52,211,153,0.3)',
+            display: 'flex', alignItems: 'center', gap: 12,
+          }}>
+            <CheckCircle2 size={22} color="var(--green)" style={{ flexShrink: 0 }} />
+            <div style={{ flex: 1 }}>
+              <p style={{ fontWeight: 700, color: 'var(--green)', fontSize: 14 }}>
+                Clustering Selesai!
+              </p>
+              <p style={{ fontSize: 12, color: 'var(--text-secondary)', marginTop: 2 }}>
+                Tahun <strong>{result.tahun_ajaran}</strong> · {result.results.n_clusters} cluster ·{' '}
+                {total} kecamatan diproses · Inertia: <strong>{result.results.inertia.toFixed(3)}</strong>
               </p>
             </div>
-            <Link href="/hasil" className="btn-primary text-sm shrink-0">
-              Lihat Hasil <ChevronRight size={15} />
+            <Link href="/hasil" className="btn-primary" style={{ fontSize: 13, flexShrink: 0 }}>
+              Lihat Hasil Lengkap <ChevronRight size={14} />
             </Link>
           </div>
 
-          {/* Distribution */}
-          <div className="card p-6">
-            <h4 className="font-bold text-slate-100 mb-4 flex items-center gap-2">
-              <Activity size={16} className="text-slate-400" />
-              Distribusi Kategori
-            </h4>
-            <div className="grid grid-cols-3 gap-4">
-              {categoryCounts.map(({ name, count }) => {
-                const total = result.results.kecamatan_results.length;
-                const style = getCategoryStyle(name);
-                return (
-                  <div key={name} className="text-center p-4 rounded-xl bg-slate-800/50 border border-white/10">
-                    <div className={`text-2xl font-bold ${name === 'Tinggi' ? 'text-red-600' : name === 'Sedang' ? 'text-amber-600' : 'text-emerald-400'}`}>
-                      {count}
-                    </div>
-                    <div className="text-sm text-slate-400 mt-1">Kebutuhan {name}</div>
-                    <div className="mt-2 h-1.5 rounded-full bg-slate-200 overflow-hidden">
-                      <div
-                        className={`h-full rounded-full ${style.bar}`}
-                        style={{ width: `${(count / total) * 100}%` }}
-                      />
-                    </div>
+          {/* Distribusi kartu per kategori */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+            {distrib.map(({ key, items }) => {
+              const s = KAT[key];
+              const pct = total > 0 ? Math.round((items.length / total) * 100) : 0;
+              return (
+                <div key={key} className="card" style={{ padding: 20, border: `1px solid ${s.border}` }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+                    <span style={{
+                      padding: '4px 12px', borderRadius: 20, fontSize: 12, fontWeight: 700,
+                      background: s.bg, color: s.color, border: `1px solid ${s.border}`,
+                    }}>
+                      {s.label}
+                    </span>
+                    <span style={{ fontSize: 28, fontWeight: 800, color: s.color }}>{items.length}</span>
                   </div>
-                );
-              })}
-            </div>
+                  {/* Progress bar */}
+                  <div style={{ height: 6, borderRadius: 3, background: 'var(--bg-hover)', overflow: 'hidden', marginBottom: 8 }}>
+                    <div style={{ height: '100%', borderRadius: 3, width: `${pct}%`, background: s.bar, transition: 'width 0.6s ease' }} />
+                  </div>
+                  <p style={{ fontSize: 11, color: 'var(--text-muted)' }}>{pct}% dari total kecamatan</p>
+                  {/* List kecamatan */}
+                  {items.length > 0 && (
+                    <div style={{ marginTop: 10, display: 'flex', flexDirection: 'column', gap: 4 }}>
+                      {items.map(kec => (
+                        <div key={kec.kecamatan} style={{
+                          display: 'flex', alignItems: 'center', gap: 6,
+                          fontSize: 12, color: 'var(--text-secondary)',
+                          padding: '4px 8px', borderRadius: 6,
+                          background: 'var(--bg-elevated)',
+                        }}>
+                          <MapPin size={11} color={s.color} style={{ flexShrink: 0 }} />
+                          {kec.kecamatan}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
 
-          {/* Detail table */}
-          <div className="card overflow-hidden">
-            <div className="p-5 border-b border-white/10">
-              <h4 className="font-bold text-slate-100">Detail Per Kecamatan</h4>
+          {/* Detail tabel */}
+          <div className="card" style={{ overflow: 'hidden' }}>
+            <div style={{ padding: '14px 20px', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: 8 }}>
+              <Building2 size={15} color="var(--text-muted)" />
+              <span style={{ fontWeight: 600, fontSize: 14, color: 'var(--text-primary)' }}>
+                Detail Per Kecamatan
+              </span>
             </div>
-            <div className="overflow-x-auto max-h-72 overflow-y-auto">
+            <div style={{ overflowX: 'auto' }}>
               <table className="data-table">
-                <thead className="sticky top-0">
+                <thead>
                   <tr>
                     <th>Kecamatan</th>
                     <th>Kategori</th>
-                    <th>Siswa</th>
-                    <th>R. Kelas</th>
-                    <th>Fasilitas</th>
+                    <th title="Jumlah Siswa"><Users size={12} style={{ display: 'inline', marginRight: 4 }} />Siswa</th>
+                    <th title="Jumlah Ruang Kelas">Ruang Kelas</th>
+                    <th title="Kondisi Kelas: Baik / Rusak Ringan / Rusak Berat">Kondisi Kelas</th>
+                    <th title="Jumlah fasilitas: lapangan+perpus+uks+toilet+ibadah">Fasilitas</th>
+                    <th title="Rombongan Belajar">Rombel</th>
+                    <th title="Alokasi Dana Sarpras">Dana Sarpras</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {result.results.kecamatan_results.map((item, index) => {
-                    const style = getCategoryStyle(item.kategori_nama);
+                  {kecResults.map((item, i) => {
+                    const s = KAT[item.kategori_nama] ?? KAT.Rendah;
+                    const [siswa, klBaik, klRingan, klBerat, jmlKelas, lap, perpus, uks, toilet, ibadah, rombel, sarpras] = item.data;
                     return (
-                      <tr key={index}>
-                        <td className="font-medium text-slate-100">{item.kecamatan}</td>
+                      <tr key={i}>
                         <td>
-                          <span className={`badge ${style.badge}`}>{item.kategori_nama}</span>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 600 }}>
+                            <MapPin size={12} color={s.color} style={{ flexShrink: 0 }} />
+                            {item.kecamatan}
+                          </div>
                         </td>
-                        <td className="tabular-nums">{item.data[0]?.toLocaleString()}</td>
-                        <td className="tabular-nums">{item.data[4]?.toLocaleString()}</td>
-                        <td className="tabular-nums">{(item.data[5] + item.data[6] + item.data[7] + item.data[8] + item.data[9])?.toLocaleString()}</td>
+                        <td>
+                          <span style={{
+                            padding: '3px 10px', borderRadius: 20, fontSize: 12, fontWeight: 700,
+                            background: s.bg, color: s.color, border: `1px solid ${s.border}`,
+                            whiteSpace: 'nowrap',
+                          }}>
+                            {item.kategori_nama}
+                          </span>
+                        </td>
+                        <td className="tabular-nums">{fmt(siswa)}</td>
+                        <td className="tabular-nums">{fmt(jmlKelas)}</td>
+                        <td>
+                          <div style={{ fontSize: 12, display: 'flex', gap: 6, whiteSpace: 'nowrap' }}>
+                            <span style={{ color: 'var(--green)' }} title="Baik">✓ {fmt(klBaik)}</span>
+                            <span style={{ color: 'var(--amber)' }} title="Rusak Ringan">⚠ {fmt(klRingan)}</span>
+                            <span style={{ color: '#ef4444' }} title="Rusak Berat">✕ {fmt(klBerat)}</span>
+                          </div>
+                        </td>
+                        <td className="tabular-nums">{fmt((lap ?? 0) + (perpus ?? 0) + (uks ?? 0) + (toilet ?? 0) + (ibadah ?? 0))}</td>
+                        <td className="tabular-nums">{fmt(rombel)}</td>
+                        <td className="tabular-nums" style={{ color: 'var(--amber)', fontWeight: 600 }}>
+                          {sarpras > 0 ? 'Rp ' + fmt(sarpras) : '—'}
+                        </td>
                       </tr>
                     );
                   })}

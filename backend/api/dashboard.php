@@ -2,7 +2,7 @@
 require_once '../config/config.php';
 require_once '../includes/functions.php';
 
-session_start();
+startSession();
 
 if (!isset($_SESSION['admin_id'])) {
     sendError('Unauthorized', 401);

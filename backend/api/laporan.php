@@ -2,7 +2,7 @@
 require_once '../config/config.php';
 require_once '../includes/functions.php';
 
-session_start();
+startSession();
 
 // Check authentication
 if (!isset($_SESSION['admin_id'])) {
@@ -81,7 +81,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $pdf->Cell(30, 7, $row['kategori_nama'], 1, 0, 'C');
             $pdf->Cell(25, 7, number_format($row['jumlah_siswa_total']), 1, 0, 'C');
             $pdf->Cell(25, 7, number_format($row['jumlah_ruang_kelas_total']), 1, 0, 'C');
-            $pdf->Cell(25, 7, number_format($row['jumlah_fasilitas_total']), 1, 0, 'C');
+            $total_fasilitas = intval($row['fasilitas_lapangan_olahraga_total']) + intval($row['fasilitas_perpustakaan_total']) + intval($row['fasilitas_uks_total']) + intval($row['fasilitas_toilet_total']) + intval($row['fasilitas_tempat_ibadah_total']);
+            $pdf->Cell(25, 7, number_format($total_fasilitas), 1, 0, 'C');
             $pdf->Cell(30, 7, 'Rp ' . number_format($row['total_dana_bos_total'], 0, ',', '.'), 1, 0, 'C');
             $pdf->Cell(30, 7, 'Rp ' . number_format($row['alokasi_dana_sarpras_total'], 0, ',', '.'), 1, 1, 'C');
         }

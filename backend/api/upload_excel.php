@@ -2,7 +2,7 @@
 require_once '../config/config.php';
 require_once '../includes/functions.php';
 
-session_start();
+startSession();
 
 // Check authentication
 if (!isset($_SESSION['admin_id'])) {
@@ -95,10 +95,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $sekolah_id = $conn->insert_id;
             }
             
-            // Insert or update data sekolah
-            $stmt = $conn->prepare("INSERT INTO data_sekolah (sekolah_id, tahun_ajaran, jumlah_siswa, jumlah_ruang_kelas, jumlah_fasilitas, total_dana_bos, alokasi_dana_sarpras) VALUES (?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE jumlah_siswa = VALUES(jumlah_siswa), jumlah_ruang_kelas = VALUES(jumlah_ruang_kelas), jumlah_fasilitas = VALUES(jumlah_fasilitas), total_dana_bos = VALUES(total_dana_bos), alokasi_dana_sarpras = VALUES(alokasi_dana_sarpras)");
-            $stmt->bind_param("isiiidd", $sekolah_id, $tahun_ajaran, $jumlah_siswa, $jumlah_ruang_kelas, $jumlah_fasilitas, $total_dana_bos, $alokasi_dana_sarpras);
-            
+            // Insert or update data sekolah (hanya jumlah_siswa dan total_dana_bos sesuai schema)
+            $stmt = $conn->prepare("
+                INSERT INTO data_sekolah (sekolah_id, tahun_ajaran, jumlah_siswa, total_dana_bos)
+                VALUES (?, ?, ?, ?)
+                ON DUPLICATE KEY UPDATE
+                    jumlah_siswa   = VALUES(jumlah_siswa),
+                    total_dana_bos = VALUES(total_dana_bos),
+                    updated_at     = CURRENT_TIMESTAMP
+            ");
+            $stmt->bind_param("isid", $sekolah_id, $tahun_ajaran, $jumlah_siswa, $total_dana_bos);
+
             if ($stmt->execute()) {
                 $success_count++;
             } else {
@@ -107,11 +114,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
         
-        // Log upload history
-        $stmt = $conn->prepare("INSERT INTO upload_history (admin_id, nama_file, jumlah_data, status) VALUES (?, ?, ?, ?)");
-        $status = ($error_count === 0) ? 'success' : 'partial';
-        $stmt->bind_param("isis", $_SESSION['admin_id'], $file['name'], $success_count, $status);
-        $stmt->execute();
+        // Log upload history ke tabel input_history (sesuai schema)
+        $log_stmt = $conn->prepare("
+            INSERT INTO input_history (admin_id, tahun_ajaran, keterangan, jumlah_data)
+            VALUES (?, ?, 'Upload Excel', ?)
+        ");
+        if ($log_stmt) {
+            $log_stmt->bind_param("isi", $_SESSION['admin_id'], $tahun_ajaran, $success_count);
+            $log_stmt->execute();
+        }
         
         sendResponse([
             'message' => 'Upload selesai',

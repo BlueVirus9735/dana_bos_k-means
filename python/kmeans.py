@@ -19,18 +19,22 @@ def perform_kmeans(data, kecamatan_names, n_clusters=3):
     Perform K-means clustering on kecamatan data
     
     Args:
-        data: List of data points per kecamatan [jumlah_siswa, ruang_kelas_baik, ruang_kelas_rusak_ringan, ruang_kelas_rusak_berat, jumlah_ruang_kelas, fasilitas_lapangan_olahraga, fasilitas_perpustakaan, fasilitas_uks, fasilitas_toilet, fasilitas_tempat_ibadah, jumlah_rombongan_belajar]
+        data: List of data points per kecamatan [jumlah_siswa, ruang_kelas_baik, ruang_kelas_rusak_ringan, ruang_kelas_rusak_berat, jumlah_ruang_kelas, fasilitas_lapangan_olahraga, fasilitas_perpustakaan, fasilitas_uks, fasilitas_toilet, fasilitas_tempat_ibadah, jumlah_rombongan_belajar, alokasi_sarpras]
         kecamatan_names: List of kecamatan names corresponding to data
         n_clusters: Number of clusters (default: 3)
     
     Returns:
         Dictionary with clustering results including cluster categories
     """
+    # Validasi: n_clusters tidak boleh lebih besar dari jumlah data
+    if n_clusters > len(data):
+        raise ValueError(f'n_clusters ({n_clusters}) tidak boleh lebih besar dari jumlah kecamatan ({len(data)})')
+
     # Convert to numpy array
     X_full = np.array(data)
     
-    # We only cluster based on 4 indicators: 
-    # [11] Alokasi Sarpras, [1] Kelas Baik, [2] Kelas Rusak Ringan, [3] Kelas Rusak Berat
+    # Cluster berdasarkan 4 indikator utama:
+    # Index 11: Alokasi Sarpras, Index 1: Kelas Baik, Index 2: Kelas Rusak Ringan, Index 3: Kelas Rusak Berat
     X_cluster = X_full[:, [11, 1, 2, 3]]
     
     # Normalize the features (MinMaxScaler for better interpretation)
@@ -48,7 +52,7 @@ def perform_kmeans(data, kecamatan_names, n_clusters=3):
     centers = scaler.inverse_transform(centers_scaled)
     
     # Calculate cluster priorities based on centers
-    # Higher values indicate higher need
+    # Higher sum of normalized center values → higher need cluster
     cluster_sums = np.sum(centers_scaled, axis=1)
     cluster_ranking = np.argsort(cluster_sums)[::-1]  # Descending order
     
@@ -63,6 +67,15 @@ def perform_kmeans(data, kecamatan_names, n_clusters=3):
         else:
             cluster_mapping[cid] = 1  # Kebutuhan Rendah
     
+    # Hitung jarak Euclidean tiap kecamatan ke centroid clusternya
+    # Nilai ini unik per kecamatan dan dipakai untuk ranking dalam satu cluster
+    euclidean_distances = []
+    for i, cluster_id in enumerate(clusters):
+        cid = int(cluster_id)
+        center = centers_scaled[cid]
+        dist = float(np.linalg.norm(X_scaled[i] - center))
+        euclidean_distances.append(dist)
+
     # Map each kecamatan to its category
     kecamatan_results = []
     for i, (kecamatan, cluster_id) in enumerate(zip(kecamatan_names, clusters)):
@@ -73,7 +86,9 @@ def perform_kmeans(data, kecamatan_names, n_clusters=3):
             'kategori': cluster_mapping[cid],
             'kategori_nama': ['Rendah', 'Sedang', 'Tinggi'][cluster_mapping[cid] - 1],
             'data': data[i],
-            'nilai_cluster': float(cluster_sums[cid])
+            # nilai_cluster = jarak Euclidean ke centroid (unik per kecamatan)
+            # semakin besar = semakin jauh dari pusat cluster = lebih "ekstrem"
+            'nilai_cluster': euclidean_distances[i]
         })
     
     # Prepare results

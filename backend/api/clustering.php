@@ -2,7 +2,7 @@
 require_once '../config/config.php';
 require_once '../includes/functions.php';
 
-session_start();
+startSession();
 
 if (!isset($_SESSION['admin_id'])) {
     sendError('Unauthorized', 401);
@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         FROM kecamatan k
         LEFT JOIN sekolah s  ON k.id = s.kecamatan_id
         LEFT JOIN data_sekolah ds ON s.id = ds.sekolah_id AND ds.tahun_ajaran = ?
+        WHERE k.tahun_ajaran = ?
         GROUP BY k.id, k.nama_kecamatan,
                  k.ruang_kelas_baik, k.ruang_kelas_rusak_ringan, k.ruang_kelas_rusak_berat, k.jumlah_ruang_kelas,
                  k.fasilitas_lapangan_olahraga, k.fasilitas_perpustakaan, k.fasilitas_uks, k.fasilitas_toilet, k.fasilitas_tempat_ibadah,
@@ -44,12 +45,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ";
 
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("s", $tahun_ajaran);
+    $stmt->bind_param("ss", $tahun_ajaran, $tahun_ajaran);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows === 0) {
         sendError('Tidak ada data kecamatan', 400);
+    }
+
+    // Validasi n_clusters tidak boleh lebih besar dari jumlah data
+    if ($n_clusters > $result->num_rows) {
+        sendError("n_clusters ($n_clusters) tidak boleh lebih besar dari jumlah kecamatan ({$result->num_rows})", 400);
     }
 
     $kecamatan_data   = [];
@@ -141,20 +147,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $insert_stmt->execute();
     }
 
-    // Simpan detail perhitungan
+    // Simpan detail perhitungan — ambil last insert_id dari loop sebelumnya
     $cluster_centers = $python_result['cluster_centers_normalized'] ?? [];
     $inertia         = $python_result['inertia'] ?? 0;
 
-    $stmt = $conn->prepare("SELECT MAX(id) as max_id FROM hasil_cluster WHERE tahun_ajaran = ?");
-    $stmt->bind_param("s", $tahun_ajaran);
-    $stmt->execute();
-    $row            = $stmt->get_result()->fetch_assoc();
-    $hasil_cluster_id = $row['max_id'];
+    // Gunakan insert_id dari insert terakhir (hindari race condition MAX(id))
+    $hasil_cluster_id = $conn->insert_id;
 
     if (!empty($cluster_centers) && $hasil_cluster_id) {
-        $c1 = floatval($cluster_centers[0][0] ?? 0);
-        $c2 = floatval($cluster_centers[1][0] ?? 0);
-        $c3 = floatval($cluster_centers[2][0] ?? 0);
+        // Simpan rata-rata semua dimensi tiap cluster center (bukan hanya dimensi [0])
+        $c1 = !empty($cluster_centers[0]) ? floatval(array_sum($cluster_centers[0]) / count($cluster_centers[0])) : 0;
+        $c2 = !empty($cluster_centers[1]) ? floatval(array_sum($cluster_centers[1]) / count($cluster_centers[1])) : 0;
+        $c3 = !empty($cluster_centers[2]) ? floatval(array_sum($cluster_centers[2]) / count($cluster_centers[2])) : 0;
         $detail_stmt = $conn->prepare("INSERT INTO detail_perhitungan (hasil_cluster_id, iterasi, cluster_center_1, cluster_center_2, cluster_center_3, inertia) VALUES (?, 1, ?, ?, ?, ?)");
         $detail_stmt->bind_param("idddd", $hasil_cluster_id, $c1, $c2, $c3, $inertia);
         $detail_stmt->execute();

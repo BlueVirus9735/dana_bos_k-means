@@ -1,0 +1,318 @@
+const fs = require('fs');
+
+const themeCss = `
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700&display=swap');
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  --bg-base:     #09090b; /* zinc-950 */
+  --bg-surface:  #18181b; /* zinc-900 */
+  --bg-elevated: #27272a; /* zinc-800 */
+  --bg-hover:    #3f3f46; /* zinc-700 */
+
+  --border:      #27272a; /* zinc-800 */
+  --border-hover:#3f3f46; /* zinc-700 */
+
+  --text-primary:  #fafafa; /* zinc-50 */
+  --text-secondary:#a1a1aa; /* zinc-400 */
+  --text-muted:    #71717a; /* zinc-500 */
+
+  --accent:        #6366f1; /* indigo-500 */
+  --accent-hover:  #818cf8; /* indigo-400 */
+  --accent-muted:  rgba(99,102,241,0.15);
+
+  --danger:        #ef4444; /* red-500 */
+  --danger-hover:  #f87171; /* red-400 */
+  
+  --radius-sm: 0.375rem;
+  --radius:    0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Card */
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);
+}
+
+/* Page Header */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+}
+.page-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+.page-subtitle {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  margin-top: 0.375rem;
+}
+
+/* Buttons */
+.btn-primary, .btn-secondary, .btn-danger, .btn-edit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: var(--radius);
+  transition: all 0.15s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.btn-primary { background: var(--accent); color: #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1); }
+.btn-primary:hover:not(:disabled) { background: var(--accent-hover); }
+.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.btn-secondary { background: transparent; border-color: var(--border); color: var(--text-primary); }
+.btn-secondary:hover { background: var(--bg-hover); border-color: var(--border-hover); }
+
+.btn-danger { background: rgba(239,68,68,0.1); color: var(--danger); border-color: rgba(239,68,68,0.2); }
+.btn-danger:hover { background: rgba(239,68,68,0.2); }
+
+.btn-edit { background: var(--bg-elevated); color: var(--text-primary); border-color: var(--border); }
+.btn-edit:hover { background: var(--bg-hover); border-color: var(--border-hover); }
+
+/* Inputs */
+.form-input {
+  width: 100%;
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  transition: all 0.15s ease;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+}
+.form-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), inset 0 1px 2px rgba(0,0,0,0.2); }
+.form-input::placeholder { color: var(--text-muted); }
+.form-label { display: block; font-size: 0.8125rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 0.375rem; }
+
+/* Table */
+.data-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+.data-table th {
+  background: var(--bg-base);
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  border-top: 1px solid var(--border);
+}
+.data-table td {
+  padding: 0.875rem 1rem;
+  font-size: 0.875rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-surface);
+}
+.data-table tr:hover td { background: var(--bg-elevated); }
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: fadeIn 0.15s ease;
+}
+.modal-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5), 0 8px 10px -6px rgba(0,0,0,0.5);
+  width: 100%;
+  max-width: 640px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: scaleIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.modal-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.modal-body { padding: 1.5rem; }
+.modal-footer { padding: 1.25rem 1.5rem; border-top: 1px solid var(--border); background: var(--bg-base); display: flex; justify-content: flex-end; gap: 0.75rem; border-bottom-left-radius: var(--radius-xl); border-bottom-right-radius: var(--radius-xl); }
+
+/* Badges */
+.badge { display: inline-block; padding: 0.125rem 0.5rem; border-radius: 999px; font-size: 0.75rem; font-weight: 500; }
+.badge-red   { color: var(--danger); background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); }
+.badge-amber { color: #fbbf24;       background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.2); }
+.badge-green { color: #34d399;       background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.2); }
+.badge-blue  { color: var(--accent-hover); background: var(--accent-muted); border: 1px solid rgba(99,102,241,0.2); }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+.animate-in { animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 1.5rem; right: 1.5rem;
+  padding: 0.875rem 1.25rem; border-radius: var(--radius);
+  display: flex; align-items: center; gap: 0.75rem;
+  font-size: 0.875rem; font-weight: 500; z-index: 200;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5);
+  animation: slideUpToast 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.toast-success { background: #064e3b; color: #34d399; border: 1px solid #047857; }
+.toast-error { background: #7f1d1d; color: #f87171; border: 1px solid #b91c1c; }
+@keyframes slideUpToast { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+`;
+fs.writeFileSync('src/app/theme.css', themeCss.trim());
+
+const layoutTsx = `import Sidebar from '@/components/layout/Sidebar';
+import Header from '@/components/layout/Header';
+
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex h-screen overflow-hidden" style={{ background: 'var(--bg-base)', color: 'var(--text-primary)' }}>
+      <Sidebar />
+      <div className="flex-1 flex flex-col h-full overflow-hidden relative">
+        <Header />
+        <main className="flex-1 overflow-y-auto">
+          <div className="p-6 md:p-8 lg:p-10 mx-auto max-w-7xl">
+            {children}
+          </div>
+        </main>
+      </div>
+    </div>
+  );
+}
+`;
+fs.writeFileSync('src/app/(admin)/layout.tsx', layoutTsx.trim());
+
+const sidebarTsx = `'use client';
+
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { LayoutDashboard, Map, School, Upload, BrainCircuit, BarChart3, FileText, LogOut, Hexagon } from 'lucide-react';
+
+const navItems = [
+  { name: 'Dashboard',         href: '/dashboard',      icon: LayoutDashboard },
+  { name: 'Data Kecamatan',    href: '/data/kecamatan', icon: Map },
+  { name: 'Data Sekolah',      href: '/data/sekolah',   icon: School },
+  { name: 'Input Data BOS',    href: '/data/upload',    icon: Upload },
+  { name: 'Proses Clustering', href: '/clustering',     icon: BrainCircuit },
+  { name: 'Hasil Clustering',  href: '/hasil',          icon: BarChart3 },
+  { name: 'Laporan',           href: '/laporan',        icon: FileText },
+];
+
+export default function Sidebar() {
+  const pathname = usePathname();
+  const router = useRouter();
+
+  return (
+    <aside className="w-64 flex-shrink-0 flex flex-col border-r" style={{ borderColor: 'var(--border)', background: 'var(--bg-surface)' }}>
+      <div className="h-16 flex items-center px-6 border-b gap-3" style={{ borderColor: 'var(--border)' }}>
+        <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white" style={{ background: 'var(--accent)', boxShadow: '0 0 15px rgba(99,102,241,0.5)' }}>
+          <Hexagon size={18} className="fill-white/20" />
+        </div>
+        <div>
+          <h1 className="font-bold text-sm leading-tight" style={{ color: 'var(--text-primary)' }}>Dana BOS</h1>
+          <p className="text-[10px] font-medium uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>K-Means Clustering</p>
+        </div>
+      </div>
+      
+      <div className="flex-1 py-6 px-3 flex flex-col gap-1 overflow-y-auto">
+        <div className="px-3 mb-2 text-[11px] font-semibold uppercase tracking-widest" style={{ color: 'var(--text-muted)' }}>Menu Utama</div>
+        {navItems.map((item) => {
+          const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
+          return (
+            <Link key={item.name} href={item.href} 
+              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200"
+              style={{
+                background: isActive ? 'var(--accent-muted)' : 'transparent',
+                color: isActive ? 'var(--accent-hover)' : 'var(--text-secondary)',
+              }}
+              onMouseEnter={(e) => {
+                if(!isActive) {
+                  e.currentTarget.style.background = 'var(--bg-hover)';
+                  e.currentTarget.style.color = 'var(--text-primary)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if(!isActive) {
+                  e.currentTarget.style.background = 'transparent';
+                  e.currentTarget.style.color = 'var(--text-secondary)';
+                }
+              }}
+            >
+              <item.icon size={18} color={isActive ? 'var(--accent)' : 'var(--text-muted)'} />
+              {item.name}
+            </Link>
+          );
+        })}
+      </div>
+      
+      <div className="p-4 border-t" style={{ borderColor: 'var(--border)' }}>
+        <button 
+          onClick={() => { localStorage.removeItem('admin'); router.push('/login'); }} 
+          className="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors"
+          style={{ color: 'var(--danger)' }}
+          onMouseEnter={(e) => {
+             e.currentTarget.style.background = 'rgba(239,68,68,0.1)';
+          }}
+          onMouseLeave={(e) => {
+             e.currentTarget.style.background = 'transparent';
+          }}
+        >
+          <LogOut size={18} /> Keluar
+        </button>
+      </div>
+    </aside>
+  );
+}
+`;
+fs.writeFileSync('src/components/layout/Sidebar.tsx', sidebarTsx.trim());
+
+const headerTsx = `'use client';
+
+import { usePathname } from 'next/navigation';
+
+export default function Header() {
+  const pathname = usePathname();
+
+  return (
+    <header className="h-16 flex items-center px-6 md:px-8 border-b sticky top-0 z-10 flex-shrink-0" style={{ borderColor: 'var(--border)', background: 'rgba(9, 9, 11, 0.8)', backdropFilter: 'blur(12px)' }}>
+      <div className="flex-1">
+      </div>
+      <div className="flex items-center gap-3">
+        <div className="text-right hidden sm:block">
+          <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>Administrator</div>
+          <div className="text-[11px]" style={{ color: 'var(--text-muted)' }}>Dinas Pendidikan</div>
+        </div>
+        <div className="w-9 h-9 rounded-full border flex items-center justify-center text-sm font-bold" style={{ background: 'var(--bg-elevated)', borderColor: 'var(--border)', color: 'var(--text-primary)' }}>
+          A
+        </div>
+      </div>
+    </header>
+  );
+}
+`;
+fs.writeFileSync('src/components/layout/Header.tsx', headerTsx.trim());

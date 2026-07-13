@@ -3,11 +3,12 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { 
-  PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend,
-  BarChart, Bar, XAxis, YAxis, CartesianGrid
+import { apiFetch } from '@/lib/api';
+import {
+  PieChart, Pie, Cell, ResponsiveContainer, Tooltip,
+  BarChart, Bar, XAxis, YAxis, CartesianGrid,
 } from 'recharts';
-import { Building2, GraduationCap, MapPin, ChevronRight, FileSpreadsheet, BarChart3, Upload } from 'lucide-react';
+import { MapPin, Building2, Database, ArrowRight, TrendingUp } from 'lucide-react';
 
 interface DashboardStats {
   total_kecamatan: number;
@@ -46,11 +47,27 @@ interface RankingData {
   }>;
 }
 
-const COLORS = {
-  'Tinggi': '#ef4444', // Red for High Priority
-  'Sedang': '#eab308', // Yellow for Medium Priority
-  'Rendah': '#22c55e', // Green for Low Priority
+const CLUSTER_COLORS: Record<string, string> = {
+  Tinggi: '#ef4444',
+  Sedang: '#f59e0b', // amber-500
+  Rendah: '#10b981', // emerald-500
 };
+
+const CLUSTER_BG: Record<string, string> = {
+  Tinggi: 'rgba(239,68,68,0.12)',
+  Sedang: 'rgba(251,191,36,0.12)',
+  Rendah: 'rgba(52,211,153,0.12)',
+};
+
+function fmt(n: number) {
+  return new Intl.NumberFormat('id-ID').format(n);
+}
+
+function fmtRp(n: number) {
+  if (n >= 1_000_000_000) return `Rp ${(n / 1_000_000_000).toFixed(1)}M`;
+  if (n >= 1_000_000) return `Rp ${(n / 1_000_000).toFixed(0)}jt`;
+  return `Rp ${fmt(n)}`;
+}
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -60,356 +77,266 @@ export default function DashboardPage() {
   const [selectedYear, setSelectedYear] = useState('');
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const admin = localStorage.getItem('admin');
-      if (!admin) {
-        router.push('/login');
-        return;
-      }
-    };
-    checkAuth();
-    fetchDashboardStats();
+    if (!localStorage.getItem('admin')) { router.push('/login'); return; }
+    fetchStats();
   }, [router]);
 
-  const fetchDashboardStats = async (year?: string) => {
+  const fetchStats = async (year?: string) => {
     setLoading(true);
     try {
-      const url = year
-        ? `http://localhost:8000/dashboard.php?tahun_ajaran=${year}`
-        : 'http://localhost:8000/dashboard.php';
-
-      const response = await fetch(url, { credentials: 'include' });
-      const data = await response.json();
+      const path = year ? `/dashboard.php?tahun_ajaran=${year}` : '/dashboard.php';
+      const res = await apiFetch(path, {}, router);
+      if (!res.ok) return;
+      const data = await res.json();
       setStats(data);
-
-      if (!year && data.available_years && data.available_years.length > 0) {
-        setSelectedYear(data.available_years[0]);
-        fetchRanking(data.available_years[0]);
-      } else if (year) {
-        fetchRanking(year);
-      }
-    } catch (error) {
-      console.error('Error fetching dashboard stats:', error);
-    } finally {
-      setLoading(false);
-    }
+      const y = year ?? data.available_years?.[0] ?? '';
+      if (!year && y) setSelectedYear(y);
+      if (y) fetchRanking(y);
+    } catch (e) { console.error(e); }
+    finally { setLoading(false); }
   };
 
   const fetchRanking = async (year: string) => {
     try {
-      const response = await fetch(`http://localhost:8000/ranking.php?tahun_ajaran=${year}`, { credentials: 'include' });
-      const data = await response.json();
-      setRanking(data);
-    } catch (error) {
-      console.error('Error fetching ranking:', error);
-    }
+      const res = await apiFetch(`/ranking.php?tahun_ajaran=${year}`, {}, router);
+      if (!res.ok) return;
+      setRanking(await res.json());
+    } catch (e) { console.error(e); }
   };
 
-  const handleYearChange = (year: string) => {
-    setSelectedYear(year);
-    fetchDashboardStats(year);
-  };
+  const handleYear = (y: string) => { setSelectedYear(y); fetchStats(y); };
 
   if (loading && !stats) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-600"></div>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', color: 'var(--text-muted)', fontSize: 14 }}>
+        Memuat data...
       </div>
     );
   }
 
-  // Prepare chart data
-  const pieData = (stats?.cluster_distribution || []).map(item => ({
-    name: item.kategori_nama,
-    value: item.count,
-    color: COLORS[item.kategori_nama as keyof typeof COLORS] || '#94a3b8'
+  const pieData = (stats?.cluster_distribution ?? []).map(d => ({
+    name: d.kategori_nama,
+    value: d.count,
+    color: CLUSTER_COLORS[d.kategori_nama] ?? '#8b949e',
   }));
 
-  const barData = (stats?.cluster_distribution || []).map(item => ({
-    name: item.kategori_nama,
-    Siswa: item.total_siswa,
-    color: COLORS[item.kategori_nama as keyof typeof COLORS] || '#94a3b8'
+  const barData = (stats?.cluster_distribution ?? []).map(d => ({
+    name: d.kategori_nama,
+    Siswa: d.total_siswa,
+    fill: CLUSTER_COLORS[d.kategori_nama] ?? '#8b949e',
   }));
+
+  const statCards = [
+    { label: 'Total Kecamatan', value: stats?.total_kecamatan ?? 0, icon: MapPin, color: 'var(--accent-hover)' },
+    { label: 'Total Sekolah',   value: stats?.total_sekolah   ?? 0, icon: Building2, color: 'var(--green)' },
+    { label: 'Data Terekam',    value: stats?.total_data_sekolah ?? 0, icon: Database, color: 'var(--amber)' },
+  ];
 
   return (
-    <div className="space-y-6 pb-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      {/* Top Filter */}
-      <div className="flex justify-between items-center bg-slate-900/60 backdrop-blur-md p-4 rounded-xl shadow-sm border border-white/10">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+
+      {/* Toolbar */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10 }}>
         <div>
-          <h1 className="text-2xl font-bold text-slate-100">Ringkasan Data</h1>
-          <p className="text-slate-400 text-sm">Overview analisis k-means pada kecamatan</p>
+          <h1 style={{ fontSize: 15, fontWeight: 600, color: 'var(--text-primary)' }}>Ringkasan Data</h1>
+          <p style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 2 }}>Analisis K-Means distribusi Dana BOS</p>
         </div>
-        <div className="flex items-center gap-3">
-          <label className="text-sm font-medium text-slate-300 hidden sm:block">Tahun Ajaran:</label>
-          <select
-            value={selectedYear}
-            onChange={(e) => handleYearChange(e.target.value)}
-            className="px-4 py-2 bg-slate-800/50 border border-white/10 text-slate-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-          >
-            {(stats?.available_years || []).map((year) => (
-              <option key={year} value={year}>{year}</option>
-            ))}
-          </select>
-        </div>
+        {(stats?.available_years ?? []).length > 0 && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Tahun Ajaran</label>
+            <select
+              value={selectedYear}
+              onChange={e => handleYear(e.target.value)}
+              style={{
+                padding: '4px 8px', fontSize: 13,
+                background: 'var(--bg-elevated)', color: 'var(--text-primary)',
+                border: '1px solid var(--border)', borderRadius: 6, outline: 'none',
+              }}
+            >
+              {stats!.available_years.map(y => <option key={y} value={y}>{y}</option>)}
+            </select>
+          </div>
+        )}
       </div>
 
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-slate-900/60 backdrop-blur-md p-6 rounded-xl shadow-sm border border-white/10 flex items-center hover:shadow-md transition-shadow">
-          <div className="h-14 w-14 bg-indigo-500/10 rounded-full flex items-center justify-center text-indigo-400 mr-4">
-            <MapPin size={28} />
+      {/* Stat cards */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 12 }}>
+        {statCards.map(({ label, value, icon: Icon, color }) => (
+          <div key={label} className="card" style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', gap: 14 }}>
+            <div style={{ width: 36, height: 36, borderRadius: 8, background: 'var(--bg-hover)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <Icon size={18} color={color} />
+            </div>
+            <div>
+              <div style={{ fontSize: 22, fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.1, fontVariantNumeric: 'tabular-nums' }}>{fmt(value)}</div>
+              <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 2 }}>{label}</div>
+            </div>
           </div>
-          <div>
-            <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider">Total Kecamatan</h3>
-            <p className="text-3xl font-bold text-slate-100">{stats?.total_kecamatan}</p>
-          </div>
-        </div>
-        
-        <div className="bg-slate-900/60 backdrop-blur-md p-6 rounded-xl shadow-sm border border-white/10 flex items-center hover:shadow-md transition-shadow">
-          <div className="h-14 w-14 bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-400 mr-4">
-            <Building2 size={28} />
-          </div>
-          <div>
-            <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider">Total Sekolah</h3>
-            <p className="text-3xl font-bold text-slate-100">{stats?.total_sekolah}</p>
-          </div>
-        </div>
-
-        <div className="bg-slate-900/60 backdrop-blur-md p-6 rounded-xl shadow-sm border border-white/10 flex items-center hover:shadow-md transition-shadow">
-          <div className="h-14 w-14 bg-violet-500/10 rounded-full flex items-center justify-center text-violet-400 mr-4">
-            <FileSpreadsheet size={28} />
-          </div>
-          <div>
-            <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider">Data Terekam</h3>
-            <p className="text-3xl font-bold text-slate-100">{stats?.total_data_sekolah}</p>
-          </div>
-        </div>
+        ))}
       </div>
 
-      {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Pie Chart */}
-        <div className="bg-slate-900/60 backdrop-blur-md p-6 rounded-xl shadow-sm border border-white/10">
-          <h3 className="text-lg font-bold text-slate-100 mb-6">Distribusi Cluster Kecamatan</h3>
-          <div className="h-[300px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
+      {/* Charts row */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 12 }}>
+
+        {/* Pie chart */}
+        <div className="card" style={{ padding: 20 }}>
+          <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 16 }}>Distribusi Cluster</div>
+          {pieData.length > 0 ? (
+            <ResponsiveContainer width="100%" height={220}>
               <PieChart>
-                <Pie
-                  data={pieData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={70}
-                  outerRadius={100}
-                  paddingAngle={5}
-                  dataKey="value"
-                >
-                  {pieData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
+                <Pie data={pieData} cx="50%" cy="50%" innerRadius={55} outerRadius={85} paddingAngle={3} dataKey="value">
+                  {pieData.map((entry, i) => <Cell key={i} fill={entry.color} />)}
                 </Pie>
-                <Tooltip 
-                  contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                <Tooltip
+                  formatter={(v: number, n: string) => [v + ' kecamatan', n]}
+                  contentStyle={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 6, fontSize: 12, color: 'var(--text-primary)' }}
                 />
-                <Legend verticalAlign="bottom" height={36}/>
               </PieChart>
             </ResponsiveContainer>
+          ) : (
+            <div style={{ height: 220, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', fontSize: 13 }}>
+              Belum ada data clustering
+            </div>
+          )}
+          {/* Legend manual */}
+          <div style={{ display: 'flex', gap: 16, justifyContent: 'center', marginTop: 8 }}>
+            {pieData.map(d => (
+              <div key={d.name} style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12, color: 'var(--text-secondary)' }}>
+                <div style={{ width: 8, height: 8, borderRadius: '50%', background: d.color }} />
+                {d.name} ({d.value})
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Bar Chart */}
-        <div className="bg-slate-900/60 backdrop-blur-md p-6 rounded-xl shadow-sm border border-white/10">
-          <h3 className="text-lg font-bold text-slate-100 mb-6">Jumlah Siswa Berdasarkan Kategori Prioritas</h3>
-          <div className="h-[300px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={barData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />
-                <XAxis dataKey="name" axisLine={false} tickLine={false} />
-                <YAxis axisLine={false} tickLine={false} />
-                <Tooltip 
-                  cursor={{fill: 'transparent'}}
-                  contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+        {/* Bar chart */}
+        <div className="card" style={{ padding: 20 }}>
+          <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 16 }}>Jumlah Siswa per Kategori</div>
+          {barData.length > 0 ? (
+            <ResponsiveContainer width="100%" height={240}>
+              <BarChart data={barData} margin={{ top: 4, right: 4, left: -16, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--border-muted)" vertical={false} />
+                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'var(--text-secondary)' }} />
+                <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: 'var(--text-muted)' }} />
+                <Tooltip
+                  cursor={{ fill: 'var(--bg-hover)' }}
+                  formatter={(v: number) => [fmt(v) + ' siswa', 'Jumlah Siswa']}
+                  contentStyle={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 6, fontSize: 12, color: 'var(--text-primary)' }}
                 />
                 <Bar dataKey="Siswa" radius={[4, 4, 0, 0]}>
-                  {barData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
+                  {barData.map((d, i) => <Cell key={i} fill={d.fill} />)}
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
-          </div>
-        </div>
-      </div>
-
-      {/* Cluster Distribution Details */}
-      <div className="bg-slate-900/60 backdrop-blur-md p-6 rounded-xl shadow-sm border border-white/10">
-        <h2 className="text-xl font-bold mb-4 text-slate-100">Detail Cluster K-Means</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {(stats?.cluster_distribution || []).map((cluster) => (
-            <div
-              key={cluster.cluster_kategori}
-              className={`p-5 rounded-xl border relative overflow-hidden transition-all hover:-translate-y-1 ${
-                cluster.kategori_nama === 'Tinggi'
-                  ? 'bg-rose-500/10/50 border-rose-500/20'
-                  : cluster.kategori_nama === 'Sedang'
-                  ? 'bg-amber-500/10/50 border-yellow-500/20'
-                  : 'bg-emerald-500/10/50 border-emerald-500/20'
-              }`}
-            >
-              <div className={`absolute top-0 left-0 w-1.5 h-full ${
-                cluster.kategori_nama === 'Tinggi' ? 'bg-red-500' :
-                cluster.kategori_nama === 'Sedang' ? 'bg-yellow-500' : 'bg-green-500'
-              }`} />
-              
-              <div className="flex justify-between items-start mb-4">
-                <h3 className="font-bold text-lg text-slate-100">Prioritas {cluster.kategori_nama}</h3>
-                <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${
-                  cluster.kategori_nama === 'Tinggi' ? 'bg-red-100 text-rose-400' :
-                  cluster.kategori_nama === 'Sedang' ? 'bg-yellow-100 text-yellow-400' : 
-                  'bg-green-100 text-emerald-400'
-                }`}>
-                  {cluster.count} Kec
-                </span>
-              </div>
-
-              <div className="space-y-2 text-sm text-slate-300">
-                <div className="flex justify-between items-center">
-                  <span className="flex items-center gap-2"><GraduationCap size={16} /> Siswa</span>
-                  <span className="font-semibold text-slate-100">{cluster.total_siswa.toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="flex items-center gap-2"><Building2 size={16} /> R. Kelas</span>
-                  <span className="font-semibold text-slate-100">{cluster.total_ruang_kelas.toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="flex items-center gap-2"><FileSpreadsheet size={16} /> Fasilitas</span>
-                  <span className="font-semibold text-slate-100">{cluster.total_fasilitas.toLocaleString()}</span>
-                </div>
-              </div>
+          ) : (
+            <div style={{ height: 240, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', fontSize: 13 }}>
+              Belum ada data clustering
             </div>
-          ))}
+          )}
         </div>
       </div>
 
-      {/* Top Ranking & Recent Uploads Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Ranking Kecamatan */}
-        <div className="bg-slate-900/60 backdrop-blur-md p-6 rounded-xl shadow-sm border border-white/10 flex flex-col h-full">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-bold text-slate-100">Top Prioritas Kecamatan</h2>
-            <Link href="/hasil" className="text-indigo-400 hover:text-indigo-400 text-sm font-medium flex items-center">
-              Lihat Semua <ChevronRight size={16} className="ml-1"/>
-            </Link>
+      {/* Cluster detail + Ranking */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 12 }}>
+
+        {/* Cluster summary table */}
+        <div className="card" style={{ overflow: 'hidden' }}>
+          <div style={{ padding: '14px 16px', borderBottom: '1px solid var(--border)', fontSize: 13, fontWeight: 600, color: 'var(--text-primary)' }}>
+            Detail Cluster K-Means
           </div>
-          
-          <div className="flex-1 overflow-x-auto">
-            {ranking && ranking.ranking.length > 0 ? (
-              <table className="min-w-full">
-                <thead className="bg-slate-800/50">
-                  <tr>
-                    <th className="px-4 py-3 text-left text-xs font-semibold text-slate-400 uppercase">Kecamatan</th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold text-slate-400 uppercase">Kategori</th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold text-slate-400 uppercase">Skor</th>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+            <thead>
+              <tr style={{ background: 'var(--bg-elevated)' }}>
+                {['Kategori', 'Kec.', 'Siswa', 'Dana BOS'].map(h => (
+                  <th key={h} style={{ padding: '8px 14px', textAlign: 'left', fontSize: 11, fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em', borderBottom: '1px solid var(--border)' }}>
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {(stats?.cluster_distribution ?? []).length === 0 ? (
+                <tr>
+                  <td colSpan={4} style={{ padding: '24px 16px', textAlign: 'center', color: 'var(--text-muted)', fontSize: 13 }}>
+                    Belum ada data
+                  </td>
+                </tr>
+              ) : (
+                (stats?.cluster_distribution ?? []).map(d => (
+                  <tr key={d.cluster_kategori} style={{ borderBottom: '1px solid var(--border-muted)' }}>
+                    <td style={{ padding: '10px 14px' }}>
+                      <span style={{
+                        display: 'inline-flex', alignItems: 'center', gap: 5,
+                        fontSize: 12, fontWeight: 500,
+                        color: CLUSTER_COLORS[d.kategori_nama],
+                        background: CLUSTER_BG[d.kategori_nama],
+                        border: `1px solid ${CLUSTER_COLORS[d.kategori_nama]}33`,
+                        padding: '2px 8px', borderRadius: 20,
+                      }}>
+                        {d.kategori_nama}
+                      </span>
+                    </td>
+                    <td style={{ padding: '10px 14px', color: 'var(--text-primary)', fontWeight: 600 }}>{d.count}</td>
+                    <td style={{ padding: '10px 14px', color: 'var(--text-secondary)' }}>{fmt(d.total_siswa)}</td>
+                    <td style={{ padding: '10px 14px', color: 'var(--text-secondary)' }}>{fmtRp(d.total_dana_bos)}</td>
                   </tr>
-                </thead>
-                <tbody className="divide-y divide-white/10">
-                  {ranking.ranking.slice(0, 5).map((item) => (
-                    <tr key={item.id} className="hover:bg-slate-800/50 transition-colors">
-                      <td className="px-4 py-3">
-                        <div className="flex items-center gap-3">
-                          <span className={`flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold ${
-                            item.rank <= 3 ? 'bg-amber-100 text-amber-400' : 'bg-gray-100 text-slate-300'
-                          }`}>
-                            {item.rank}
-                          </span>
-                          <span className="font-medium text-slate-100">{item.nama_kecamatan}</span>
-                        </div>
-                      </td>
-                      <td className="px-4 py-3">
-                        <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${
-                          item.kategori_nama === 'Tinggi' ? 'bg-red-100 text-rose-400' :
-                          item.kategori_nama === 'Sedang' ? 'bg-yellow-100 text-yellow-400' :
-                          'bg-green-100 text-emerald-400'
-                        }`}>
-                          {item.kategori_nama}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3">
-                        <div className="flex items-center gap-2">
-                          <div className="w-16 bg-gray-100 rounded-full h-1.5 overflow-hidden">
-                            <div
-                              className="bg-blue-500 h-full rounded-full"
-                              style={{ width: `${item.priority_score}%` }}
-                            />
-                          </div>
-                          <span className="text-xs font-medium text-slate-300">{item.priority_score}</span>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : (
-              <div className="flex flex-col items-center justify-center h-full text-slate-400 min-h-[200px]">
-                <BarChart3 size={32} className="mb-2 text-gray-300"/>
-                <p>Belum ada data ranking</p>
-              </div>
-            )}
-          </div>
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
 
-        {/* Recent Uploads */}
-        <div className="bg-slate-900/60 backdrop-blur-md p-6 rounded-xl shadow-sm border border-white/10 flex flex-col h-full">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-bold text-slate-100">Riwayat Upload</h2>
-            <Link href="/data/upload" className="text-indigo-400 hover:text-indigo-400 text-sm font-medium flex items-center">
-              Upload <ChevronRight size={16} className="ml-1"/>
+        {/* Ranking */}
+        <div className="card" style={{ overflow: 'hidden' }}>
+          <div style={{ padding: '14px 16px', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <TrendingUp size={14} color="var(--accent-hover)" />
+              Top Prioritas Kecamatan
+            </div>
+            <Link href="/hasil" style={{ fontSize: 12, color: 'var(--accent-hover)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 3 }}>
+              Semua <ArrowRight size={12} />
             </Link>
           </div>
-
-          <div className="flex-1 overflow-x-auto">
-            {(stats?.recent_uploads || []).length === 0 ? (
-              <div className="flex flex-col items-center justify-center h-full text-slate-400 min-h-[200px]">
-                <Upload size={32} className="mb-2 text-gray-300"/>
-                <p>Belum ada file diupload</p>
-              </div>
-            ) : (
-              <table className="min-w-full">
-                <thead className="bg-slate-800/50">
-                  <tr>
-                    <th className="px-4 py-3 text-left text-xs font-semibold text-slate-400 uppercase">File</th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold text-slate-400 uppercase">Status</th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold text-slate-400 uppercase">Admin</th>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+            <thead>
+              <tr style={{ background: 'var(--bg-elevated)' }}>
+                {['#', 'Kecamatan', 'Kategori', 'Skor'].map(h => (
+                  <th key={h} style={{ padding: '8px 14px', textAlign: 'left', fontSize: 11, fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em', borderBottom: '1px solid var(--border)' }}>
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {!ranking || ranking.ranking.length === 0 ? (
+                <tr>
+                  <td colSpan={4} style={{ padding: '24px 16px', textAlign: 'center', color: 'var(--text-muted)', fontSize: 13 }}>
+                    Belum ada data ranking
+                  </td>
+                </tr>
+              ) : (
+                ranking.ranking.slice(0, 6).map(item => (
+                  <tr key={item.id} style={{ borderBottom: '1px solid var(--border-muted)' }}>
+                    <td style={{ padding: '9px 14px', color: 'var(--text-muted)', fontVariantNumeric: 'tabular-nums' }}>{item.rank}</td>
+                    <td style={{ padding: '9px 14px', color: 'var(--text-primary)', fontWeight: 500 }}>{item.nama_kecamatan}</td>
+                    <td style={{ padding: '9px 14px' }}>
+                      <span style={{
+                        fontSize: 11, fontWeight: 500,
+                        color: CLUSTER_COLORS[item.kategori_nama],
+                        background: CLUSTER_BG[item.kategori_nama],
+                        padding: '2px 7px', borderRadius: 20,
+                        border: `1px solid ${CLUSTER_COLORS[item.kategori_nama]}33`,
+                      }}>
+                        {item.kategori_nama}
+                      </span>
+                    </td>
+                    <td style={{ padding: '9px 14px', color: 'var(--text-secondary)', fontVariantNumeric: 'tabular-nums' }}>
+                      {item.priority_score}
+                    </td>
                   </tr>
-                </thead>
-                <tbody className="divide-y divide-white/10">
-                  {(stats?.recent_uploads || []).slice(0, 5).map((upload) => (
-                    <tr key={upload.id} className="hover:bg-slate-800/50 transition-colors">
-                      <td className="px-4 py-3">
-                        <div className="flex flex-col">
-                          <span className="font-medium text-slate-100 text-sm truncate max-w-[150px] sm:max-w-xs" title={upload.nama_file}>
-                            {upload.nama_file}
-                          </span>
-                          <span className="text-xs text-slate-400">
-                            {new Date(upload.tanggal_upload).toLocaleDateString('id-ID')}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="px-4 py-3">
-                        <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${
-                          upload.status === 'success' ? 'bg-green-100 text-emerald-400' : 'bg-red-100 text-rose-400'
-                        }`}>
-                          {upload.status === 'success' ? 'Berhasil' : 'Gagal'}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-sm text-slate-300">
-                        {upload.admin_nama}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-          </div>
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
