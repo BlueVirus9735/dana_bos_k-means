@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { apiFetch } from "@/lib/api";
+import { apiFetch, getDashboardUrl, UserRole } from "@/lib/api";
 import { AlertCircle } from "lucide-react";
 
 export default function LoginPage() {
@@ -15,7 +15,15 @@ export default function LoginPage() {
 
   useEffect(() => {
     setIsMounted(true);
-  }, []);
+    // If already logged in, redirect to appropriate dashboard
+    const raw = localStorage.getItem("user");
+    if (raw) {
+      try {
+        const u = JSON.parse(raw);
+        if (u?.role) router.push(getDashboardUrl(u.role as UserRole));
+      } catch { /* ignore */ }
+    }
+  }, [router]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,8 +39,14 @@ export default function LoginPage() {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("admin", JSON.stringify(data.admin));
-        router.push("/dashboard");
+        // Save unified user object (support both old 'admin' key and new 'user' key)
+        const userObj = { ...data.user, role: data.role };
+        localStorage.setItem("user", JSON.stringify(userObj));
+        // Legacy compat for existing admin pages
+        if (data.role === "admin") {
+          localStorage.setItem("admin", JSON.stringify(data.user));
+        }
+        router.push(getDashboardUrl(data.role as UserRole));
       } else {
         setError(data.error || "Kredensial tidak valid");
       }
@@ -55,18 +69,20 @@ export default function LoginPage() {
     }}>
       <div className="card" style={{
         width: '100%',
-        maxWidth: 400,
-        padding: '32px 24px',
+        maxWidth: 420,
+        padding: '36px 28px',
         display: 'flex',
         flexDirection: 'column',
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 32 }}>
+        {/* Logo + Title */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
           <div style={{
-            width: 36, height: 36,
+            width: 40, height: 40,
             background: '#fff',
-            borderRadius: 6,
+            borderRadius: 8,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            flexShrink: 0,
           }}>
             <img
               src="/Logo%20Disdik.jpg"
@@ -75,14 +91,19 @@ export default function LoginPage() {
             />
           </div>
           <div>
-            <h1 style={{ fontSize: 16, fontWeight: 600, color: 'var(--text-primary)', lineHeight: 1.2 }}>
+            <h1 style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.2 }}>
               Sistem Dana BOS
             </h1>
-            <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>
-              K-Means Clustering
+            <p style={{ fontSize: 12, color: 'var(--text-muted)' }}>
+              Dinas Pendidikan Kab. Cirebon
             </p>
           </div>
         </div>
+
+        <p style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 28 }}>
+          Masuk sebagai <strong style={{ color: 'var(--text-secondary)' }}>Admin Dinas</strong> atau{' '}
+          <strong style={{ color: 'var(--text-secondary)' }}>Operator Sekolah</strong>
+        </p>
 
         {error && (
           <div style={{
@@ -133,7 +154,7 @@ export default function LoginPage() {
             type="submit"
             disabled={loading}
             className="btn-primary"
-            style={{ marginTop: 8, justifyContent: 'center', padding: '8px' }}
+            style={{ marginTop: 8, justifyContent: 'center', padding: '10px' }}
           >
             {loading ? "Memverifikasi..." : "Masuk"}
           </button>

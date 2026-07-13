@@ -20,27 +20,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         SELECT
             k.id                        AS kecamatan_id,
             k.nama_kecamatan,
-            k.ruang_kelas_baik,
-            k.ruang_kelas_rusak_ringan,
-            k.ruang_kelas_rusak_berat,
-            k.jumlah_ruang_kelas,
-            k.fasilitas_lapangan_olahraga,
-            k.fasilitas_perpustakaan,
-            k.fasilitas_uks,
-            k.fasilitas_toilet,
-            k.fasilitas_tempat_ibadah,
-            k.jumlah_rombongan_belajar,
+            COALESCE(SUM(ss.ruang_kelas_baik), 0) AS ruang_kelas_baik,
+            COALESCE(SUM(ss.ruang_kelas_rusak_ringan), 0) AS ruang_kelas_rusak_ringan,
+            COALESCE(SUM(ss.ruang_kelas_rusak_berat), 0) AS ruang_kelas_rusak_berat,
+            COALESCE(SUM(ss.jumlah_ruang_kelas), 0) AS jumlah_ruang_kelas,
+            COALESCE(SUM(ss.fasilitas_lapangan_olahraga), 0) AS fasilitas_lapangan_olahraga,
+            COALESCE(SUM(ss.fasilitas_perpustakaan), 0) AS fasilitas_perpustakaan,
+            COALESCE(SUM(ss.fasilitas_uks), 0) AS fasilitas_uks,
+            COALESCE(SUM(ss.fasilitas_toilet), 0) AS fasilitas_toilet,
+            COALESCE(SUM(ss.fasilitas_tempat_ibadah), 0) AS fasilitas_tempat_ibadah,
+            COALESCE(SUM(ss.jumlah_rombongan_belajar), 0) AS jumlah_rombongan_belajar,
             COALESCE(SUM(ds.jumlah_siswa), 0)    AS total_siswa,
             COALESCE(SUM(ds.total_dana_bos), 0)  AS total_dana_bos,
             ROUND(COALESCE(SUM(ds.total_dana_bos), 0) * 0.20, 2) AS alokasi_sarpras
         FROM kecamatan k
         LEFT JOIN sekolah s  ON k.id = s.kecamatan_id
         LEFT JOIN data_sekolah ds ON s.id = ds.sekolah_id AND ds.tahun_ajaran = ?
-        WHERE k.tahun_ajaran = ?
-        GROUP BY k.id, k.nama_kecamatan,
-                 k.ruang_kelas_baik, k.ruang_kelas_rusak_ringan, k.ruang_kelas_rusak_berat, k.jumlah_ruang_kelas,
-                 k.fasilitas_lapangan_olahraga, k.fasilitas_perpustakaan, k.fasilitas_uks, k.fasilitas_toilet, k.fasilitas_tempat_ibadah,
-                 k.jumlah_rombongan_belajar
+        LEFT JOIN sekolah_sarpras ss ON s.id = ss.sekolah_id AND ss.tahun_ajaran = ?
+        GROUP BY k.id, k.nama_kecamatan
         ORDER BY k.nama_kecamatan ASC
     ";
 
