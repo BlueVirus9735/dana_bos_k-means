@@ -68,7 +68,7 @@ switch ($method) {
         verifyRealisasiOwnership($conn, $realisasi_id, $sekolah_id);
 
         $stmt = $conn->prepare(
-            "SELECT id, realisasi_id, tanggal, uraian, penerimaan, pengeluaran, saldo, created_at
+            "SELECT id, realisasi_id, tanggal, no_bukti, kode_kegiatan, kode_rekening, uraian, penerimaan, pengeluaran, saldo, created_at
              FROM bku
              WHERE realisasi_id = ?
              ORDER BY tanggal ASC, id ASC"
@@ -98,11 +98,73 @@ switch ($method) {
     case 'POST':
         $data = json_decode(file_get_contents('php://input'), true);
 
-        $realisasi_id = intval($data['realisasi_id'] ?? 0);
-        $tanggal      = sanitizeInput($data['tanggal'] ?? '');
-        $uraian       = sanitizeInput($data['uraian'] ?? '');
-        $penerimaan   = floatval($data['penerimaan'] ?? 0);
-        $pengeluaran  = floatval($data['pengeluaran'] ?? 0);
+        // ── Special: Generate BKU draft from realisasi items ──────────────
+        if (isset($data['action']) && $data['action'] === 'generate') {
+            $realisasi_id = intval($data['realisasi_id'] ?? 0);
+            if ($realisasi_id === 0) sendError('realisasi_id harus diisi', 400);
+
+            $rb = verifyRealisasiOwnership($conn, $realisasi_id, $sekolah_id);
+
+            // Check already has BKU
+            $cnt = $conn->prepare("SELECT COUNT(*) AS c FROM bku WHERE realisasi_id = ?");
+            $cnt->bind_param('i', $realisasi_id);
+            $cnt->execute();
+            if ($cnt->get_result()->fetch_assoc()['c'] > 0) {
+                sendError('BKU sudah ada. Hapus entri yang ada terlebih dahulu jika ingin generate ulang.', 409);
+            }
+
+            $today = date('Y-m-d');
+            $ins   = $conn->prepare(
+                "INSERT INTO bku (realisasi_id, tanggal, no_bukti, kode_kegiatan, kode_rekening, uraian, penerimaan, pengeluaran, saldo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            );
+
+            // 1. Entry pertama: penerimaan dana BOS
+            $penerimaan_awal = floatval($rb['total_penerimaan']);
+            $saldo_awal      = $penerimaan_awal;
+            $uraian_awal     = 'Penerimaan Dana BOS';
+            $nol             = 0.0;
+            $empty_str       = '';
+            $ins->bind_param('isssssddd', $realisasi_id, $today, $empty_str, $empty_str, $empty_str, $uraian_awal, $penerimaan_awal, $nol, $saldo_awal);
+            $ins->execute();
+
+            // 2. Entry pengeluaran per item realisasi (yang realisasinya > 0)
+            $items_stmt = $conn->prepare(
+                "SELECT komponen_kegiatan, uraian, realisasi FROM realisasi_detail WHERE realisasi_id = ? AND realisasi > 0 ORDER BY id ASC"
+            );
+            $items_stmt->bind_param('i', $realisasi_id);
+            $items_stmt->execute();
+            $items = $items_stmt->get_result();
+
+            $running = $saldo_awal;
+            $count   = 1;
+            while ($item = $items->fetch_assoc()) {
+                $uraian_item = $item['komponen_kegiatan'] . ($item['uraian'] ? ' - ' . $item['uraian'] : '');
+                $jumlah      = floatval($item['realisasi']);
+                $running    -= $jumlah;
+                $ins->bind_param('isssssddd', $realisasi_id, $today, $empty_str, $empty_str, $empty_str, $uraian_item, $nol, $jumlah, $running);
+                $ins->execute();
+                $count++;
+            }
+
+            // Recalculate saldo
+            recalculateBkuSaldo($conn, $realisasi_id);
+
+            sendResponse([
+                'message' => "Draft BKU berhasil dibuat ({$count} entri). Silakan sesuaikan tanggal transaksi.",
+                'count'   => $count,
+            ], 201);
+            break;
+        }
+
+        // ── Normal single POST ─────────────────────────────────────────────
+        $realisasi_id  = intval($data['realisasi_id'] ?? 0);
+        $tanggal       = sanitizeInput($data['tanggal'] ?? '');
+        $no_bukti      = sanitizeInput($data['no_bukti'] ?? '');
+        $kode_kegiatan = sanitizeInput($data['kode_kegiatan'] ?? '');
+        $kode_rekening = sanitizeInput($data['kode_rekening'] ?? '');
+        $uraian        = sanitizeInput($data['uraian'] ?? '');
+        $penerimaan    = floatval($data['penerimaan'] ?? 0);
+        $pengeluaran   = floatval($data['pengeluaran'] ?? 0);
 
         if ($realisasi_id === 0 || empty($tanggal) || empty($uraian)) {
             sendError('realisasi_id, tanggal, dan uraian harus diisi', 400);
@@ -116,7 +178,7 @@ switch ($method) {
         // Verify ownership
         verifyRealisasiOwnership($conn, $realisasi_id, $sekolah_id);
 
-        // Get last saldo to compute an initial running saldo estimate
+        // Get last saldo
         $last_stmt = $conn->prepare(
             "SELECT COALESCE(
                (SELECT saldo FROM bku WHERE realisasi_id = ? ORDER BY tanggal ASC, id DESC LIMIT 1),
@@ -125,15 +187,15 @@ switch ($method) {
         );
         $last_stmt->bind_param("i", $realisasi_id);
         $last_stmt->execute();
-        $last_row    = $last_stmt->get_result()->fetch_assoc();
-        $last_saldo  = floatval($last_row['last_saldo']);
-        $new_saldo   = $last_saldo + $penerimaan - $pengeluaran;
+        $last_row   = $last_stmt->get_result()->fetch_assoc();
+        $last_saldo = floatval($last_row['last_saldo']);
+        $new_saldo  = $last_saldo + $penerimaan - $pengeluaran;
 
         $stmt = $conn->prepare(
-            "INSERT INTO bku (realisasi_id, tanggal, uraian, penerimaan, pengeluaran, saldo)
-             VALUES (?, ?, ?, ?, ?, ?)"
+            "INSERT INTO bku (realisasi_id, tanggal, no_bukti, kode_kegiatan, kode_rekening, uraian, penerimaan, pengeluaran, saldo)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
         );
-        $stmt->bind_param("issddd", $realisasi_id, $tanggal, $uraian, $penerimaan, $pengeluaran, $new_saldo);
+        $stmt->bind_param("isssssddd", $realisasi_id, $tanggal, $no_bukti, $kode_kegiatan, $kode_rekening, $uraian, $penerimaan, $pengeluaran, $new_saldo);
 
         if ($stmt->execute()) {
             $new_id = $conn->insert_id;
@@ -153,11 +215,14 @@ switch ($method) {
     case 'PUT':
         $data = json_decode(file_get_contents('php://input'), true);
 
-        $id          = intval($data['id'] ?? 0);
-        $tanggal     = sanitizeInput($data['tanggal'] ?? '');
-        $uraian      = sanitizeInput($data['uraian'] ?? '');
-        $penerimaan  = floatval($data['penerimaan'] ?? 0);
-        $pengeluaran = floatval($data['pengeluaran'] ?? 0);
+        $id            = intval($data['id'] ?? 0);
+        $tanggal       = sanitizeInput($data['tanggal'] ?? '');
+        $no_bukti      = sanitizeInput($data['no_bukti'] ?? '');
+        $kode_kegiatan = sanitizeInput($data['kode_kegiatan'] ?? '');
+        $kode_rekening = sanitizeInput($data['kode_rekening'] ?? '');
+        $uraian        = sanitizeInput($data['uraian'] ?? '');
+        $penerimaan    = floatval($data['penerimaan'] ?? 0);
+        $pengeluaran   = floatval($data['pengeluaran'] ?? 0);
 
         if ($id === 0 || empty($tanggal) || empty($uraian)) {
             sendError('id, tanggal, dan uraian harus diisi', 400);
@@ -187,9 +252,9 @@ switch ($method) {
 
         // Update the entry (saldo will be recalculated below)
         $stmt = $conn->prepare(
-            "UPDATE bku SET tanggal = ?, uraian = ?, penerimaan = ?, pengeluaran = ? WHERE id = ?"
+            "UPDATE bku SET tanggal = ?, no_bukti = ?, kode_kegiatan = ?, kode_rekening = ?, uraian = ?, penerimaan = ?, pengeluaran = ? WHERE id = ?"
         );
-        $stmt->bind_param("ssddi", $tanggal, $uraian, $penerimaan, $pengeluaran, $id);
+        $stmt->bind_param("sssssddsi", $tanggal, $no_bukti, $kode_kegiatan, $kode_rekening, $uraian, $penerimaan, $pengeluaran, $id);
 
         if ($stmt->execute()) {
             // Recalculate all saldo from beginning

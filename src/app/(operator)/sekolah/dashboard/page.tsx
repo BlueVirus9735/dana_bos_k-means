@@ -21,7 +21,7 @@ interface DashboardData {
   rkas: { id: number; status: string; tahun_ajaran: string; jumlah_item: number; total_anggaran: number; catatan_revisi?: string } | null;
   realisasi: { id: number; status: string; tahun_ajaran: string; total_penerimaan: number; total_pengeluaran: number; saldo: number } | null;
   sarpras: { jumlah_ruang_kelas: number; ruang_kelas_baik: number; ruang_kelas_rusak_ringan: number; ruang_kelas_rusak_berat: number } | null;
-  notifikasi: string[];
+  notifikasi: Array<{ type: string; message: string; link: string }>;
 }
 
 const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string; icon: React.ElementType }> = {
@@ -82,7 +82,7 @@ export default function OperatorDashboardPage() {
     return <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', color: 'var(--text-muted)', fontSize: 14 }}>Memuat data...</div>;
   }
 
-  const { sekolah, tahun_ajaran_aktif, rkas, realisasi, sarpras, notifikasi } = data;
+  const { info_sekolah: sekolah, tahun_ajaran_aktif, rkas_terkini: rkas, realisasi_terkini: realisasi, sarpras_terkini: sarpras, notifikasi } = data;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
@@ -97,16 +97,22 @@ export default function OperatorDashboardPage() {
       {/* Notifikasi */}
       {notifikasi.length > 0 && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          {notifikasi.map((n, i) => (
-            <div key={i} style={{
-              padding: '10px 14px', borderRadius: 8,
-              background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.25)',
-              display: 'flex', alignItems: 'center', gap: 10,
-              fontSize: 13, color: '#ef4444',
-            }}>
-              <AlertTriangle size={14} /> {n}
-            </div>
-          ))}
+          {notifikasi.map((n, i) => {
+            const isInfo = n.type === 'info';
+            const color = isInfo ? '#3b82f6' : '#ef4444';
+            const bg = isInfo ? 'rgba(59,130,246,0.08)' : 'rgba(239,68,68,0.08)';
+            const border = isInfo ? 'rgba(59,130,246,0.25)' : 'rgba(239,68,68,0.25)';
+            return (
+              <div key={i} style={{
+                padding: '10px 14px', borderRadius: 8,
+                background: bg, border: `1px solid ${border}`,
+                display: 'flex', alignItems: 'center', gap: 10,
+                fontSize: 13, color: color,
+              }}>
+                <AlertTriangle size={14} /> {n.message}
+              </div>
+            );
+          })}
         </div>
       )}
 

@@ -138,7 +138,7 @@ export default function RKASDetailPage({ params }: { params: Promise<{ id: strin
     try {
       // Save first, then submit
       await saveItems();
-      const res = await apiFetch('/rkas_verifikasi.php', {
+      const res = await apiFetch('/rkas.php', {
         method: 'PUT',
         body: JSON.stringify({ id: Number(id), action: 'submit' }),
       }, router);

@@ -40,7 +40,10 @@ export default function TahunAjaranPage() {
     setLoading(true);
     try {
       const res = await apiFetch('/tahun_ajaran.php', {}, router);
-      if (res.ok) setList(await res.json());
+      if (res.ok) {
+        const json = await res.json();
+        setList(json.data || []);
+      }
     } catch (e) { console.error(e); }
     finally { setLoading(false); }
   };

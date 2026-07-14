@@ -37,6 +37,27 @@ switch ($method) {
 
                 $realisasi = $result->fetch_assoc();
 
+                // Auto-sync total_penerimaan with data_sekolah regardless of status
+                $bos_stmt = $conn->prepare(
+                    "SELECT total_dana_bos FROM data_sekolah WHERE sekolah_id = ? AND tahun_ajaran = ?"
+                );
+                $bos_stmt->bind_param("is", $realisasi['sekolah_id'], $realisasi['tahun_ajaran']);
+                $bos_stmt->execute();
+                $bos_row = $bos_stmt->get_result()->fetch_assoc();
+                $latest_penerimaan = $bos_row ? floatval($bos_row['total_dana_bos']) : 0.00;
+
+                if ($latest_penerimaan != floatval($realisasi['total_penerimaan'])) {
+                    // Update realisasi_bos
+                    $upd_stmt = $conn->prepare(
+                        "UPDATE realisasi_bos SET total_penerimaan = ?, saldo = ? - total_pengeluaran WHERE id = ?"
+                    );
+                    $upd_stmt->bind_param("ddi", $latest_penerimaan, $latest_penerimaan, $id);
+                    $upd_stmt->execute();
+
+                    $realisasi['total_penerimaan'] = $latest_penerimaan;
+                    $realisasi['saldo'] = $latest_penerimaan - floatval($realisasi['total_pengeluaran']);
+                }
+
                 // Get realisasi_detail items
                 $detail_stmt = $conn->prepare(
                     "SELECT rd.*, rk.komponen_kegiatan AS rkas_komponen, rk.jumlah AS rkas_jumlah
@@ -109,6 +130,27 @@ switch ($method) {
 
                 $realisasi = $result->fetch_assoc();
 
+                // Auto-sync total_penerimaan with data_sekolah regardless of status
+                $bos_stmt = $conn->prepare(
+                    "SELECT total_dana_bos FROM data_sekolah WHERE sekolah_id = ? AND tahun_ajaran = ?"
+                );
+                $bos_stmt->bind_param("is", $sekolah_id, $realisasi['tahun_ajaran']);
+                $bos_stmt->execute();
+                $bos_row = $bos_stmt->get_result()->fetch_assoc();
+                $latest_penerimaan = $bos_row ? floatval($bos_row['total_dana_bos']) : 0.00;
+
+                if ($latest_penerimaan != floatval($realisasi['total_penerimaan'])) {
+                    // Update realisasi_bos
+                    $upd_stmt = $conn->prepare(
+                        "UPDATE realisasi_bos SET total_penerimaan = ?, saldo = ? - total_pengeluaran WHERE id = ?"
+                    );
+                    $upd_stmt->bind_param("ddi", $latest_penerimaan, $latest_penerimaan, $id);
+                    $upd_stmt->execute();
+
+                    $realisasi['total_penerimaan'] = $latest_penerimaan;
+                    $realisasi['saldo'] = $latest_penerimaan - floatval($realisasi['total_pengeluaran']);
+                }
+
                 // Get realisasi_detail items
                 $detail_stmt = $conn->prepare(
                     "SELECT rd.*, rk.komponen_kegiatan AS rkas_komponen, rk.jumlah AS rkas_jumlah
@@ -125,6 +167,20 @@ switch ($method) {
                     $details[] = $row;
                 }
                 $realisasi['items'] = $details;
+
+                // Get BKU entries
+                $bku_stmt = $conn->prepare(
+                    "SELECT id, tanggal, uraian, penerimaan, pengeluaran, saldo
+                     FROM bku WHERE realisasi_id = ? ORDER BY tanggal ASC, id ASC"
+                );
+                $bku_stmt->bind_param("i", $id);
+                $bku_stmt->execute();
+                $bku_result = $bku_stmt->get_result();
+                $bku = [];
+                while ($row = $bku_result->fetch_assoc()) {
+                    $bku[] = $row;
+                }
+                $realisasi['bku'] = $bku;
 
                 sendResponse($realisasi);
             } else {
@@ -154,9 +210,8 @@ switch ($method) {
 
         $data = json_decode(file_get_contents('php://input'), true);
 
-        $sekolah_id      = $_SESSION['sekolah_id'];
-        $tahun_ajaran    = sanitizeInput($data['tahun_ajaran'] ?? '');
-        $total_penerimaan = floatval($data['total_penerimaan'] ?? 0);
+        $sekolah_id   = $_SESSION['sekolah_id'];
+        $tahun_ajaran = sanitizeInput($data['tahun_ajaran'] ?? '');
 
         if (empty($tahun_ajaran)) {
             sendError('Tahun ajaran harus diisi', 400);
@@ -183,22 +238,50 @@ switch ($method) {
             sendError('Realisasi untuk tahun ajaran ini sudah ada', 409);
         }
 
-        $saldo = $total_penerimaan; // No pengeluaran yet on creation
+        // Auto-fetch total_penerimaan from data_sekolah (Input Dana BOS oleh Admin)
+        $bos_stmt = $conn->prepare(
+            "SELECT total_dana_bos FROM data_sekolah WHERE sekolah_id = ? AND tahun_ajaran = ?"
+        );
+        $bos_stmt->bind_param("is", $sekolah_id, $tahun_ajaran);
+        $bos_stmt->execute();
+        $bos_row = $bos_stmt->get_result()->fetch_assoc();
+        $total_penerimaan = $bos_row ? floatval($bos_row['total_dana_bos']) : 0.00;
 
-        $stmt = $conn->prepare(
+        $saldo = $total_penerimaan;
+
+        $ins_stmt = $conn->prepare(
             "INSERT INTO realisasi_bos (sekolah_id, tahun_ajaran, rkas_id, total_penerimaan, total_pengeluaran, saldo, status)
              VALUES (?, ?, ?, ?, 0.00, ?, 'draft')"
         );
-        $stmt->bind_param("isidd", $sekolah_id, $tahun_ajaran, $rkas_id, $total_penerimaan, $saldo);
+        $ins_stmt->bind_param("isidd", $sekolah_id, $tahun_ajaran, $rkas_id, $total_penerimaan, $saldo);
 
-        if ($stmt->execute()) {
-            sendResponse([
-                'message' => 'Realisasi berhasil dibuat',
-                'id'      => $conn->insert_id
-            ], 201);
-        } else {
+        if (!$ins_stmt->execute()) {
             sendError('Gagal membuat realisasi: ' . $conn->error, 500);
         }
+        $realisasi_id = $conn->insert_id;
+
+        // Auto-populate realisasi_detail dari rkas_detail
+        $rkas_items_stmt = $conn->prepare(
+            "SELECT id, komponen_kegiatan, uraian, jumlah FROM rkas_detail WHERE rkas_id = ? ORDER BY id ASC"
+        );
+        $rkas_items_stmt->bind_param("i", $rkas_id);
+        $rkas_items_stmt->execute();
+        $rkas_items = $rkas_items_stmt->get_result();
+
+        $item_ins = $conn->prepare(
+            "INSERT INTO realisasi_detail (realisasi_id, rkas_detail_id, komponen_kegiatan, uraian, anggaran, realisasi, keterangan)
+             VALUES (?, ?, ?, ?, ?, 0, '')"
+        );
+        while ($rk = $rkas_items->fetch_assoc()) {
+            $item_ins->bind_param("iissd", $realisasi_id, $rk['id'], $rk['komponen_kegiatan'], $rk['uraian'], $rk['jumlah']);
+            $item_ins->execute();
+        }
+
+        sendResponse([
+            'message'          => 'Realisasi berhasil dibuat',
+            'id'               => $realisasi_id,
+            'total_penerimaan' => $total_penerimaan
+        ], 201);
         break;
 
     case 'PUT':

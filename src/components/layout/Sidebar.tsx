@@ -30,7 +30,6 @@ const operatorNavItems = [
   { name: 'Data Sarpras',        href: '/sekolah/sarpras',     icon: School },
   { name: 'RKAS',                href: '/sekolah/rkas',        icon: BookOpen },
   { name: 'Realisasi Dana BOS',  href: '/sekolah/realisasi',   icon: Calculator },
-  { name: 'BKU',                 href: '/sekolah/bku',         icon: ClipboardList },
 ];
 
 export default function Sidebar() {

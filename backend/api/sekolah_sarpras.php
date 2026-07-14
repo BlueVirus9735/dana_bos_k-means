@@ -127,7 +127,7 @@ switch ($method) {
              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         );
         $stmt->bind_param(
-            "isiiiiiiiii",
+            "isiiiiiiiiii",
             $sekolah_id, $tahun_ajaran, $ruang_kelas_baik, $ruang_kelas_rusak_ringan,
             $ruang_kelas_rusak_berat, $jumlah_ruang_kelas, $fasilitas_lapangan_olahraga,
             $fasilitas_perpustakaan, $fasilitas_uks, $fasilitas_toilet,

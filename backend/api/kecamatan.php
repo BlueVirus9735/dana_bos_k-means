@@ -30,6 +30,50 @@ switch ($method) {
             break;
         }
 
+        // ?aggregate=1&tahun_ajaran=X → agregasi sarpras sekolah per kecamatan
+        if (isset($_GET['aggregate'])) {
+            $tahun_ajaran = sanitizeInput($_GET['tahun_ajaran'] ?? '');
+
+            $sql = "
+                SELECT
+                    k.id                                            AS kecamatan_id,
+                    k.nama_kecamatan,
+                    k.kode_kecamatan,
+                    COUNT(DISTINCT s.id)                            AS jumlah_sekolah,
+                    COUNT(DISTINCT ss.id)                           AS sekolah_sudah_isi,
+                    COALESCE(SUM(ss.jumlah_ruang_kelas), 0)         AS jumlah_ruang_kelas,
+                    COALESCE(SUM(ss.ruang_kelas_baik), 0)           AS ruang_kelas_baik,
+                    COALESCE(SUM(ss.ruang_kelas_rusak_ringan), 0)   AS ruang_kelas_rusak_ringan,
+                    COALESCE(SUM(ss.ruang_kelas_rusak_berat), 0)    AS ruang_kelas_rusak_berat,
+                    COALESCE(SUM(ss.fasilitas_lapangan_olahraga), 0) AS fasilitas_lapangan_olahraga,
+                    COALESCE(SUM(ss.fasilitas_perpustakaan), 0)     AS fasilitas_perpustakaan,
+                    COALESCE(SUM(ss.fasilitas_uks), 0)              AS fasilitas_uks,
+                    COALESCE(SUM(ss.fasilitas_toilet), 0)           AS fasilitas_toilet,
+                    COALESCE(SUM(ss.fasilitas_tempat_ibadah), 0)    AS fasilitas_tempat_ibadah,
+                    COALESCE(SUM(ss.jumlah_rombongan_belajar), 0)   AS jumlah_rombongan_belajar
+                FROM kecamatan k
+                LEFT JOIN sekolah s ON s.kecamatan_id = k.id
+                LEFT JOIN sekolah_sarpras ss ON ss.sekolah_id = s.id
+                    " . (!empty($tahun_ajaran) ? "AND ss.tahun_ajaran = ?" : "") . "
+                GROUP BY k.id, k.nama_kecamatan, k.kode_kecamatan
+                ORDER BY k.nama_kecamatan ASC
+            ";
+
+            $stmt = $conn->prepare($sql);
+            if (!empty($tahun_ajaran)) {
+                $stmt->bind_param('s', $tahun_ajaran);
+            }
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            $data = [];
+            while ($row = $result->fetch_assoc()) {
+                $data[] = $row;
+            }
+            sendResponse($data);
+            break;
+        }
+
         if (isset($_GET['id'])) {
             $id = intval($_GET['id']);
             $stmt = $conn->prepare("SELECT * FROM kecamatan WHERE id = ?");
@@ -106,6 +150,71 @@ switch ($method) {
     case 'PUT':
         $data = json_decode(file_get_contents('php://input'), true);
 
+        // Special action: sync kecamatan from sekolah_sarpras aggregation
+        if (isset($_GET['sync'])) {
+            $tahun_ajaran = sanitizeInput($data['tahun_ajaran'] ?? '');
+            if (empty($tahun_ajaran)) {
+                sendError('tahun_ajaran harus diisi untuk sinkronisasi', 400);
+            }
+
+            // Get aggregated sarpras per kecamatan
+            $agg_sql = "
+                SELECT
+                    k.id AS kecamatan_id,
+                    k.tahun_ajaran AS kec_tahun,
+                    COALESCE(SUM(ss.jumlah_ruang_kelas), 0)          AS jumlah_ruang_kelas,
+                    COALESCE(SUM(ss.ruang_kelas_baik), 0)            AS ruang_kelas_baik,
+                    COALESCE(SUM(ss.ruang_kelas_rusak_ringan), 0)    AS ruang_kelas_rusak_ringan,
+                    COALESCE(SUM(ss.ruang_kelas_rusak_berat), 0)     AS ruang_kelas_rusak_berat,
+                    COALESCE(SUM(ss.fasilitas_lapangan_olahraga), 0) AS fasilitas_lapangan_olahraga,
+                    COALESCE(SUM(ss.fasilitas_perpustakaan), 0)      AS fasilitas_perpustakaan,
+                    COALESCE(SUM(ss.fasilitas_uks), 0)               AS fasilitas_uks,
+                    COALESCE(SUM(ss.fasilitas_toilet), 0)            AS fasilitas_toilet,
+                    COALESCE(SUM(ss.fasilitas_tempat_ibadah), 0)     AS fasilitas_tempat_ibadah,
+                    COALESCE(SUM(ss.jumlah_rombongan_belajar), 0)    AS jumlah_rombongan_belajar
+                FROM kecamatan k
+                LEFT JOIN sekolah s ON s.kecamatan_id = k.id
+                LEFT JOIN sekolah_sarpras ss ON ss.sekolah_id = s.id AND ss.tahun_ajaran = ?
+                GROUP BY k.id
+            ";
+            $agg_stmt = $conn->prepare($agg_sql);
+            $agg_stmt->bind_param('s', $tahun_ajaran);
+            $agg_stmt->execute();
+            $rows = $agg_stmt->get_result();
+
+            $upd = $conn->prepare("
+                UPDATE kecamatan SET
+                    tahun_ajaran = ?,
+                    jumlah_ruang_kelas = ?, ruang_kelas_baik = ?,
+                    ruang_kelas_rusak_ringan = ?, ruang_kelas_rusak_berat = ?,
+                    fasilitas_lapangan_olahraga = ?, fasilitas_perpustakaan = ?,
+                    fasilitas_uks = ?, fasilitas_toilet = ?, fasilitas_tempat_ibadah = ?,
+                    jumlah_rombongan_belajar = ?
+                WHERE id = ?
+            ");
+
+            $updated = 0;
+            while ($r = $rows->fetch_assoc()) {
+                $upd->bind_param('siiiiiiiiiii',
+                    $tahun_ajaran,
+                    $r['jumlah_ruang_kelas'], $r['ruang_kelas_baik'],
+                    $r['ruang_kelas_rusak_ringan'], $r['ruang_kelas_rusak_berat'],
+                    $r['fasilitas_lapangan_olahraga'], $r['fasilitas_perpustakaan'],
+                    $r['fasilitas_uks'], $r['fasilitas_toilet'], $r['fasilitas_tempat_ibadah'],
+                    $r['jumlah_rombongan_belajar'],
+                    $r['kecamatan_id']
+                );
+                $upd->execute();
+                $updated++;
+            }
+
+            sendResponse([
+                'message'  => "Berhasil mensinkronisasi {$updated} kecamatan dari data sarpras sekolah",
+                'updated'  => $updated,
+                'tahun_ajaran' => $tahun_ajaran
+            ]);
+            break;
+        }
         $id                    = intval($data['id'] ?? 0);
         $nama_kecamatan        = sanitizeInput($data['nama_kecamatan'] ?? '');
         $kode_kecamatan        = sanitizeInput($data['kode_kecamatan'] ?? '');

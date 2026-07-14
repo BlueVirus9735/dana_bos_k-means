@@ -68,19 +68,28 @@ export default function SarprasPage() {
         const sRes = await apiFetch(`/sekolah_sarpras.php?tahun_ajaran=${encodeURIComponent(aktif)}`, {}, router);
         if (sRes.ok) {
           const sData = await sRes.json();
-          if (sData && sData.id) {
-            setSarpras(sData);
+          // API returns array; grab first item that matches this sekolah
+          const existing = Array.isArray(sData) ? sData[0] : sData;
+          if (existing && existing.id) {
+            setSarpras(existing);
           } else {
             setSarpras({ ...empty(), tahun_ajaran: aktif });
           }
         }
       }
-    } catch (e) { console.error(e); }
+    } catch (e) { console.error(e); setError('Gagal memuat data sarpras'); }
     finally { setLoading(false); }
   };
 
   const handleChange = (key: keyof SarprasData, val: string) => {
-    setSarpras(prev => ({ ...prev, [key]: parseInt(val) || 0 }));
+    setSarpras(prev => {
+      const parsedVal = parseInt(val) || 0;
+      const next = { ...prev, [key]: parsedVal };
+      if (['ruang_kelas_baik', 'ruang_kelas_rusak_ringan', 'ruang_kelas_rusak_berat'].includes(key as string)) {
+        next.jumlah_ruang_kelas = (next.ruang_kelas_baik || 0) + (next.ruang_kelas_rusak_ringan || 0) + (next.ruang_kelas_rusak_berat || 0);
+      }
+      return next;
+    });
   };
 
   const handleSave = async () => {
@@ -150,13 +159,13 @@ export default function SarprasPage() {
                     type="number"
                     value={sarpras[field.key] as number}
                     onChange={e => handleChange(field.key, e.target.value)}
-                    disabled={!tahunAktif}
+                    disabled={!tahunAktif || field.key === 'jumlah_ruang_kelas'}
                     min="0"
                     style={{
                       width: '100%', padding: '7px 10px',
-                      background: 'var(--bg-elevated)',
+                      background: field.key === 'jumlah_ruang_kelas' ? 'var(--bg-default)' : 'var(--bg-elevated)',
                       border: '1px solid var(--border)',
-                      borderRadius: 6, color: 'var(--text-primary)',
+                      borderRadius: 6, color: field.key === 'jumlah_ruang_kelas' ? 'var(--text-muted)' : 'var(--text-primary)',
                       fontSize: 14, fontWeight: 600,
                     }}
                   />

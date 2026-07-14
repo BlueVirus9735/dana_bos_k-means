@@ -4,8 +4,12 @@ require_once '../includes/functions.php';
 
 startSession();
 
-if (!isset($_SESSION['admin_id'])) {
+if (!isset($_SESSION['admin_id']) && !isset($_SESSION['operator_id'])) {
     sendError('Unauthorized', 401);
+}
+
+if ($_SERVER['REQUEST_METHOD'] !== 'GET' && !isset($_SESSION['admin_id'])) {
+    sendError('Unauthorized. Hanya Admin yang dapat memodifikasi.', 401);
 }
 
 require_once '../includes/db.php';
