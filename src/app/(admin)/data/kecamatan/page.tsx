@@ -52,7 +52,7 @@ type ViewTab = 'master' | 'agregasi';
 const emptyForm = {
   nama_kecamatan: '',
   kode_kecamatan: '',
-  tahun_ajaran: '2024/2025',
+  tahun_ajaran: '2024',
 };
 
 const FormField = ({ label, field, formData, setFormData, placeholder, required }: {
@@ -87,7 +87,7 @@ export default function KecamatanPage() {
   const [formData, setFormData] = useState(emptyForm);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [tab, setTab] = useState<ViewTab>('master');
-  const [tahunSync, setTahunSync] = useState('2024/2025');
+  const [tahunSync, setTahunSync] = useState('2024');
 
   useEffect(() => {
     const admin = localStorage.getItem('admin');
@@ -185,7 +185,7 @@ export default function KecamatanPage() {
     setFormData({
       nama_kecamatan: item.nama_kecamatan,
       kode_kecamatan: item.kode_kecamatan,
-      tahun_ajaran:   item.tahun_ajaran || '2024/2025',
+      tahun_ajaran:   item.tahun_ajaran || '2024',
     });
     setEditingId(item.id);
     setShowForm(true);

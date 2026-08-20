@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { apiFetch, getUser } from '@/lib/api';
 import { Save, School } from 'lucide-react';
@@ -49,13 +49,7 @@ export default function SarprasPage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  useEffect(() => {
-    const u = getUser();
-    if (!u || u.role !== 'operator') { router.push('/login'); return; }
-    fetchData();
-  }, [router]);
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true);
     try {
       const tRes = await apiFetch('/tahun_ajaran.php', {}, router);
@@ -79,7 +73,13 @@ export default function SarprasPage() {
       }
     } catch (e) { console.error(e); setError('Gagal memuat data sarpras'); }
     finally { setLoading(false); }
-  };
+  }, [router]);
+
+  useEffect(() => {
+    const u = getUser();
+    if (!u || u.role !== 'operator') { router.push('/login'); return; }
+    fetchData();
+  }, [router, fetchData]);
 
   const handleChange = (key: keyof SarprasData, val: string) => {
     setSarpras(prev => {

@@ -187,7 +187,7 @@ export default function DashboardPage() {
                   {pieData.map((entry, i) => <Cell key={i} fill={entry.color} />)}
                 </Pie>
                 <Tooltip
-                  formatter={(v: number, n: string) => [v + ' kecamatan', n]}
+                  formatter={(v: any, n: any) => [`${v} kecamatan`, n]}
                   contentStyle={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 6, fontSize: 12, color: 'var(--text-primary)' }}
                 />
               </PieChart>
@@ -219,7 +219,7 @@ export default function DashboardPage() {
                 <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: 'var(--text-muted)' }} />
                 <Tooltip
                   cursor={{ fill: 'var(--bg-hover)' }}
-                  formatter={(v: number) => [fmt(v) + ' siswa', 'Jumlah Siswa']}
+                  formatter={(v: any) => [fmt(v || 0) + ' siswa', 'Jumlah Siswa']}
                   contentStyle={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 6, fontSize: 12, color: 'var(--text-primary)' }}
                 />
                 <Bar dataKey="Siswa" radius={[4, 4, 0, 0]}>

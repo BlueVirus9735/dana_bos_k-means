@@ -1,138 +1,307 @@
 #!/usr/bin/env python3
 """
-K-Means Clustering for Dana Bos Application
-This script handles K-means clustering for educational facility needs analysis
-Features per kecamatan: jumlah_siswa (total), ruang_kelas_baik, ruang_kelas_rusak_ringan, ruang_kelas_rusak_berat, jumlah_ruang_kelas, fasilitas_lapangan_olahraga, fasilitas_perpustakaan, fasilitas_uks, fasilitas_toilet, fasilitas_tempat_ibadah, jumlah_rombongan_belajar
+K-Means Clustering for Dana BOS & Sarpras Analysis
+11 Features:
+1. Jumlah Siswa (benefit)
+2. Total BOS (cost)
+3. Dana Sarpras (cost)
+4. Rombel (benefit)
+5. Perpustakaan (cost)
+6. Tempat Ibadah (cost)
+7. Toilet (cost)
+8. UKS (cost)
+9. Ruang Kelas Baik (cost)
+10. Ruang Kelas Rusak Ringan (benefit)
+11. Ruang Kelas Rusak Berat (benefit)
 """
 
 import sys
 import json
 import base64
 import numpy as np
-import pandas as pd
-from sklearn.cluster import KMeans
-from sklearn.preprocessing import StandardScaler, MinMaxScaler
+
+FEATURE_NAMES = [
+    'jumlah_siswa',
+    'total_dana_bos',
+    'alokasi_sarpras',
+    'jumlah_rombongan_belajar',
+    'fasilitas_perpustakaan',
+    'fasilitas_tempat_ibadah',
+    'fasilitas_toilet',
+    'fasilitas_uks',
+    'ruang_kelas_baik',
+    'ruang_kelas_rusak_ringan',
+    'ruang_kelas_rusak_berat'
+]
+
+FEATURE_LABELS = [
+    'Jumlah Siswa',
+    'Total BOS',
+    'Dana Sarpras',
+    'Rombel',
+    'Perpustakaan',
+    'Tempat Ibadah',
+    'Toilet',
+    'UKS',
+    'Ruang Kelas Baik',
+    'Ruang Kelas Rusak Ringan',
+    'Ruang Kelas Rusak Berat'
+]
+
+FEATURE_TYPES = [
+    'benefit',
+    'cost',
+    'cost',
+    'benefit',
+    'cost',
+    'cost',
+    'cost',
+    'cost',
+    'cost',
+    'benefit',
+    'benefit'
+]
 
 
-def perform_kmeans(data, kecamatan_names, n_clusters=3):
+def normalize_features(X_raw, feature_types=FEATURE_TYPES):
     """
-    Perform K-means clustering on kecamatan data
-    
-    Args:
-        data: List of data points per kecamatan [jumlah_siswa, ruang_kelas_baik, ruang_kelas_rusak_ringan, ruang_kelas_rusak_berat, jumlah_ruang_kelas, fasilitas_lapangan_olahraga, fasilitas_perpustakaan, fasilitas_uks, fasilitas_toilet, fasilitas_tempat_ibadah, jumlah_rombongan_belajar, alokasi_sarpras]
-        kecamatan_names: List of kecamatan names corresponding to data
-        n_clusters: Number of clusters (default: 3)
-    
-    Returns:
-        Dictionary with clustering results including cluster categories
+    Normalisasi Min-Max dengan pemisahan kriteria Benefit dan Cost.
+    - Benefit : (X - min) / (max - min)
+    - Cost    : (max - X) / (max - min)
     """
-    # Validasi: n_clusters tidak boleh lebih besar dari jumlah data
-    if n_clusters > len(data):
-        raise ValueError(f'n_clusters ({n_clusters}) tidak boleh lebih besar dari jumlah kecamatan ({len(data)})')
-
-    # Convert to numpy array
-    X_full = np.array(data)
+    X_raw = np.array(X_raw, dtype=float)
+    n_samples, n_features = X_raw.shape
     
-    # Cluster berdasarkan 4 indikator utama:
-    # Index 11: Alokasi Sarpras, Index 1: Kelas Baik, Index 2: Kelas Rusak Ringan, Index 3: Kelas Rusak Berat
-    X_cluster = X_full[:, [11, 1, 2, 3]]
+    min_vals = np.min(X_raw, axis=0)
+    max_vals = np.max(X_raw, axis=0)
     
-    # Normalize the features (MinMaxScaler for better interpretation)
-    scaler = MinMaxScaler()
-    X_scaled = scaler.fit_transform(X_cluster)
+    X_norm = np.zeros_like(X_raw)
     
-    # Perform K-means clustering
-    kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=10, max_iter=300)
-    clusters = kmeans.fit_predict(X_scaled)
-    
-    # Get cluster centers (normalized)
-    centers_scaled = kmeans.cluster_centers_
-    
-    # Get cluster centers (original scale)
-    centers = scaler.inverse_transform(centers_scaled)
-    
-    # Calculate cluster priorities based on centers
-    # Higher sum of normalized center values → higher need cluster
-    cluster_sums = np.sum(centers_scaled, axis=1)
-    cluster_ranking = np.argsort(cluster_sums)[::-1]  # Descending order
-    
-    # Map cluster labels to categories: 3=Tinggi, 2=Sedang, 1=Rendah
-    cluster_mapping = {}
-    for rank, cluster_id in enumerate(cluster_ranking):
-        cid = int(cluster_id)
-        if rank == 0:
-            cluster_mapping[cid] = 3  # Kebutuhan Tinggi
-        elif rank == 1:
-            cluster_mapping[cid] = 2  # Kebutuhan Sedang
+    for j in range(n_features):
+        range_val = max_vals[j] - min_vals[j]
+        if range_val == 0:
+            X_norm[:, j] = 0.0
+            continue
+            
+        if feature_types[j] == 'benefit':
+            # Benefit: semakin besar semakin tinggi nilai normalisasinya
+            X_norm[:, j] = (X_raw[:, j] - min_vals[j]) / range_val
         else:
-            cluster_mapping[cid] = 1  # Kebutuhan Rendah
+            # Cost: semakin kecil ketersediaannya semakin tinggi nilai kekurangannya
+            X_norm[:, j] = (max_vals[j] - X_raw[:, j]) / range_val
+            
+    # Pembulatan 4 desimal seperti di Excel
+    X_norm = np.round(X_norm, 4)
     
-    # Hitung jarak Euclidean tiap kecamatan ke centroid clusternya
-    # Nilai ini unik per kecamatan dan dipakai untuk ranking dalam satu cluster
-    euclidean_distances = []
-    for i, cluster_id in enumerate(clusters):
-        cid = int(cluster_id)
-        center = centers_scaled[cid]
-        dist = float(np.linalg.norm(X_scaled[i] - center))
-        euclidean_distances.append(dist)
+    return X_norm, min_vals, max_vals
 
-    # Map each kecamatan to its category
-    kecamatan_results = []
-    for i, (kecamatan, cluster_id) in enumerate(zip(kecamatan_names, clusters)):
-        cid = int(cluster_id)
-        kecamatan_results.append({
-            'kecamatan': kecamatan,
-            'cluster_id': cid,
-            'kategori': cluster_mapping[cid],
-            'kategori_nama': ['Rendah', 'Sedang', 'Tinggi'][cluster_mapping[cid] - 1],
-            'data': data[i],
-            # nilai_cluster = jarak Euclidean ke centroid (unik per kecamatan)
-            # semakin besar = semakin jauh dari pusat cluster = lebih "ekstrem"
-            'nilai_cluster': euclidean_distances[i]
-        })
+
+def initialize_centroids(X_norm, kecamatan_names):
+    """
+    Inisialisasi centroid awal sesuai file Excel:
+    - C1 (Rendah) = SUMBER
+    - C2 (Sedang) = GEGESIK
+    - C3 (Tinggi) = PANGENAN
+    """
+    n_samples, n_features = X_norm.shape
+    kec_upper = [str(k).strip().upper() for k in kecamatan_names]
     
-    # Prepare results
+    # Cari index Sumber, Gegesik, Pangenan
+    idx_c1 = None
+    idx_c2 = None
+    idx_c3 = None
+    
+    for i, name in enumerate(kec_upper):
+        if 'SUMBER' in name and idx_c1 is None:
+            idx_c1 = i
+        elif 'GEGESIK' in name and idx_c2 is None:
+            idx_c2 = i
+        elif 'PANGENAN' in name and idx_c3 is None:
+            idx_c3 = i
+            
+    # Fallback jika nama tidak ditemukan
+    if idx_c1 is None:
+        idx_c1 = 0
+    if idx_c2 is None:
+        idx_c2 = min(1, n_samples - 1)
+    if idx_c3 is None:
+        idx_c3 = min(2, n_samples - 1)
+        
+    c1 = X_norm[idx_c1].copy()
+    c2 = X_norm[idx_c2].copy()
+    c3 = X_norm[idx_c3].copy()
+    
+    centroids = np.array([c1, c2, c3], dtype=float)
+    return centroids
+
+
+def perform_kmeans_custom(data, kecamatan_names, max_iter=100):
+    """
+    Menjalankan algoritma K-Means 11 variabel murni sesuai lembar kerja Excel.
+    """
+    X_raw = np.array(data, dtype=float)
+    n_samples, n_features = X_raw.shape
+    
+    # 1. Normalisasi Min-Max (Benefit vs Cost)
+    X_norm, min_vals, max_vals = normalize_features(X_raw, FEATURE_TYPES)
+    
+    # 2. Inisialisasi Centroid Awal
+    centroids = initialize_centroids(X_norm, kecamatan_names)
+    
+    # Riwayat iterasi
+    iteration_history = []
+    prev_clusters = np.zeros(n_samples, dtype=int)
+    final_clusters = np.zeros(n_samples, dtype=int)
+    final_distances = np.zeros((n_samples, 3), dtype=float)
+    
+    for it in range(1, max_iter + 1):
+        # Simpan centroid sebelum iterasi ini
+        centroids_before = centroids.copy()
+        
+        # Hitung jarak Euclidean tiap data ke tiap centroid: D = sqrt(sum((X - C)^2))
+        distances = np.zeros((n_samples, 3), dtype=float)
+        for k in range(3):
+            diff = X_norm - centroids[k]
+            distances[:, k] = np.sqrt(np.sum(diff ** 2, axis=1))
+            
+        # Penentuan klaster: klaster dengan jarak terpendek (1-based: 1, 2, 3)
+        current_clusters = np.argmin(distances, axis=1) + 1
+        
+        # Hitung jumlah anggota per klaster
+        counts = {
+            1: int(np.sum(current_clusters == 1)),
+            2: int(np.sum(current_clusters == 2)),
+            3: int(np.sum(current_clusters == 3))
+        }
+        
+        # Hitung perubahan anggota dibanding iterasi sebelumnya
+        if it == 1:
+            delta_a = n_samples
+        else:
+            delta_a = int(np.sum(current_clusters != prev_clusters))
+            
+        # Catat detail iterasi
+        iter_record = {
+            'iterasi': it,
+            'centroids': np.round(centroids_before, 4).tolist(),
+            'cluster_counts': counts,
+            'delta_anggota': delta_a,
+            'distances': np.round(distances, 4).tolist(),
+            'clusters': current_clusters.tolist()
+        }
+        iteration_history.append(iter_record)
+        
+        final_clusters = current_clusters.copy()
+        final_distances = distances.copy()
+        
+        # Cek kondisi berhenti: delta_a == 0 (konvergen)
+        if it > 1 and delta_a == 0:
+            break
+            
+        # Update centroid baru (rata-rata nilai anggota klaster)
+        new_centroids = np.zeros((3, n_features), dtype=float)
+        for k in range(3):
+            cluster_mask = (current_clusters == (k + 1))
+            if np.sum(cluster_mask) > 0:
+                # Dibulatkan 4 desimal seperti Excel
+                new_centroids[k] = np.round(np.mean(X_norm[cluster_mask], axis=0), 4)
+            else:
+                new_centroids[k] = centroids[k]
+                
+        centroids = new_centroids
+        prev_clusters = current_clusters.copy()
+        
+    # Kategori mapping (Sesuai Konfigurasi):
+    # Cluster 1 = Rendah
+    # Cluster 2 = Sedang
+    # Cluster 3 = Tinggi
+    category_mapping = {
+        1: {'kategori': 1, 'nama': 'Rendah', 'deskripsi': 'Kebutuhan Sarpras Rendah (Mandiri)'},
+        2: {'kategori': 2, 'nama': 'Sedang', 'deskripsi': 'Kebutuhan Sarpras Sedang'},
+        3: {'kategori': 3, 'nama': 'Tinggi', 'deskripsi': 'Kebutuhan Sarpras Tinggi (Prioritas Bantuan)'}
+    }
+    
+    # Hitung nilai inertia (Total Within-Cluster Sum of Squares)
+    inertia = 0.0
+    for i in range(n_samples):
+        cid = final_clusters[i]
+        c_idx = cid - 1
+        inertia += float(np.sum((X_norm[i] - centroids[c_idx]) ** 2))
+        
+    # Susun hasil per kecamatan
+    kecamatan_results = []
+    for i, name in enumerate(kecamatan_names):
+        cid = int(final_clusters[i])
+        c_idx = cid - 1
+        dist_to_centroid = float(final_distances[i, c_idx])
+        
+        kecamatan_results.append({
+            'kecamatan': name,
+            'cluster_id': cid,
+            'kategori': category_mapping[cid]['kategori'],
+            'kategori_nama': category_mapping[cid]['nama'],
+            'keterangan': category_mapping[cid]['deskripsi'],
+            'data': X_raw[i].tolist(),
+            'data_normalized': X_norm[i].tolist(),
+            'distances': [float(final_distances[i, 0]), float(final_distances[i, 1]), float(final_distances[i, 2])],
+            'nilai_cluster': round(dist_to_centroid, 4)
+        })
+        
+    # Tabel Min-Max untuk keperluan tampilan di web
+    min_max_table = []
+    for j in range(n_features):
+        min_max_table.append({
+            'no': j + 1,
+            'variabel': FEATURE_NAMES[j],
+            'label': FEATURE_LABELS[j],
+            'jenis': FEATURE_TYPES[j],
+            'min': float(min_vals[j]),
+            'max': float(max_vals[j]),
+            'range': float(max_vals[j] - min_vals[j])
+        })
+        
     results = {
         'kecamatan_results': kecamatan_results,
-        'cluster_centers': centers.tolist(),
-        'cluster_centers_normalized': centers_scaled.tolist(),
-        'cluster_mapping': cluster_mapping,
-        'n_clusters': n_clusters,
-        'inertia': float(kmeans.inertia_),
-        'feature_names': [
-            'alokasi_sarpras', 'ruang_kelas_baik', 'ruang_kelas_rusak_ringan', 'ruang_kelas_rusak_berat'
-        ]
+        'cluster_centers_normalized': np.round(centroids, 4).tolist(),
+        'iterations': iteration_history,
+        'min_max_table': min_max_table,
+        'n_clusters': 3,
+        'n_iterations': len(iteration_history),
+        'inertia': round(inertia, 4),
+        'feature_names': FEATURE_NAMES,
+        'feature_labels': FEATURE_LABELS,
+        'feature_types': FEATURE_TYPES,
+        'summary': {
+            'c1_rendah': int(np.sum(final_clusters == 1)),
+            'c2_sedang': int(np.sum(final_clusters == 2)),
+            'c3_tinggi': int(np.sum(final_clusters == 3))
+        }
     }
     
     return results
 
 
 def main():
-    """Main function to handle command line execution"""
     if len(sys.argv) < 2:
-        print(json.dumps({'error': 'No data provided'}))
+        print(json.dumps({'error': 'No input data provided'}))
         sys.exit(1)
-    
+        
     try:
-        # Parse input
         input_data_b64 = sys.argv[1]
         input_data = json.loads(base64.b64decode(input_data_b64).decode('utf-8'))
+        
         data = input_data.get('data', [])
         kecamatan_names = input_data.get('kecamatan_names', [])
-        n_clusters = input_data.get('n_clusters', 3)
         
         if not data:
-            print(json.dumps({'error': 'No data points provided'}))
+            print(json.dumps({'error': 'Data array is empty'}))
             sys.exit(1)
-        
+            
         if len(data) != len(kecamatan_names):
-            print(json.dumps({'error': 'Data and kecamatan_names length mismatch'}))
+            print(json.dumps({'error': f'Length mismatch: data ({len(data)}) vs names ({len(kecamatan_names)})'}))
             sys.exit(1)
-        
-        # Perform clustering
-        results = perform_kmeans(data, kecamatan_names, n_clusters)
-        
-        # Output results as JSON
+            
+        results = perform_kmeans_custom(data, kecamatan_names)
         print(json.dumps(results))
         
     except Exception as e:
@@ -142,3 +311,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

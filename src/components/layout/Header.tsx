@@ -18,7 +18,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="h-16 flex items-center px-6 md:px-8 border-b sticky top-0 z-10 flex-shrink-0"
+    <header className="h-16 flex items-center px-6 md:px-8 border-b sticky top-0 z-10 flex-shrink-0 print:hidden"
       style={{ borderColor: 'var(--border)', background: 'rgba(9, 9, 11, 0.8)', backdropFilter: 'blur(12px)' }}
     >
       <div className="flex-1" />

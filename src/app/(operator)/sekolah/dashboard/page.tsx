@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 
 interface DashboardData {
-  sekolah: {
+  info_sekolah: {
     nama_sekolah: string;
     npsn: string;
     jenjang: string;
@@ -18,9 +18,9 @@ interface DashboardData {
     nama_kecamatan: string;
   };
   tahun_ajaran_aktif: { tahun_ajaran: string; batas_submit_rkas: string | null; batas_submit_laporan: string | null } | null;
-  rkas: { id: number; status: string; tahun_ajaran: string; jumlah_item: number; total_anggaran: number; catatan_revisi?: string } | null;
-  realisasi: { id: number; status: string; tahun_ajaran: string; total_penerimaan: number; total_pengeluaran: number; saldo: number } | null;
-  sarpras: { jumlah_ruang_kelas: number; ruang_kelas_baik: number; ruang_kelas_rusak_ringan: number; ruang_kelas_rusak_berat: number } | null;
+  rkas_terkini: { id: number; status: string; tahun_ajaran: string; jumlah_item: number; total_anggaran: number; catatan_revisi?: string } | null;
+  realisasi_terkini: { id: number; status: string; tahun_ajaran: string; total_penerimaan: number; total_pengeluaran: number; saldo: number } | null;
+  sarpras_terkini: { jumlah_ruang_kelas: number; ruang_kelas_baik: number; ruang_kelas_rusak_ringan: number; ruang_kelas_rusak_berat: number } | null;
   notifikasi: Array<{ type: string; message: string; link: string }>;
 }
 

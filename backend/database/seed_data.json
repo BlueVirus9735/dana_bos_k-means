@@ -1,0 +1,5901 @@
+{
+  "kecamatan": [
+    {
+      "kode": "3209010",
+      "nama": "WALED",
+      "siswa": 4921,
+      "bos": 4527320000.0,
+      "sarpras": 905464000.0,
+      "rombel": 178,
+      "perpus": 10,
+      "ibadah": 2,
+      "toilet": 66,
+      "uks": 2,
+      "baik": 74,
+      "rusak_ringan": 44,
+      "rusak_berat": 48
+    },
+    {
+      "kode": "3209020",
+      "nama": "CILEDUG",
+      "siswa": 3984,
+      "bos": 3665280000.0,
+      "sarpras": 733056000.0,
+      "rombel": 166,
+      "perpus": 11,
+      "ibadah": 5,
+      "toilet": 98,
+      "uks": 3,
+      "baik": 49,
+      "rusak_ringan": 19,
+      "rusak_berat": 10
+    },
+    {
+      "kode": "3209030",
+      "nama": "LOSARI",
+      "siswa": 3852,
+      "bos": 3543840000.0,
+      "sarpras": 708768000.0,
+      "rombel": 144,
+      "perpus": 11,
+      "ibadah": 1,
+      "toilet": 63,
+      "uks": 4,
+      "baik": 102,
+      "rusak_ringan": 30,
+      "rusak_berat": 14
+    },
+    {
+      "kode": "3209031",
+      "nama": "PABEDILAN",
+      "siswa": 4632,
+      "bos": 4261440000.0,
+      "sarpras": 852288000.0,
+      "rombel": 370,
+      "perpus": 11,
+      "ibadah": 4,
+      "toilet": 80,
+      "uks": 3,
+      "baik": 63,
+      "rusak_ringan": 27,
+      "rusak_berat": 13
+    },
+    {
+      "kode": "3209040",
+      "nama": "BABAKAN",
+      "siswa": 6678,
+      "bos": 6143760000.0,
+      "sarpras": 1228752000.0,
+      "rombel": 231,
+      "perpus": 15,
+      "ibadah": 5,
+      "toilet": 111,
+      "uks": 8,
+      "baik": 89,
+      "rusak_ringan": 35,
+      "rusak_berat": 5
+    },
+    {
+      "kode": "3209050",
+      "nama": "KARANGSEMBUNG",
+      "siswa": 3201,
+      "bos": 2944920000.0,
+      "sarpras": 588984000.0,
+      "rombel": 144,
+      "perpus": 12,
+      "ibadah": 2,
+      "toilet": 73,
+      "uks": 2,
+      "baik": 103,
+      "rusak_ringan": 36,
+      "rusak_berat": 8
+    },
+    {
+      "kode": "3209060",
+      "nama": "LEMAHABANG",
+      "siswa": 5255,
+      "bos": 4834600000.0,
+      "sarpras": 966920000.0,
+      "rombel": 196,
+      "perpus": 17,
+      "ibadah": 9,
+      "toilet": 115,
+      "uks": 5,
+      "baik": 174,
+      "rusak_ringan": 38,
+      "rusak_berat": 15
+    },
+    {
+      "kode": "3209061",
+      "nama": "SUSUKANLEBAK",
+      "siswa": 3108,
+      "bos": 2859360000.0,
+      "sarpras": 571872000.0,
+      "rombel": 127,
+      "perpus": 11,
+      "ibadah": 0,
+      "toilet": 50,
+      "uks": 4,
+      "baik": 149,
+      "rusak_ringan": 25,
+      "rusak_berat": 10
+    },
+    {
+      "kode": "3209070",
+      "nama": "SEDONG",
+      "siswa": 3905,
+      "bos": 3592600000.0,
+      "sarpras": 718520000.0,
+      "rombel": 158,
+      "perpus": 15,
+      "ibadah": 8,
+      "toilet": 96,
+      "uks": 6,
+      "baik": 103,
+      "rusak_ringan": 30,
+      "rusak_berat": 4
+    },
+    {
+      "kode": "3209080",
+      "nama": "ASTANAJAPURA",
+      "siswa": 4633,
+      "bos": 4262360000.0,
+      "sarpras": 852472000.0,
+      "rombel": 186,
+      "perpus": 20,
+      "ibadah": 4,
+      "toilet": 85,
+      "uks": 3,
+      "baik": 65,
+      "rusak_ringan": 14,
+      "rusak_berat": 7
+    },
+    {
+      "kode": "3209081",
+      "nama": "PANGENAN",
+      "siswa": 3104,
+      "bos": 2855680000.0,
+      "sarpras": 571136000.0,
+      "rombel": 108,
+      "perpus": 9,
+      "ibadah": 1,
+      "toilet": 40,
+      "uks": 2,
+      "baik": 102,
+      "rusak_ringan": 25,
+      "rusak_berat": 45
+    },
+    {
+      "kode": "3209090",
+      "nama": "MUNDU",
+      "siswa": 5673,
+      "bos": 5219160000.0,
+      "sarpras": 1043832000.0,
+      "rombel": 200,
+      "perpus": 16,
+      "ibadah": 9,
+      "toilet": 79,
+      "uks": 2,
+      "baik": 70,
+      "rusak_ringan": 28,
+      "rusak_berat": 29
+    },
+    {
+      "kode": "3209100",
+      "nama": "BEBER",
+      "siswa": 4315,
+      "bos": 3969800000.0,
+      "sarpras": 793960000.0,
+      "rombel": 149,
+      "perpus": 14,
+      "ibadah": 14,
+      "toilet": 102,
+      "uks": 6,
+      "baik": 84,
+      "rusak_ringan": 20,
+      "rusak_berat": 25
+    },
+    {
+      "kode": "3209111",
+      "nama": "TALUN",
+      "siswa": 4878,
+      "bos": 4487760000.0,
+      "sarpras": 897552000.0,
+      "rombel": 223,
+      "perpus": 19,
+      "ibadah": 13,
+      "toilet": 122,
+      "uks": 8,
+      "baik": 114,
+      "rusak_ringan": 32,
+      "rusak_berat": 23
+    },
+    {
+      "kode": "3209120",
+      "nama": "SUMBER",
+      "siswa": 8147,
+      "bos": 7495240000.0,
+      "sarpras": 1499048000.0,
+      "rombel": 400,
+      "perpus": 23,
+      "ibadah": 24,
+      "toilet": 245,
+      "uks": 19,
+      "baik": 55,
+      "rusak_ringan": 25,
+      "rusak_berat": 24
+    },
+    {
+      "kode": "3209121",
+      "nama": "DUKUPUNTANG",
+      "siswa": 4080,
+      "bos": 3753600000.0,
+      "sarpras": 750720000.0,
+      "rombel": 619,
+      "perpus": 18,
+      "ibadah": 16,
+      "toilet": 118,
+      "uks": 3,
+      "baik": 91,
+      "rusak_ringan": 28,
+      "rusak_berat": 27
+    },
+    {
+      "kode": "3209130",
+      "nama": "PALIMANAN",
+      "siswa": 5748,
+      "bos": 5288160000.0,
+      "sarpras": 1057632000.0,
+      "rombel": 234,
+      "perpus": 16,
+      "ibadah": 10,
+      "toilet": 101,
+      "uks": 4,
+      "baik": 66,
+      "rusak_ringan": 35,
+      "rusak_berat": 23
+    },
+    {
+      "kode": "3209140",
+      "nama": "PLUMBON",
+      "siswa": 6482,
+      "bos": 5963440000.0,
+      "sarpras": 1192688000.0,
+      "rombel": 283,
+      "perpus": 23,
+      "ibadah": 13,
+      "toilet": 150,
+      "uks": 14,
+      "baik": 74,
+      "rusak_ringan": 18,
+      "rusak_berat": 31
+    },
+    {
+      "kode": "3209150",
+      "nama": "WERU",
+      "siswa": 5703,
+      "bos": 5246760000.0,
+      "sarpras": 1049352000.0,
+      "rombel": 204,
+      "perpus": 18,
+      "ibadah": 13,
+      "toilet": 109,
+      "uks": 9,
+      "baik": 156,
+      "rusak_ringan": 42,
+      "rusak_berat": 28
+    },
+    {
+      "kode": "3209162",
+      "nama": "KEDAWUNG",
+      "siswa": 3429,
+      "bos": 3154680000.0,
+      "sarpras": 630936000.0,
+      "rombel": 179,
+      "perpus": 15,
+      "ibadah": 11,
+      "toilet": 133,
+      "uks": 9,
+      "baik": 287,
+      "rusak_ringan": 34,
+      "rusak_berat": 25
+    },
+    {
+      "kode": "3209171",
+      "nama": "GUNUNGJATI",
+      "siswa": 5031,
+      "bos": 4628520000.0,
+      "sarpras": 925704000.0,
+      "rombel": 241,
+      "perpus": 17,
+      "ibadah": 15,
+      "toilet": 124,
+      "uks": 6,
+      "baik": 89,
+      "rusak_ringan": 61,
+      "rusak_berat": 28
+    },
+    {
+      "kode": "3209180",
+      "nama": "KAPETAKAN",
+      "siswa": 5316,
+      "bos": 4890720000.0,
+      "sarpras": 978144000.0,
+      "rombel": 200,
+      "perpus": 15,
+      "ibadah": 4,
+      "toilet": 51,
+      "uks": 2,
+      "baik": 132,
+      "rusak_ringan": 51,
+      "rusak_berat": 30
+    },
+    {
+      "kode": "3209190",
+      "nama": "KLANGENAN",
+      "siswa": 4981,
+      "bos": 4582520000.0,
+      "sarpras": 916504000.0,
+      "rombel": 187,
+      "perpus": 15,
+      "ibadah": 5,
+      "toilet": 79,
+      "uks": 6,
+      "baik": 181,
+      "rusak_ringan": 52,
+      "rusak_berat": 12
+    },
+    {
+      "kode": "3209200",
+      "nama": "ARJAWINANGUN",
+      "siswa": 6526,
+      "bos": 6003920000.0,
+      "sarpras": 1200784000.0,
+      "rombel": 271,
+      "perpus": 23,
+      "ibadah": 8,
+      "toilet": 135,
+      "uks": 11,
+      "baik": 132,
+      "rusak_ringan": 32,
+      "rusak_berat": 19
+    },
+    {
+      "kode": "3209201",
+      "nama": "PANGURAGAN",
+      "siswa": 3335,
+      "bos": 3068200000.0,
+      "sarpras": 613640000.0,
+      "rombel": 137,
+      "perpus": 11,
+      "ibadah": 3,
+      "toilet": 61,
+      "uks": 2,
+      "baik": 125,
+      "rusak_ringan": 36,
+      "rusak_berat": 14
+    },
+    {
+      "kode": "3209210",
+      "nama": "CIWARINGIN",
+      "siswa": 3497,
+      "bos": 3217240000.0,
+      "sarpras": 643448000.0,
+      "rombel": 117,
+      "perpus": 12,
+      "ibadah": 4,
+      "toilet": 55,
+      "uks": 6,
+      "baik": 131,
+      "rusak_ringan": 34,
+      "rusak_berat": 9
+    },
+    {
+      "kode": "3209220",
+      "nama": "SUSUKAN",
+      "siswa": 6630,
+      "bos": 6099600000.0,
+      "sarpras": 1219920000.0,
+      "rombel": 257,
+      "perpus": 16,
+      "ibadah": 9,
+      "toilet": 88,
+      "uks": 2,
+      "baik": 99,
+      "rusak_ringan": 18,
+      "rusak_berat": 11
+    },
+    {
+      "kode": "3209230",
+      "nama": "GEGESIK",
+      "siswa": 5396,
+      "bos": 4964320000.0,
+      "sarpras": 992864000.0,
+      "rombel": 232,
+      "perpus": 15,
+      "ibadah": 10,
+      "toilet": 113,
+      "uks": 5,
+      "baik": 103,
+      "rusak_ringan": 29,
+      "rusak_berat": 25
+    },
+    {
+      "kode": "3209231",
+      "nama": "KALIWEDI",
+      "siswa": 3511,
+      "bos": 3230120000.0,
+      "sarpras": 646024000.0,
+      "rombel": 137,
+      "perpus": 11,
+      "ibadah": 4,
+      "toilet": 61,
+      "uks": 4,
+      "baik": 156,
+      "rusak_ringan": 53,
+      "rusak_berat": 20
+    },
+    {
+      "kode": "3209041",
+      "nama": "GEBANG",
+      "siswa": 5500,
+      "bos": 5060000000.0,
+      "sarpras": 1012000000.0,
+      "rombel": 204,
+      "perpus": 16,
+      "ibadah": 6,
+      "toilet": 94,
+      "uks": 5,
+      "baik": 109,
+      "rusak_ringan": 35,
+      "rusak_berat": 11
+    },
+    {
+      "kode": "3209141",
+      "nama": "DEPOK",
+      "siswa": 5473,
+      "bos": 5035160000.0,
+      "sarpras": 1007032000.0,
+      "rombel": 313,
+      "perpus": 17,
+      "ibadah": 7,
+      "toilet": 124,
+      "uks": 5,
+      "baik": 124,
+      "rusak_ringan": 20,
+      "rusak_berat": 8
+    },
+    {
+      "kode": "3209011",
+      "nama": "PASALEMAN",
+      "siswa": 2135,
+      "bos": 1964200000.0,
+      "sarpras": 392840000.0,
+      "rombel": 82,
+      "perpus": 12,
+      "ibadah": 2,
+      "toilet": 42,
+      "uks": 1,
+      "baik": 111,
+      "rusak_ringan": 33,
+      "rusak_berat": 12
+    },
+    {
+      "kode": "3209021",
+      "nama": "PABUARAN",
+      "siswa": 3203,
+      "bos": 2946760000.0,
+      "sarpras": 589352000.0,
+      "rombel": 122,
+      "perpus": 7,
+      "ibadah": 1,
+      "toilet": 44,
+      "uks": 3,
+      "baik": 95,
+      "rusak_ringan": 19,
+      "rusak_berat": 25
+    },
+    {
+      "kode": "3209051",
+      "nama": "KARANGWARENG",
+      "siswa": 2314,
+      "bos": 2128880000.0,
+      "sarpras": 425776000.0,
+      "rombel": 95,
+      "perpus": 8,
+      "ibadah": 0,
+      "toilet": 36,
+      "uks": 0,
+      "baik": 170,
+      "rusak_ringan": 43,
+      "rusak_berat": 25
+    },
+    {
+      "kode": "3209161",
+      "nama": "TENGAH TANI",
+      "siswa": 3911,
+      "bos": 3598120000.0,
+      "sarpras": 719624000.0,
+      "rombel": 145,
+      "perpus": 6,
+      "ibadah": 6,
+      "toilet": 76,
+      "uks": 3,
+      "baik": 72,
+      "rusak_ringan": 23,
+      "rusak_berat": 13
+    },
+    {
+      "kode": "3209151",
+      "nama": "PLERED",
+      "siswa": 5278,
+      "bos": 4855760000.0,
+      "sarpras": 971152000.0,
+      "rombel": 199,
+      "perpus": 16,
+      "ibadah": 9,
+      "toilet": 108,
+      "uks": 7,
+      "baik": 81,
+      "rusak_ringan": 15,
+      "rusak_berat": 22
+    },
+    {
+      "kode": "3209211",
+      "nama": "GEMPOL",
+      "siswa": 3882,
+      "bos": 3571440000.0,
+      "sarpras": 714288000.0,
+      "rombel": 156,
+      "perpus": 11,
+      "ibadah": 5,
+      "toilet": 64,
+      "uks": 1,
+      "baik": 74,
+      "rusak_ringan": 29,
+      "rusak_berat": 25
+    },
+    {
+      "kode": "3209101",
+      "nama": "GREGED",
+      "siswa": 5708,
+      "bos": 5251360000.0,
+      "sarpras": 1050272000.0,
+      "rombel": 183,
+      "perpus": 14,
+      "ibadah": 9,
+      "toilet": 83,
+      "uks": 2,
+      "baik": 115,
+      "rusak_ringan": 55,
+      "rusak_berat": 41
+    },
+    {
+      "kode": "3209181",
+      "nama": "SURANENGGALA",
+      "siswa": 4027,
+      "bos": 3704840000.0,
+      "sarpras": 740968000.0,
+      "rombel": 534,
+      "perpus": 13,
+      "ibadah": 8,
+      "toilet": 83,
+      "uks": 0,
+      "baik": 134,
+      "rusak_ringan": 43,
+      "rusak_berat": 26
+    },
+    {
+      "kode": "3209191",
+      "nama": "JAMBLANG",
+      "siswa": 3243,
+      "bos": 2983560000.0,
+      "sarpras": 596712000.0,
+      "rombel": 153,
+      "perpus": 17,
+      "ibadah": 5,
+      "toilet": 99,
+      "uks": 5,
+      "baik": 65,
+      "rusak_ringan": 30,
+      "rusak_berat": 14
+    }
+  ],
+  "schools": {
+    "WALED": [
+      {
+        "npsn": "20244383",
+        "nama_sekolah": "SD NEGERI 1 WALEDKOTA",
+        "pagu": 92920000.0,
+        "siswa": 101,
+        "dana_sarpras": 18584000.0
+      },
+      {
+        "npsn": "20214935",
+        "nama_sekolah": "SD NEGERI 3 WALEDKOTA",
+        "pagu": 141680000.0,
+        "siswa": 154,
+        "dana_sarpras": 28336000.0
+      },
+      {
+        "npsn": "20215110",
+        "nama_sekolah": "SD NEGERI 1 MEKARSARI",
+        "pagu": 155480000.0,
+        "siswa": 169,
+        "dana_sarpras": 31096000.0
+      },
+      {
+        "npsn": "20215570",
+        "nama_sekolah": "SD NEGERI 1 WALEDDESA",
+        "pagu": 275080000.0,
+        "siswa": 299,
+        "dana_sarpras": 55016000.0
+      },
+      {
+        "npsn": "20215052",
+        "nama_sekolah": "SD NEGERI 1 KARANGSARI",
+        "pagu": 337640000.0,
+        "siswa": 367,
+        "dana_sarpras": 67528000.0
+      },
+      {
+        "npsn": "20215281",
+        "nama_sekolah": "SD NEGERI 1 CIUYAH",
+        "pagu": 165600000.0,
+        "siswa": 180,
+        "dana_sarpras": 33120000.0
+      },
+      {
+        "npsn": "20215376",
+        "nama_sekolah": "SD NEGERI 2 CIUYAH",
+        "pagu": 204240000.0,
+        "siswa": 222,
+        "dana_sarpras": 40848000.0
+      },
+      {
+        "npsn": "20215585",
+        "nama_sekolah": "SD NEGERI 2 AMBIT",
+        "pagu": 106720000.0,
+        "siswa": 116,
+        "dana_sarpras": 21344000.0
+      },
+      {
+        "npsn": "20214477",
+        "nama_sekolah": "SD NEGERI 3 CIUYAH",
+        "pagu": 164680000.0,
+        "siswa": 179,
+        "dana_sarpras": 32936000.0
+      },
+      {
+        "npsn": "20215270",
+        "nama_sekolah": "SD NEGERI 1 GUNUNGSARI",
+        "pagu": 311880000.0,
+        "siswa": 339,
+        "dana_sarpras": 62376000.0
+      },
+      {
+        "npsn": "20254084",
+        "nama_sekolah": "SD NEGERI 1 CISAAT",
+        "pagu": 239200000.0,
+        "siswa": 260,
+        "dana_sarpras": 47840000.0
+      },
+      {
+        "npsn": "20215193",
+        "nama_sekolah": "UPTD SD NEGERI 1 CIKULAK KIDUL",
+        "pagu": 636640000.0,
+        "siswa": 692,
+        "dana_sarpras": 127328000.0
+      },
+      {
+        "npsn": "20215194",
+        "nama_sekolah": "SD NEGERI 1 CIKULAK",
+        "pagu": 275080000.0,
+        "siswa": 299,
+        "dana_sarpras": 55016000.0
+      },
+      {
+        "npsn": "20215201",
+        "nama_sekolah": "SD NEGERI 1 CIBOGO",
+        "pagu": 252080000.0,
+        "siswa": 274,
+        "dana_sarpras": 50416000.0
+      },
+      {
+        "npsn": "20215362",
+        "nama_sekolah": "SD NEGERI 2 CIBOGO",
+        "pagu": 417680000.0,
+        "siswa": 454,
+        "dana_sarpras": 83536000.0
+      },
+      {
+        "npsn": "20215219",
+        "nama_sekolah": "SD NEGERI 1 AMBIT",
+        "pagu": 193200000.0,
+        "siswa": 210,
+        "dana_sarpras": 38640000.0
+      },
+      {
+        "npsn": "20214503",
+        "nama_sekolah": "SD NEGERI 3 CIKULAK",
+        "pagu": 243800000.0,
+        "siswa": 265,
+        "dana_sarpras": 48760000.0
+      },
+      {
+        "npsn": "20215571",
+        "nama_sekolah": "SD NEGERI 1 WALEDASEM",
+        "pagu": 121440000.0,
+        "siswa": 132,
+        "dana_sarpras": 24288000.0
+      },
+      {
+        "npsn": "20214708",
+        "nama_sekolah": "SD NEGERI 2 WALEDKOTA",
+        "pagu": 192280000.0,
+        "siswa": 209,
+        "dana_sarpras": 38456000.0
+      }
+    ],
+    "CILEDUG": [
+      {
+        "npsn": "20215294",
+        "nama_sekolah": "SD NEGERI 1 CILEDUGTENGAH",
+        "pagu": 284280000.0,
+        "siswa": 309,
+        "dana_sarpras": 56856000.0
+      },
+      {
+        "npsn": "20215186",
+        "nama_sekolah": "SD NEGERI 1 BOJONG NEGARA",
+        "pagu": 97520000.0,
+        "siswa": 106,
+        "dana_sarpras": 19504000.0
+      },
+      {
+        "npsn": "20215312",
+        "nama_sekolah": "SD NEGERI 1 CILEDUG LOR",
+        "pagu": 128800000.0,
+        "siswa": 140,
+        "dana_sarpras": 25760000.0
+      },
+      {
+        "npsn": "20215580",
+        "nama_sekolah": "SD NEGERI 1 TENJOMAYA",
+        "pagu": 356040000.0,
+        "siswa": 387,
+        "dana_sarpras": 71208000.0
+      },
+      {
+        "npsn": "20215549",
+        "nama_sekolah": "SD NEGERI 2 BOJONGNEGARA",
+        "pagu": 143520000.0,
+        "siswa": 156,
+        "dana_sarpras": 28704000.0
+      },
+      {
+        "npsn": "20244363",
+        "nama_sekolah": "UPTD SD NEGERI 1 LEUWEUNGGAJAH",
+        "pagu": 327520000.0,
+        "siswa": 356,
+        "dana_sarpras": 65504000.0
+      },
+      {
+        "npsn": "20214483",
+        "nama_sekolah": "SD NEGERI 3 CILEDUG LOR",
+        "pagu": 106720000.0,
+        "siswa": 116,
+        "dana_sarpras": 21344000.0
+      },
+      {
+        "npsn": "20215079",
+        "nama_sekolah": "SD NEGERI 1 JATISEENG",
+        "pagu": 406640000.0,
+        "siswa": 442,
+        "dana_sarpras": 81328000.0
+      },
+      {
+        "npsn": "20215293",
+        "nama_sekolah": "SD NEGERI 1 CILEDUG WETAN",
+        "pagu": 106720000.0,
+        "siswa": 116,
+        "dana_sarpras": 21344000.0
+      },
+      {
+        "npsn": "20215353",
+        "nama_sekolah": "SD NEGERI 2 CILEDUG TENGAH",
+        "pagu": 180320000.0,
+        "siswa": 196,
+        "dana_sarpras": 36064000.0
+      },
+      {
+        "npsn": "20215311",
+        "nama_sekolah": "SD NEGERI 1 DAMARGUNA",
+        "pagu": 218960000.0,
+        "siswa": 238,
+        "dana_sarpras": 43792000.0
+      },
+      {
+        "npsn": "20215352",
+        "nama_sekolah": "SD NEGERI 2 CILEDUGWETAN",
+        "pagu": 120520000.0,
+        "siswa": 131,
+        "dana_sarpras": 24104000.0
+      },
+      {
+        "npsn": "20215078",
+        "nama_sekolah": "SD NEGERI 1 JATISEENG KIDUL",
+        "pagu": 467360000.0,
+        "siswa": 508,
+        "dana_sarpras": 93472000.0
+      },
+      {
+        "npsn": "20215175",
+        "nama_sekolah": "SD NEGERI 1 CILEDUG KULON",
+        "pagu": 354200000.0,
+        "siswa": 385,
+        "dana_sarpras": 70840000.0
+      },
+      {
+        "npsn": "20215373",
+        "nama_sekolah": "SD NEGERI 2 DAMARGUNA",
+        "pagu": 366160000.0,
+        "siswa": 398,
+        "dana_sarpras": 73232000.0
+      }
+    ],
+    "LOSARI": [
+      {
+        "npsn": "20215472",
+        "nama_sekolah": "SD NEGERI 1 TAWANGSARI",
+        "pagu": 221720000.0,
+        "siswa": 241,
+        "dana_sarpras": 44344000.0
+      },
+      {
+        "npsn": "20214689",
+        "nama_sekolah": "SD NEGERI 2 TAWANGSARI",
+        "pagu": 207000000.0,
+        "siswa": 225,
+        "dana_sarpras": 41400000.0
+      },
+      {
+        "npsn": "20215446",
+        "nama_sekolah": "SD NEGERI 2 KALISARI",
+        "pagu": 269560000.0,
+        "siswa": 293,
+        "dana_sarpras": 53912000.0
+      },
+      {
+        "npsn": "20215218",
+        "nama_sekolah": "SD NEGERI 1 AMBULU",
+        "pagu": 222640000.0,
+        "siswa": 242,
+        "dana_sarpras": 44528000.0
+      },
+      {
+        "npsn": "20214668",
+        "nama_sekolah": "SD NEGERI 2 LOSARI LOR",
+        "pagu": 151800000.0,
+        "siswa": 165,
+        "dana_sarpras": 30360000.0
+      },
+      {
+        "npsn": "20215125",
+        "nama_sekolah": "SD NEGERI 1 PANGGANGSARI",
+        "pagu": 111320000.0,
+        "siswa": 121,
+        "dana_sarpras": 22264000.0
+      },
+      {
+        "npsn": "20214914",
+        "nama_sekolah": "SD NEGERI MULYASARI",
+        "pagu": 21160000.0,
+        "siswa": 23,
+        "dana_sarpras": 4232000.0
+      },
+      {
+        "npsn": "20215213",
+        "nama_sekolah": "SD NEGERI 1 ASTANALANGGAR",
+        "pagu": 396520000.0,
+        "siswa": 431,
+        "dana_sarpras": 79304000.0
+      },
+      {
+        "npsn": "20214505",
+        "nama_sekolah": "SD NEGERI 3 ASTANALANGGAR",
+        "pagu": 149040000.0,
+        "siswa": 162,
+        "dana_sarpras": 29808000.0
+      },
+      {
+        "npsn": "20215237",
+        "nama_sekolah": "SD NEGERI 1 BARISAN",
+        "pagu": 209760000.0,
+        "siswa": 228,
+        "dana_sarpras": 41952000.0
+      },
+      {
+        "npsn": "20215140",
+        "nama_sekolah": "UPTD SD NEGERI 1 LOSARI KIDUL",
+        "pagu": 328440000.0,
+        "siswa": 357,
+        "dana_sarpras": 65688000.0
+      },
+      {
+        "npsn": "20215092",
+        "nama_sekolah": "SD NEGERI 1 KALIRAHAYU",
+        "pagu": 334880000.0,
+        "siswa": 364,
+        "dana_sarpras": 66976000.0
+      },
+      {
+        "npsn": "20214620",
+        "nama_sekolah": "SD NEGERI 2 PANGGANGSARI",
+        "pagu": 234600000.0,
+        "siswa": 255,
+        "dana_sarpras": 46920000.0
+      },
+      {
+        "npsn": "20215139",
+        "nama_sekolah": "SD NEGERI 1 LOSARI LOR",
+        "pagu": 224480000.0,
+        "siswa": 244,
+        "dana_sarpras": 44896000.0
+      },
+      {
+        "npsn": "20215090",
+        "nama_sekolah": "SD NEGERI 1 KALISARI",
+        "pagu": 325680000.0,
+        "siswa": 354,
+        "dana_sarpras": 65136000.0
+      },
+      {
+        "npsn": "20214507",
+        "nama_sekolah": "SD NEGERI 3 AMBULU",
+        "pagu": 135240000.0,
+        "siswa": 147,
+        "dana_sarpras": 27048000.0
+      }
+    ],
+    "PABEDILAN": [
+      {
+        "npsn": "20214632",
+        "nama_sekolah": "SD NEGERI 2 PABEDILAN KALER",
+        "pagu": 103040000.0,
+        "siswa": 112,
+        "dana_sarpras": 20608000.0
+      },
+      {
+        "npsn": "20244382",
+        "nama_sekolah": "UPTD D NEGERI 1 TERSANA",
+        "pagu": 517040000.0,
+        "siswa": 562,
+        "dana_sarpras": 103408000.0
+      },
+      {
+        "npsn": "20244512",
+        "nama_sekolah": "SD NEGERI 3 PASURUAN",
+        "pagu": 141680000.0,
+        "siswa": 154,
+        "dana_sarpras": 28336000.0
+      },
+      {
+        "npsn": "20215138",
+        "nama_sekolah": "SD NEGERI 1 PABEDILANKALER",
+        "pagu": 326600000.0,
+        "siswa": 355,
+        "dana_sarpras": 65320000.0
+      },
+      {
+        "npsn": "20244372",
+        "nama_sekolah": "SD NEGERI 1 PASURUAN",
+        "pagu": 278760000.0,
+        "siswa": 303,
+        "dana_sarpras": 55752000.0
+      },
+      {
+        "npsn": "20215136",
+        "nama_sekolah": "UPTD SD NEGERI 1 PABEDILAN KULON",
+        "pagu": 491280000.0,
+        "siswa": 534,
+        "dana_sarpras": 98256000.0
+      },
+      {
+        "npsn": "20215367",
+        "nama_sekolah": "SD NEGERI 1 DUKUHWIDARA",
+        "pagu": 134320000.0,
+        "siswa": 146,
+        "dana_sarpras": 26864000.0
+      },
+      {
+        "npsn": "20214472",
+        "nama_sekolah": "SD NEGERI 2 DUKUHWIDARA",
+        "pagu": 112240000.0,
+        "siswa": 122,
+        "dana_sarpras": 22448000.0
+      },
+      {
+        "npsn": "20215137",
+        "nama_sekolah": "SD NEGERI 1 PABEDILANKIDUL",
+        "pagu": 210680000.0,
+        "siswa": 229,
+        "dana_sarpras": 42136000.0
+      },
+      {
+        "npsn": "20215087",
+        "nama_sekolah": "SD NEGERI 1 KALIBUNTU",
+        "pagu": 341320000.0,
+        "siswa": 371,
+        "dana_sarpras": 68264000.0
+      },
+      {
+        "npsn": "20214631",
+        "nama_sekolah": "SD NEGERI 2 PABEDILAN KIDUL",
+        "pagu": 185840000.0,
+        "siswa": 202,
+        "dana_sarpras": 37168000.0
+      },
+      {
+        "npsn": "20215094",
+        "nama_sekolah": "SD NEGERI 1 KALIMUKTI",
+        "pagu": 223560000.0,
+        "siswa": 243,
+        "dana_sarpras": 44712000.0
+      },
+      {
+        "npsn": "20214487",
+        "nama_sekolah": "SD NEGERI 2 KALIBUNTU",
+        "pagu": 56120000.0,
+        "siswa": 61,
+        "dana_sarpras": 11224000.0
+      },
+      {
+        "npsn": "20244380",
+        "nama_sekolah": "SD NEGERI 1 SIDARESMI",
+        "pagu": 161920000.0,
+        "siswa": 176,
+        "dana_sarpras": 32384000.0
+      },
+      {
+        "npsn": "20215226",
+        "nama_sekolah": "SD NEGERI 1 BABAKANLOSARI",
+        "pagu": 184000000.0,
+        "siswa": 200,
+        "dana_sarpras": 36800000.0
+      },
+      {
+        "npsn": "20214520",
+        "nama_sekolah": "SD NEGERI 3 BABAKANLOSARI",
+        "pagu": 137080000.0,
+        "siswa": 149,
+        "dana_sarpras": 27416000.0
+      },
+      {
+        "npsn": "20215135",
+        "nama_sekolah": "SD NEGERI 1 PABEDILANWETAN",
+        "pagu": 309120000.0,
+        "siswa": 336,
+        "dana_sarpras": 61824000.0
+      },
+      {
+        "npsn": "20215227",
+        "nama_sekolah": "SD NEGERI 1 BABAKAN LOSARI LOR",
+        "pagu": 86480000.0,
+        "siswa": 94,
+        "dana_sarpras": 17296000.0
+      },
+      {
+        "npsn": "20215488",
+        "nama_sekolah": "SD NEGERI 1 SILIH ASIH",
+        "pagu": 260360000.0,
+        "siswa": 283,
+        "dana_sarpras": 52072000.0
+      }
+    ],
+    "BABAKAN": [
+      {
+        "npsn": "20215192",
+        "nama_sekolah": "SD NEGERI 1 CANGKUANG",
+        "pagu": 268640000.0,
+        "siswa": 292,
+        "dana_sarpras": 53728000.0
+      },
+      {
+        "npsn": "20215065",
+        "nama_sekolah": "SD NEGERI 1 KARANGWANGUN",
+        "pagu": 138920000.0,
+        "siswa": 151,
+        "dana_sarpras": 27784000.0
+      },
+      {
+        "npsn": "20215210",
+        "nama_sekolah": "SD NEGERI 1 BABAKANGEBANG",
+        "pagu": 403880000.0,
+        "siswa": 439,
+        "dana_sarpras": 80776000.0
+      },
+      {
+        "npsn": "20215254",
+        "nama_sekolah": "SD NEGERI 1 GEMBONGANMEKAR",
+        "pagu": 386400000.0,
+        "siswa": 420,
+        "dana_sarpras": 77280000.0
+      },
+      {
+        "npsn": "20215253",
+        "nama_sekolah": "SD NEGERI 1 GEMBONGAN",
+        "pagu": 293480000.0,
+        "siswa": 319,
+        "dana_sarpras": 58696000.0
+      },
+      {
+        "npsn": "20214523",
+        "nama_sekolah": "SD NEGERI 3 CANGKUANG",
+        "pagu": 200560000.0,
+        "siswa": 218,
+        "dana_sarpras": 40112000.0
+      },
+      {
+        "npsn": "20215189",
+        "nama_sekolah": "SD NEGERI 1 BOJONGGEBANG",
+        "pagu": 178480000.0,
+        "siswa": 194,
+        "dana_sarpras": 35696000.0
+      },
+      {
+        "npsn": "20215561",
+        "nama_sekolah": "SD NEGERI 2 BOJONGGEBANG",
+        "pagu": 92920000.0,
+        "siswa": 101,
+        "dana_sarpras": 18584000.0
+      },
+      {
+        "npsn": "20215009",
+        "nama_sekolah": "SD NEGERI 1 SERANGWETAN",
+        "pagu": 161920000.0,
+        "siswa": 176,
+        "dana_sarpras": 32384000.0
+      },
+      {
+        "npsn": "20215533",
+        "nama_sekolah": "SD NEGERI 2 BABAKANGEBANG",
+        "pagu": 379960000.0,
+        "siswa": 413,
+        "dana_sarpras": 75992000.0
+      },
+      {
+        "npsn": "20214519",
+        "nama_sekolah": "SD NEGERI 3 BABAKAN GEBANG",
+        "pagu": 154560000.0,
+        "siswa": 168,
+        "dana_sarpras": 30912000.0
+      },
+      {
+        "npsn": "20214504",
+        "nama_sekolah": "SD NEGERI 3 BABAKAN",
+        "pagu": 102120000.0,
+        "siswa": 111,
+        "dana_sarpras": 20424000.0
+      },
+      {
+        "npsn": "20215387",
+        "nama_sekolah": "UPTD SD NEGERI 2 KARANGWANGUN",
+        "pagu": 334880000.0,
+        "siswa": 364,
+        "dana_sarpras": 66976000.0
+      },
+      {
+        "npsn": "20215470",
+        "nama_sekolah": "SD NEGERI 1 SUMBERKIDUL",
+        "pagu": 241040000.0,
+        "siswa": 262,
+        "dana_sarpras": 48208000.0
+      },
+      {
+        "npsn": "20214701",
+        "nama_sekolah": "SD NEGERI 2 SUMBERKIDUL",
+        "pagu": 200560000.0,
+        "siswa": 218,
+        "dana_sarpras": 40112000.0
+      },
+      {
+        "npsn": "20215131",
+        "nama_sekolah": "SD NEGERI 1 PAKUSAMBEN",
+        "pagu": 385480000.0,
+        "siswa": 419,
+        "dana_sarpras": 77096000.0
+      },
+      {
+        "npsn": "20244348",
+        "nama_sekolah": "SD NEGERI 1 BABAKAN",
+        "pagu": 200560000.0,
+        "siswa": 218,
+        "dana_sarpras": 40112000.0
+      },
+      {
+        "npsn": "20215003",
+        "nama_sekolah": "SD NEGERI TERSANA BARU",
+        "pagu": 415840000.0,
+        "siswa": 452,
+        "dana_sarpras": 83168000.0
+      },
+      {
+        "npsn": "20215166",
+        "nama_sekolah": "SD NEGERI 1 KUDUKERAS",
+        "pagu": 331200000.0,
+        "siswa": 360,
+        "dana_sarpras": 66240000.0
+      },
+      {
+        "npsn": "20215471",
+        "nama_sekolah": "SD NEGERI 1 SUMBERLOR",
+        "pagu": 361560000.0,
+        "siswa": 393,
+        "dana_sarpras": 72312000.0
+      },
+      {
+        "npsn": "20215165",
+        "nama_sekolah": "SD NEGERI 1 KUDUMULYA",
+        "pagu": 356960000.0,
+        "siswa": 388,
+        "dana_sarpras": 71392000.0
+      },
+      {
+        "npsn": "20214753",
+        "nama_sekolah": "SD NEGERI 2 SERANGWETAN",
+        "pagu": 170200000.0,
+        "siswa": 185,
+        "dana_sarpras": 34040000.0
+      },
+      {
+        "npsn": "20215010",
+        "nama_sekolah": "SD NEGERI 1 SERANGKULON",
+        "pagu": 154560000.0,
+        "siswa": 168,
+        "dana_sarpras": 30912000.0
+      },
+      {
+        "npsn": "20214626",
+        "nama_sekolah": "SD NEGERI 2 PAKUSAMBEN",
+        "pagu": 229080000.0,
+        "siswa": 249,
+        "dana_sarpras": 45816000.0
+      }
+    ],
+    "KARANGSEMBUNG": [
+      {
+        "npsn": "20215391",
+        "nama_sekolah": "SD NEGERI 2 KARANGSEMBUNG",
+        "pagu": 129720000.0,
+        "siswa": 141,
+        "dana_sarpras": 25944000.0
+      },
+      {
+        "npsn": "20215396",
+        "nama_sekolah": "SD NEGERI 2 KARANGMEKAR",
+        "pagu": 129720000.0,
+        "siswa": 141,
+        "dana_sarpras": 25944000.0
+      },
+      {
+        "npsn": "20215099",
+        "nama_sekolah": "SD NEGERI 1 KALIMEANG",
+        "pagu": 110400000.0,
+        "siswa": 120,
+        "dana_sarpras": 22080000.0
+      },
+      {
+        "npsn": "20214592",
+        "nama_sekolah": "SD NEGERI 3 KARANGSEMBUNG",
+        "pagu": 324760000.0,
+        "siswa": 353,
+        "dana_sarpras": 64952000.0
+      },
+      {
+        "npsn": "20215045",
+        "nama_sekolah": "SD NEGERI 1 KARANGMEKAR",
+        "pagu": 189520000.0,
+        "siswa": 206,
+        "dana_sarpras": 37904000.0
+      },
+      {
+        "npsn": "20215043",
+        "nama_sekolah": "SD NEGERI 1 KARANGSUWUNG",
+        "pagu": 204240000.0,
+        "siswa": 222,
+        "dana_sarpras": 40848000.0
+      },
+      {
+        "npsn": "20215389",
+        "nama_sekolah": "SD NEGERI 2 KARANGTENGAH",
+        "pagu": 303600000.0,
+        "siswa": 330,
+        "dana_sarpras": 60720000.0
+      },
+      {
+        "npsn": "20214593",
+        "nama_sekolah": "SD NEGERI 3 KARANGMEKAR",
+        "pagu": 148120000.0,
+        "siswa": 161,
+        "dana_sarpras": 29624000.0
+      },
+      {
+        "npsn": "20215450",
+        "nama_sekolah": "SD NEGERI 2 KALIMEANG",
+        "pagu": 128800000.0,
+        "siswa": 140,
+        "dana_sarpras": 25760000.0
+      },
+      {
+        "npsn": "20215016",
+        "nama_sekolah": "SD NEGERI 3 KALIMEANG",
+        "pagu": 71760000.0,
+        "siswa": 78,
+        "dana_sarpras": 14352000.0
+      },
+      {
+        "npsn": "20215167",
+        "nama_sekolah": "SD NEGERI 1 KUBANGKARANG",
+        "pagu": 196880000.0,
+        "siswa": 214,
+        "dana_sarpras": 39376000.0
+      },
+      {
+        "npsn": "20215053",
+        "nama_sekolah": "SD NEGERI 1 KARANGSEMBUNG",
+        "pagu": 58880000.0,
+        "siswa": 64,
+        "dana_sarpras": 11776000.0
+      },
+      {
+        "npsn": "20215475",
+        "nama_sekolah": "SD NEGERI 1 TAMBELANG",
+        "pagu": 230000000.0,
+        "siswa": 250,
+        "dana_sarpras": 46000000.0
+      },
+      {
+        "npsn": "20215046",
+        "nama_sekolah": "SD NEGERI 1 KARANGMALANG",
+        "pagu": 227240000.0,
+        "siswa": 247,
+        "dana_sarpras": 45448000.0
+      },
+      {
+        "npsn": "20215390",
+        "nama_sekolah": "SD NEGERI 2 KARANGSUWUNG",
+        "pagu": 204240000.0,
+        "siswa": 222,
+        "dana_sarpras": 40848000.0
+      },
+      {
+        "npsn": "20215067",
+        "nama_sekolah": "SD NEGERI 1 KARANGTENGAH",
+        "pagu": 75440000.0,
+        "siswa": 82,
+        "dana_sarpras": 15088000.0
+      },
+      {
+        "npsn": "20214692",
+        "nama_sekolah": "SD NEGERI 2 TAMBELANG",
+        "pagu": 82800000.0,
+        "siswa": 90,
+        "dana_sarpras": 16560000.0
+      },
+      {
+        "npsn": "20215398",
+        "nama_sekolah": "SD NEGERI 2 KARANGMALANG",
+        "pagu": 128800000.0,
+        "siswa": 140,
+        "dana_sarpras": 25760000.0
+      }
+    ],
+    "LEMAHABANG": [
+      {
+        "npsn": "20215164",
+        "nama_sekolah": "SD NEGERI 1 LEUWIDINGDING",
+        "pagu": 180320000.0,
+        "siswa": 196,
+        "dana_sarpras": 36064000.0
+      },
+      {
+        "npsn": "20215517",
+        "nama_sekolah": "SD NEGERI 1 SARAJAYA",
+        "pagu": 129720000.0,
+        "siswa": 141,
+        "dana_sarpras": 25944000.0
+      },
+      {
+        "npsn": "20215216",
+        "nama_sekolah": "SD NEGERI 1 ASEM",
+        "pagu": 178480000.0,
+        "siswa": 194,
+        "dana_sarpras": 35696000.0
+      },
+      {
+        "npsn": "20215584",
+        "nama_sekolah": "SD NEGERI 1 WANGKELANG",
+        "pagu": 273240000.0,
+        "siswa": 297,
+        "dana_sarpras": 54648000.0
+      },
+      {
+        "npsn": "20215464",
+        "nama_sekolah": "UPTD SD NEGERI 1 SINDANGLAUT",
+        "pagu": 349600000.0,
+        "siswa": 380,
+        "dana_sarpras": 69920000.0
+      },
+      {
+        "npsn": "20215162",
+        "nama_sekolah": "SD NEGERI 1 LEMAHABANG",
+        "pagu": 130640000.0,
+        "siswa": 142,
+        "dana_sarpras": 26128000.0
+      },
+      {
+        "npsn": "20214726",
+        "nama_sekolah": "SD NEGERI 2 SARAJAYA",
+        "pagu": 151800000.0,
+        "siswa": 165,
+        "dana_sarpras": 30360000.0
+      },
+      {
+        "npsn": "20215381",
+        "nama_sekolah": "SD NEGERI 2 CIPEUJEUH KULON",
+        "pagu": 270480000.0,
+        "siswa": 294,
+        "dana_sarpras": 54096000.0
+      },
+      {
+        "npsn": "20214479",
+        "nama_sekolah": "SD NEGERI 3 CIPEUJEUH WETAN",
+        "pagu": 323840000.0,
+        "siswa": 352,
+        "dana_sarpras": 64768000.0
+      },
+      {
+        "npsn": "20214656",
+        "nama_sekolah": "SD NEGERI 2 LEMAHABANG",
+        "pagu": 357880000.0,
+        "siswa": 389,
+        "dana_sarpras": 71576000.0
+      },
+      {
+        "npsn": "20215161",
+        "nama_sekolah": "SD NEGERI 1 LEMAHABANG KULON",
+        "pagu": 207920000.0,
+        "siswa": 226,
+        "dana_sarpras": 41584000.0
+      },
+      {
+        "npsn": "20215506",
+        "nama_sekolah": "UPTD SD NEGERI 1 SIGONG",
+        "pagu": 272320000.0,
+        "siswa": 296,
+        "dana_sarpras": 54464000.0
+      },
+      {
+        "npsn": "20246442",
+        "nama_sekolah": "SD NEGERI 1 PICUNGPUGUR",
+        "pagu": 106720000.0,
+        "siswa": 116,
+        "dana_sarpras": 21344000.0
+      },
+      {
+        "npsn": "20244513",
+        "nama_sekolah": "SD NEGERI 4 SIGONG",
+        "pagu": 197800000.0,
+        "siswa": 215,
+        "dana_sarpras": 39560000.0
+      },
+      {
+        "npsn": "20246445",
+        "nama_sekolah": "SD NEGERI 1 TUK KARANGSUWUNG",
+        "pagu": 185840000.0,
+        "siswa": 202,
+        "dana_sarpras": 37168000.0
+      },
+      {
+        "npsn": "20215287",
+        "nama_sekolah": "UPTD SD NEGERI 1 CIPEUJEUH KULON",
+        "pagu": 269560000.0,
+        "siswa": 293,
+        "dana_sarpras": 53912000.0
+      },
+      {
+        "npsn": "20215230",
+        "nama_sekolah": "SD NEGERI 1 BELAWA",
+        "pagu": 285200000.0,
+        "siswa": 310,
+        "dana_sarpras": 57040000.0
+      },
+      {
+        "npsn": "20215380",
+        "nama_sekolah": "SD NEGERI 2 CIPEUJEUH WETAN",
+        "pagu": 178480000.0,
+        "siswa": 194,
+        "dana_sarpras": 35696000.0
+      },
+      {
+        "npsn": "20215286",
+        "nama_sekolah": "SD NEGERI 1 CIPEUJEUH WETAN",
+        "pagu": 367080000.0,
+        "siswa": 399,
+        "dana_sarpras": 73416000.0
+      },
+      {
+        "npsn": "20214570",
+        "nama_sekolah": "SD NEGERI 3 SIGONG",
+        "pagu": 200560000.0,
+        "siswa": 218,
+        "dana_sarpras": 40112000.0
+      },
+      {
+        "npsn": "20215564",
+        "nama_sekolah": "SD NEGERI 2 BELAWA",
+        "pagu": 217120000.0,
+        "siswa": 236,
+        "dana_sarpras": 43424000.0
+      }
+    ],
+    "SUSUKANLEBAK": [
+      {
+        "npsn": "20215477",
+        "nama_sekolah": "SD NEGERI 1 SUSUKANTONGGOH",
+        "pagu": 135240000.0,
+        "siswa": 147,
+        "dana_sarpras": 27048000.0
+      },
+      {
+        "npsn": "20215478",
+        "nama_sekolah": "SD NEGERI 1 SUSUKAN LEBAK",
+        "pagu": 91080000.0,
+        "siswa": 99,
+        "dana_sarpras": 18216000.0
+      },
+      {
+        "npsn": "20215296",
+        "nama_sekolah": "SD NEGERI 1 CURUGWETAN",
+        "pagu": 296240000.0,
+        "siswa": 322,
+        "dana_sarpras": 59248000.0
+      },
+      {
+        "npsn": "20215202",
+        "nama_sekolah": "SD NEGERI 1 CIAWIJAPURA",
+        "pagu": 178480000.0,
+        "siswa": 194,
+        "dana_sarpras": 35696000.0
+      },
+      {
+        "npsn": "20214522",
+        "nama_sekolah": "SD NEGERI 3 CIAWIASIH",
+        "pagu": 158240000.0,
+        "siswa": 172,
+        "dana_sarpras": 31648000.0
+      },
+      {
+        "npsn": "20215418",
+        "nama_sekolah": "SD NEGERI 2 KALIGAWE",
+        "pagu": 126040000.0,
+        "siswa": 137,
+        "dana_sarpras": 25208000.0
+      },
+      {
+        "npsn": "20215588",
+        "nama_sekolah": "SD NEGERI 1 WILULANG",
+        "pagu": 102120000.0,
+        "siswa": 111,
+        "dana_sarpras": 20424000.0
+      },
+      {
+        "npsn": "20215479",
+        "nama_sekolah": "SD NEGERI 1 SUSUKANAGUNG",
+        "pagu": 201480000.0,
+        "siswa": 219,
+        "dana_sarpras": 40296000.0
+      },
+      {
+        "npsn": "20215495",
+        "nama_sekolah": "SD NEGERI 1 PASAWAHAN",
+        "pagu": 134320000.0,
+        "siswa": 146,
+        "dana_sarpras": 26864000.0
+      },
+      {
+        "npsn": "20215295",
+        "nama_sekolah": "SD NEGERI 1 CURUG",
+        "pagu": 276920000.0,
+        "siswa": 301,
+        "dana_sarpras": 55384000.0
+      },
+      {
+        "npsn": "20215204",
+        "nama_sekolah": "SD NEGERI 1 CIAWIASIH",
+        "pagu": 222640000.0,
+        "siswa": 242,
+        "dana_sarpras": 44528000.0
+      },
+      {
+        "npsn": "20215100",
+        "nama_sekolah": "SD NEGERI 1 KALIGAWE WETAN",
+        "pagu": 181240000.0,
+        "siswa": 197,
+        "dana_sarpras": 36248000.0
+      },
+      {
+        "npsn": "20252017",
+        "nama_sekolah": "SD NEGERI 2 CIAWIJAPURA",
+        "pagu": 198720000.0,
+        "siswa": 216,
+        "dana_sarpras": 39744000.0
+      },
+      {
+        "npsn": "20215101",
+        "nama_sekolah": "SD NEGERI 1 KALIGAWE",
+        "pagu": 109480000.0,
+        "siswa": 119,
+        "dana_sarpras": 21896000.0
+      },
+      {
+        "npsn": "20215039",
+        "nama_sekolah": "SD NEGERI 1 KARANGMANGU",
+        "pagu": 226320000.0,
+        "siswa": 246,
+        "dana_sarpras": 45264000.0
+      },
+      {
+        "npsn": "20215011",
+        "nama_sekolah": "SD NEGERI 1 SAMPIH",
+        "pagu": 220800000.0,
+        "siswa": 240,
+        "dana_sarpras": 44160000.0
+      }
+    ],
+    "SEDONG": [
+      {
+        "npsn": "20215127",
+        "nama_sekolah": "SD NEGERI 1 PANAMBANGAN",
+        "pagu": 160080000.0,
+        "siswa": 174,
+        "dana_sarpras": 32016000.0
+      },
+      {
+        "npsn": "20214575",
+        "nama_sekolah": "SD NEGERI 3 SEDONG LOR",
+        "pagu": 117760000.0,
+        "siswa": 128,
+        "dana_sarpras": 23552000.0
+      },
+      {
+        "npsn": "20215064",
+        "nama_sekolah": "UPTD SD NEGERI 1 KARANG WUNI",
+        "pagu": 368920000.0,
+        "siswa": 401,
+        "dana_sarpras": 73784000.0
+      },
+      {
+        "npsn": "20214731",
+        "nama_sekolah": "SD NEGERI 2 PUTAT",
+        "pagu": 241960000.0,
+        "siswa": 263,
+        "dana_sarpras": 48392000.0
+      },
+      {
+        "npsn": "20215512",
+        "nama_sekolah": "UPTD SD NEGERI 1 SEDONG LOR",
+        "pagu": 221720000.0,
+        "siswa": 241,
+        "dana_sarpras": 44344000.0
+      },
+      {
+        "npsn": "20214511",
+        "nama_sekolah": "SD NEGERI 2 WINDUJAYA",
+        "pagu": 157320000.0,
+        "siswa": 171,
+        "dana_sarpras": 31464000.0
+      },
+      {
+        "npsn": "20215515",
+        "nama_sekolah": "UPTD SD NEGERI 1 SEDONG KIDUL",
+        "pagu": 281520000.0,
+        "siswa": 306,
+        "dana_sarpras": 56304000.0
+      },
+      {
+        "npsn": "20246439",
+        "nama_sekolah": "SD NEGERI 1 PANONGANLOR",
+        "pagu": 276000000.0,
+        "siswa": 300,
+        "dana_sarpras": 55200000.0
+      },
+      {
+        "npsn": "20214636",
+        "nama_sekolah": "SD NEGERI 2 PANAMBANGAN",
+        "pagu": 128800000.0,
+        "siswa": 140,
+        "dana_sarpras": 25760000.0
+      },
+      {
+        "npsn": "20214512",
+        "nama_sekolah": "SD NEGERI 2 WINDUHAJI",
+        "pagu": 122360000.0,
+        "siswa": 133,
+        "dana_sarpras": 24472000.0
+      },
+      {
+        "npsn": "20214724",
+        "nama_sekolah": "SD NEGERI 2 SEDONG KIDUL",
+        "pagu": 178480000.0,
+        "siswa": 194,
+        "dana_sarpras": 35696000.0
+      },
+      {
+        "npsn": "20214647",
+        "nama_sekolah": "SD NEGERI 2 PANONGAN LOR",
+        "pagu": 149960000.0,
+        "siswa": 163,
+        "dana_sarpras": 29992000.0
+      },
+      {
+        "npsn": "20215590",
+        "nama_sekolah": "SD NEGERI 1 WINDUJAYA",
+        "pagu": 186760000.0,
+        "siswa": 203,
+        "dana_sarpras": 37352000.0
+      },
+      {
+        "npsn": "20214916",
+        "nama_sekolah": "SD NEGERI 1 KERTAWANGUN",
+        "pagu": 133400000.0,
+        "siswa": 145,
+        "dana_sarpras": 26680000.0
+      },
+      {
+        "npsn": "20246446",
+        "nama_sekolah": "SD NEGERI 1 WINDUHAJI",
+        "pagu": 136160000.0,
+        "siswa": 148,
+        "dana_sarpras": 27232000.0
+      },
+      {
+        "npsn": "20215014",
+        "nama_sekolah": "UPTD SDN 1 Panongan",
+        "pagu": 395600000.0,
+        "siswa": 430,
+        "dana_sarpras": 79120000.0
+      },
+      {
+        "npsn": "20215504",
+        "nama_sekolah": "SD NEGERI 1 PUTAT",
+        "pagu": 335800000.0,
+        "siswa": 365,
+        "dana_sarpras": 67160000.0
+      }
+    ],
+    "ASTANAJAPURA": [
+      {
+        "npsn": "20215439",
+        "nama_sekolah": "SD NEGERI 2 KANCI",
+        "pagu": 83720000.0,
+        "siswa": 91,
+        "dana_sarpras": 16744000.0
+      },
+      {
+        "npsn": "20215047",
+        "nama_sekolah": "SD NEGERI 1 KANCIKULON",
+        "pagu": 252080000.0,
+        "siswa": 274,
+        "dana_sarpras": 50416000.0
+      },
+      {
+        "npsn": "20215432",
+        "nama_sekolah": "SD NEGERI 2 JAPURA KIDUL",
+        "pagu": 116840000.0,
+        "siswa": 127,
+        "dana_sarpras": 23368000.0
+      },
+      {
+        "npsn": "20215108",
+        "nama_sekolah": "SD NEGERI 1 MERTAPADA WETAN",
+        "pagu": 82800000.0,
+        "siswa": 90,
+        "dana_sarpras": 16560000.0
+      },
+      {
+        "npsn": "20215214",
+        "nama_sekolah": "SD NEGERI 1 ASTANAJAPURA",
+        "pagu": 203320000.0,
+        "siswa": 221,
+        "dana_sarpras": 40664000.0
+      },
+      {
+        "npsn": "20214675",
+        "nama_sekolah": "SD NEGERI 2 MERTAPADA KULON",
+        "pagu": 189520000.0,
+        "siswa": 206,
+        "dana_sarpras": 37904000.0
+      },
+      {
+        "npsn": "20215438",
+        "nama_sekolah": "SD NEGERI 2 KANCIKULON",
+        "pagu": 270480000.0,
+        "siswa": 294,
+        "dana_sarpras": 54096000.0
+      },
+      {
+        "npsn": "20214493",
+        "nama_sekolah": "SD NEGERI 3 JAPURA KIDUL",
+        "pagu": 43240000.0,
+        "siswa": 47,
+        "dana_sarpras": 8648000.0
+      },
+      {
+        "npsn": "20215245",
+        "nama_sekolah": "SD NEGERI 1 JAPURABAKTI",
+        "pagu": 209760000.0,
+        "siswa": 228,
+        "dana_sarpras": 41952000.0
+      },
+      {
+        "npsn": "20215048",
+        "nama_sekolah": "SD NEGERI 1 KANCI",
+        "pagu": 387320000.0,
+        "siswa": 421,
+        "dana_sarpras": 77464000.0
+      },
+      {
+        "npsn": "20214670",
+        "nama_sekolah": "SD NEGERI 2 MUNJUL",
+        "pagu": 299920000.0,
+        "siswa": 326,
+        "dana_sarpras": 59984000.0
+      },
+      {
+        "npsn": "20244385",
+        "nama_sekolah": "SD NEGERI 2 ASTANAJAPURA",
+        "pagu": 172040000.0,
+        "siswa": 187,
+        "dana_sarpras": 34408000.0
+      },
+      {
+        "npsn": "20215543",
+        "nama_sekolah": "SD NEGERI 2 BUNTET",
+        "pagu": 248400000.0,
+        "siswa": 270,
+        "dana_sarpras": 49680000.0
+      },
+      {
+        "npsn": "20244366",
+        "nama_sekolah": "SD NEGERI 1 MUNJUL",
+        "pagu": 299000000.0,
+        "siswa": 325,
+        "dana_sarpras": 59800000.0
+      },
+      {
+        "npsn": "20215507",
+        "nama_sekolah": "SD NEGERI 1 SIDAMULYA",
+        "pagu": 232760000.0,
+        "siswa": 253,
+        "dana_sarpras": 46552000.0
+      },
+      {
+        "npsn": "20214551",
+        "nama_sekolah": "SD NEGERI 3 MERTAPADAKULON",
+        "pagu": 108560000.0,
+        "siswa": 118,
+        "dana_sarpras": 21712000.0
+      },
+      {
+        "npsn": "20215178",
+        "nama_sekolah": "SD NEGERI 1 BUNTET",
+        "pagu": 236440000.0,
+        "siswa": 257,
+        "dana_sarpras": 47288000.0
+      },
+      {
+        "npsn": "20215147",
+        "nama_sekolah": "SD NEGERI 1 KENDAL",
+        "pagu": 240120000.0,
+        "siswa": 261,
+        "dana_sarpras": 48024000.0
+      },
+      {
+        "npsn": "20214526",
+        "nama_sekolah": "SD NEGERI 3 BUNTET",
+        "pagu": 170200000.0,
+        "siswa": 185,
+        "dana_sarpras": 34040000.0
+      },
+      {
+        "npsn": "20215174",
+        "nama_sekolah": "SD NEGERI 1 JAPURA KIDUL",
+        "pagu": 109480000.0,
+        "siswa": 119,
+        "dana_sarpras": 21896000.0
+      },
+      {
+        "npsn": "20215109",
+        "nama_sekolah": "SD NEGERI 1 MERTAPADA KULON",
+        "pagu": 306360000.0,
+        "siswa": 333,
+        "dana_sarpras": 61272000.0
+      }
+    ],
+    "PANGENAN": [
+      {
+        "npsn": "20215431",
+        "nama_sekolah": "SD NEGERI 2 JAPURA LOR",
+        "pagu": 65320000.0,
+        "siswa": 71,
+        "dana_sarpras": 13064000.0
+      },
+      {
+        "npsn": "20215228",
+        "nama_sekolah": "SD NEGERI 1 BERINGIN",
+        "pagu": 196880000.0,
+        "siswa": 214,
+        "dana_sarpras": 39376000.0
+      },
+      {
+        "npsn": "20214730",
+        "nama_sekolah": "SD NEGERI 2 RAWAURIP",
+        "pagu": 368000000.0,
+        "siswa": 400,
+        "dana_sarpras": 73600000.0
+      },
+      {
+        "npsn": "20215013",
+        "nama_sekolah": "SD NEGERI 1 PANGARENGAN",
+        "pagu": 173880000.0,
+        "siswa": 189,
+        "dana_sarpras": 34776000.0
+      },
+      {
+        "npsn": "20214899",
+        "nama_sekolah": "SD NEGERI 1 ASTANAMUKTI",
+        "pagu": 150880000.0,
+        "siswa": 164,
+        "dana_sarpras": 30176000.0
+      },
+      {
+        "npsn": "20215249",
+        "nama_sekolah": "SD NEGERI 1 GETRAKMOYAN",
+        "pagu": 442520000.0,
+        "siswa": 481,
+        "dana_sarpras": 88504000.0
+      },
+      {
+        "npsn": "20244390",
+        "nama_sekolah": "SD NEGERI 2 BERINGIN",
+        "pagu": 147200000.0,
+        "siswa": 160,
+        "dana_sarpras": 29440000.0
+      },
+      {
+        "npsn": "20215015",
+        "nama_sekolah": "SD NEGERI 1 PANGENAN",
+        "pagu": 181240000.0,
+        "siswa": 197,
+        "dana_sarpras": 36248000.0
+      },
+      {
+        "npsn": "20215301",
+        "nama_sekolah": "SD NEGERI 1 ENDER",
+        "pagu": 131560000.0,
+        "siswa": 143,
+        "dana_sarpras": 26312000.0
+      },
+      {
+        "npsn": "20215328",
+        "nama_sekolah": "SD NEGERI 2 ENDER",
+        "pagu": 447120000.0,
+        "siswa": 486,
+        "dana_sarpras": 89424000.0
+      },
+      {
+        "npsn": "20214913",
+        "nama_sekolah": "SD NEGERI 1 BENDUNGAN",
+        "pagu": 249320000.0,
+        "siswa": 271,
+        "dana_sarpras": 49864000.0
+      },
+      {
+        "npsn": "20215520",
+        "nama_sekolah": "SD NEGERI 1 RAWAURIP",
+        "pagu": 176640000.0,
+        "siswa": 192,
+        "dana_sarpras": 35328000.0
+      },
+      {
+        "npsn": "20244358",
+        "nama_sekolah": "SD NEGERI 1 JAPURA LOR",
+        "pagu": 125120000.0,
+        "siswa": 136,
+        "dana_sarpras": 25024000.0
+      }
+    ],
+    "MUNDU": [
+      {
+        "npsn": "20215457",
+        "nama_sekolah": "UPTD SD NEGERI 1 SUCI",
+        "pagu": 602600000.0,
+        "siswa": 655,
+        "dana_sarpras": 120520000.0
+      },
+      {
+        "npsn": "20215008",
+        "nama_sekolah": "SD NEGERI 1 SINARANCANG",
+        "pagu": 198720000.0,
+        "siswa": 216,
+        "dana_sarpras": 39744000.0
+      },
+      {
+        "npsn": "20215238",
+        "nama_sekolah": "SD NEGERI 1 BANJARWANGUNAN",
+        "pagu": 683560000.0,
+        "siswa": 743,
+        "dana_sarpras": 136712000.0
+      },
+      {
+        "npsn": "20214750",
+        "nama_sekolah": "SD NEGERI 2 SETUPATOK",
+        "pagu": 80960000.0,
+        "siswa": 88,
+        "dana_sarpras": 16192000.0
+      },
+      {
+        "npsn": "20215497",
+        "nama_sekolah": "SD NEGERI 1 PENPEN",
+        "pagu": 268640000.0,
+        "siswa": 292,
+        "dana_sarpras": 53728000.0
+      },
+      {
+        "npsn": "20214635",
+        "nama_sekolah": "SD NEGERI 2 PENPEN",
+        "pagu": 351440000.0,
+        "siswa": 382,
+        "dana_sarpras": 70288000.0
+      },
+      {
+        "npsn": "20214684",
+        "nama_sekolah": "SD NEGERI 2 LUWUNG",
+        "pagu": 291640000.0,
+        "siswa": 317,
+        "dana_sarpras": 58328000.0
+      },
+      {
+        "npsn": "20215002",
+        "nama_sekolah": "SD NEGERI 1 WARUDUWUR",
+        "pagu": 201480000.0,
+        "siswa": 219,
+        "dana_sarpras": 40296000.0
+      },
+      {
+        "npsn": "20214897",
+        "nama_sekolah": "SD NEGERI 1 BANDENGAN",
+        "pagu": 157320000.0,
+        "siswa": 171,
+        "dana_sarpras": 31464000.0
+      },
+      {
+        "npsn": "20215377",
+        "nama_sekolah": "SD NEGERI 2 CITEMU",
+        "pagu": 128800000.0,
+        "siswa": 140,
+        "dana_sarpras": 25760000.0
+      },
+      {
+        "npsn": "20214580",
+        "nama_sekolah": "SD NEGERI 3 PENPEN",
+        "pagu": 223560000.0,
+        "siswa": 243,
+        "dana_sarpras": 44712000.0
+      },
+      {
+        "npsn": "20215282",
+        "nama_sekolah": "SD NEGERI 1 CITEMU",
+        "pagu": 178480000.0,
+        "siswa": 194,
+        "dana_sarpras": 35696000.0
+      },
+      {
+        "npsn": "20215509",
+        "nama_sekolah": "SD NEGERI 1 SETUPATOK",
+        "pagu": 380880000.0,
+        "siswa": 414,
+        "dana_sarpras": 76176000.0
+      },
+      {
+        "npsn": "20214623",
+        "nama_sekolah": "SD NEGERI 2 PAMENGKANG",
+        "pagu": 223560000.0,
+        "siswa": 243,
+        "dana_sarpras": 44712000.0
+      },
+      {
+        "npsn": "20214896",
+        "nama_sekolah": "SD NEGERI 1 MUNDUMESIGIT",
+        "pagu": 225400000.0,
+        "siswa": 245,
+        "dana_sarpras": 45080000.0
+      },
+      {
+        "npsn": "20215118",
+        "nama_sekolah": "SD NEGERI 1 LUWUNG",
+        "pagu": 199640000.0,
+        "siswa": 217,
+        "dana_sarpras": 39928000.0
+      },
+      {
+        "npsn": "20244367",
+        "nama_sekolah": "SD NEGERI 1 PAMENGKANG",
+        "pagu": 257600000.0,
+        "siswa": 280,
+        "dana_sarpras": 51520000.0
+      },
+      {
+        "npsn": "20215105",
+        "nama_sekolah": "SD NEGERI 1 MUNDUPESISIR",
+        "pagu": 244720000.0,
+        "siswa": 266,
+        "dana_sarpras": 48944000.0
+      },
+      {
+        "npsn": "20214671",
+        "nama_sekolah": "UPTD SD NEGERI 2 MUNDUPESISIR",
+        "pagu": 320160000.0,
+        "siswa": 348,
+        "dana_sarpras": 64032000.0
+      }
+    ],
+    "BEBER": [
+      {
+        "npsn": "20215335",
+        "nama_sekolah": "SD NEGERI 2 HALIMPU",
+        "pagu": 237360000.0,
+        "siswa": 258,
+        "dana_sarpras": 47472000.0
+      },
+      {
+        "npsn": "20215232",
+        "nama_sekolah": "SD NEGERI 1 BEBER",
+        "pagu": 299000000.0,
+        "siswa": 325,
+        "dana_sarpras": 59800000.0
+      },
+      {
+        "npsn": "20215197",
+        "nama_sekolah": "SD NEGERI 1 CIKANCAS",
+        "pagu": 165600000.0,
+        "siswa": 180,
+        "dana_sarpras": 33120000.0
+      },
+      {
+        "npsn": "20215285",
+        "nama_sekolah": "SD NEGERI 1 CIPINANG",
+        "pagu": 335800000.0,
+        "siswa": 365,
+        "dana_sarpras": 67160000.0
+      },
+      {
+        "npsn": "20244396",
+        "nama_sekolah": "SD NEGERI 2 CIAWIGAJAH",
+        "pagu": 312800000.0,
+        "siswa": 340,
+        "dana_sarpras": 62560000.0
+      },
+      {
+        "npsn": "20215360",
+        "nama_sekolah": "SD NEGERI 2 CIKANCAS",
+        "pagu": 182160000.0,
+        "siswa": 198,
+        "dana_sarpras": 36432000.0
+      },
+      {
+        "npsn": "20215538",
+        "nama_sekolah": "SD NEGERI 2 BEBER",
+        "pagu": 166520000.0,
+        "siswa": 181,
+        "dana_sarpras": 33304000.0
+      },
+      {
+        "npsn": "20215203",
+        "nama_sekolah": "SD NEGERI 1 CIAWIGAJAH",
+        "pagu": 271400000.0,
+        "siswa": 295,
+        "dana_sarpras": 54280000.0
+      },
+      {
+        "npsn": "20246441",
+        "nama_sekolah": "SD NEGERI 1 PATAPAN",
+        "pagu": 155480000.0,
+        "siswa": 169,
+        "dana_sarpras": 31096000.0
+      },
+      {
+        "npsn": "20215583",
+        "nama_sekolah": "SD NEGERI 1 WANAYASA",
+        "pagu": 161000000.0,
+        "siswa": 175,
+        "dana_sarpras": 32200000.0
+      },
+      {
+        "npsn": "20214530",
+        "nama_sekolah": "SD NEGERI 3 BEBER",
+        "pagu": 237360000.0,
+        "siswa": 258,
+        "dana_sarpras": 47472000.0
+      },
+      {
+        "npsn": "20214643",
+        "nama_sekolah": "SD NEGERI 2 PATAPAN",
+        "pagu": 109480000.0,
+        "siswa": 119,
+        "dana_sarpras": 21896000.0
+      },
+      {
+        "npsn": "20215466",
+        "nama_sekolah": "SD NEGERI 1 SINDANGKASIH",
+        "pagu": 152720000.0,
+        "siswa": 166,
+        "dana_sarpras": 30544000.0
+      },
+      {
+        "npsn": "20214743",
+        "nama_sekolah": "SD NEGERI 2 SINDANGKASIH",
+        "pagu": 237360000.0,
+        "siswa": 258,
+        "dana_sarpras": 47472000.0
+      },
+      {
+        "npsn": "20215171",
+        "nama_sekolah": "SD NEGERI 1 KONDANGSARI",
+        "pagu": 387320000.0,
+        "siswa": 421,
+        "dana_sarpras": 77464000.0
+      },
+      {
+        "npsn": "20214662",
+        "nama_sekolah": "SD NEGERI 2 KONDANGSARI",
+        "pagu": 237360000.0,
+        "siswa": 258,
+        "dana_sarpras": 47472000.0
+      },
+      {
+        "npsn": "20215468",
+        "nama_sekolah": "SD NEGERI 1 SINDANGHAYU",
+        "pagu": 139840000.0,
+        "siswa": 152,
+        "dana_sarpras": 27968000.0
+      },
+      {
+        "npsn": "20215267",
+        "nama_sekolah": "SD NEGERI 1 HALIMPU",
+        "pagu": 181240000.0,
+        "siswa": 197,
+        "dana_sarpras": 36248000.0
+      }
+    ],
+    "TALUN": [
+      {
+        "npsn": "20215288",
+        "nama_sekolah": "SD NEGERI 1 CIPERNA",
+        "pagu": 162840000.0,
+        "siswa": 177,
+        "dana_sarpras": 32568000.0
+      },
+      {
+        "npsn": "20215366",
+        "nama_sekolah": "SD NEGERI 2 CIPERNA",
+        "pagu": 235520000.0,
+        "siswa": 256,
+        "dana_sarpras": 47104000.0
+      },
+      {
+        "npsn": "20215207",
+        "nama_sekolah": "SD NEGERI 1 CEMPAKA",
+        "pagu": 268640000.0,
+        "siswa": 292,
+        "dana_sarpras": 53728000.0
+      },
+      {
+        "npsn": "20215059",
+        "nama_sekolah": "SD NEGERI 1 KECOMBERAN",
+        "pagu": 289800000.0,
+        "siswa": 315,
+        "dana_sarpras": 57960000.0
+      },
+      {
+        "npsn": "20215400",
+        "nama_sekolah": "SD NEGERI 2 KECOMBERAN",
+        "pagu": 103040000.0,
+        "siswa": 112,
+        "dana_sarpras": 20608000.0
+      },
+      {
+        "npsn": "20215401",
+        "nama_sekolah": "SD NEGERI 2 KEPONGPONGAN",
+        "pagu": 318320000.0,
+        "siswa": 346,
+        "dana_sarpras": 63664000.0
+      },
+      {
+        "npsn": "20214613",
+        "nama_sekolah": "SD NEGERI 3 KEPONGPONGAN",
+        "pagu": 96600000.0,
+        "siswa": 105,
+        "dana_sarpras": 19320000.0
+      },
+      {
+        "npsn": "20215144",
+        "nama_sekolah": "SD NEGERI 1 KERANDON",
+        "pagu": 339480000.0,
+        "siswa": 369,
+        "dana_sarpras": 67896000.0
+      },
+      {
+        "npsn": "20215284",
+        "nama_sekolah": "SD NEGERI 1 CIREBON GIRANG",
+        "pagu": 241960000.0,
+        "siswa": 263,
+        "dana_sarpras": 48392000.0
+      },
+      {
+        "npsn": "20215035",
+        "nama_sekolah": "SD NEGERI 2 KERANDON",
+        "pagu": 188600000.0,
+        "siswa": 205,
+        "dana_sarpras": 37720000.0
+      },
+      {
+        "npsn": "20214706",
+        "nama_sekolah": "SD NEGERI 2 WANASABA KIDUL",
+        "pagu": 224480000.0,
+        "siswa": 244,
+        "dana_sarpras": 44896000.0
+      },
+      {
+        "npsn": "20215169",
+        "nama_sekolah": "SD NEGERI 1 KUBANG",
+        "pagu": 216200000.0,
+        "siswa": 235,
+        "dana_sarpras": 43240000.0
+      },
+      {
+        "npsn": "20215569",
+        "nama_sekolah": "SD NEGERI 1 WANASABA KIDUL",
+        "pagu": 109480000.0,
+        "siswa": 119,
+        "dana_sarpras": 21896000.0
+      },
+      {
+        "npsn": "20215568",
+        "nama_sekolah": "SD NEGERI 1 WANASABA LOR",
+        "pagu": 177560000.0,
+        "siswa": 193,
+        "dana_sarpras": 35512000.0
+      },
+      {
+        "npsn": "20214705",
+        "nama_sekolah": "SD NEGERI 2 WANASABA LOR",
+        "pagu": 120520000.0,
+        "siswa": 131,
+        "dana_sarpras": 24104000.0
+      },
+      {
+        "npsn": "20215452",
+        "nama_sekolah": "SD NEGERI 2 CEMPAKA",
+        "pagu": 296240000.0,
+        "siswa": 322,
+        "dana_sarpras": 59248000.0
+      },
+      {
+        "npsn": "20214728",
+        "nama_sekolah": "SD NEGERI 2 SAMPIRAN",
+        "pagu": 243800000.0,
+        "siswa": 265,
+        "dana_sarpras": 48760000.0
+      },
+      {
+        "npsn": "20215518",
+        "nama_sekolah": "SD NEGERI 1 SAMPIRAN",
+        "pagu": 242880000.0,
+        "siswa": 264,
+        "dana_sarpras": 48576000.0
+      },
+      {
+        "npsn": "20215516",
+        "nama_sekolah": "SD NEGERI 1 SARWADADI",
+        "pagu": 175720000.0,
+        "siswa": 191,
+        "dana_sarpras": 35144000.0
+      },
+      {
+        "npsn": "20215146",
+        "nama_sekolah": "SD NEGERI 1 KEPONGPONGAN",
+        "pagu": 160080000.0,
+        "siswa": 174,
+        "dana_sarpras": 32016000.0
+      },
+      {
+        "npsn": "20214577",
+        "nama_sekolah": "SD NEGERI 3 SAMPIRAN",
+        "pagu": 276000000.0,
+        "siswa": 300,
+        "dana_sarpras": 55200000.0
+      }
+    ],
+    "SUMBER": [
+      {
+        "npsn": "20214904",
+        "nama_sekolah": "SD NEGERI 5 SUMBER",
+        "pagu": 117760000.0,
+        "siswa": 128,
+        "dana_sarpras": 23552000.0
+      },
+      {
+        "npsn": "20214614",
+        "nama_sekolah": "SD NEGERI 3 KENANGA",
+        "pagu": 246560000.0,
+        "siswa": 268,
+        "dana_sarpras": 49312000.0
+      },
+      {
+        "npsn": "20214617",
+        "nama_sekolah": "SD NEGERI 2 PERBUTULAN",
+        "pagu": 180320000.0,
+        "siswa": 196,
+        "dana_sarpras": 36064000.0
+      },
+      {
+        "npsn": "20214638",
+        "nama_sekolah": "SD NEGERI 2 PEJAMBON",
+        "pagu": 116840000.0,
+        "siswa": 127,
+        "dana_sarpras": 23368000.0
+      },
+      {
+        "npsn": "20214713",
+        "nama_sekolah": "SD NEGERI 2 TUKMUDAL",
+        "pagu": 375360000.0,
+        "siswa": 408,
+        "dana_sarpras": 75072000.0
+      },
+      {
+        "npsn": "20214571",
+        "nama_sekolah": "SD NEGERI 3 SIDAWANGI",
+        "pagu": 155480000.0,
+        "siswa": 169,
+        "dana_sarpras": 31096000.0
+      },
+      {
+        "npsn": "20215088",
+        "nama_sekolah": "SD NEGERI 1 KALIWADAS",
+        "pagu": 352360000.0,
+        "siswa": 383,
+        "dana_sarpras": 70472000.0
+      },
+      {
+        "npsn": "20215405",
+        "nama_sekolah": "SD NEGERI 2 KEMANTREN",
+        "pagu": 188600000.0,
+        "siswa": 205,
+        "dana_sarpras": 37720000.0
+      },
+      {
+        "npsn": "20215513",
+        "nama_sekolah": "SD NEGERI 1 SENDANG",
+        "pagu": 135240000.0,
+        "siswa": 147,
+        "dana_sarpras": 27048000.0
+      },
+      {
+        "npsn": "20215255",
+        "nama_sekolah": "SD NEGERI 1 GEGUNUNG",
+        "pagu": 462760000.0,
+        "siswa": 503,
+        "dana_sarpras": 92552000.0
+      },
+      {
+        "npsn": "20214722",
+        "nama_sekolah": "SD NEGERI 2 SENDANG",
+        "pagu": 240120000.0,
+        "siswa": 261,
+        "dana_sarpras": 48024000.0
+      },
+      {
+        "npsn": "20215593",
+        "nama_sekolah": "SD NEGERI 1 WATUBELAH",
+        "pagu": 327520000.0,
+        "siswa": 356,
+        "dana_sarpras": 65504000.0
+      },
+      {
+        "npsn": "20215496",
+        "nama_sekolah": "SD NEGERI 1 PERBUTULAN",
+        "pagu": 223560000.0,
+        "siswa": 243,
+        "dana_sarpras": 44712000.0
+      },
+      {
+        "npsn": "20215148",
+        "nama_sekolah": "SD NEGERI 1 KENANGA",
+        "pagu": 63480000.0,
+        "siswa": 69,
+        "dana_sarpras": 12696000.0
+      },
+      {
+        "npsn": "20214951",
+        "nama_sekolah": "SD NEGERI 4 KENANGA",
+        "pagu": 560280000.0,
+        "siswa": 609,
+        "dana_sarpras": 112056000.0
+      },
+      {
+        "npsn": "20215454",
+        "nama_sekolah": "SD NEGERI 1 SUMBER",
+        "pagu": 242880000.0,
+        "siswa": 264,
+        "dana_sarpras": 48576000.0
+      },
+      {
+        "npsn": "20214702",
+        "nama_sekolah": "UPTD SD NEGERI 2 SUMBER",
+        "pagu": 304520000.0,
+        "siswa": 331,
+        "dana_sarpras": 60904000.0
+      },
+      {
+        "npsn": "20215153",
+        "nama_sekolah": "SD NEGERI 1 KEMANTREN",
+        "pagu": 265880000.0,
+        "siswa": 289,
+        "dana_sarpras": 53176000.0
+      },
+      {
+        "npsn": "20246438",
+        "nama_sekolah": "SDN 1 Babakan",
+        "pagu": 314640000.0,
+        "siswa": 342,
+        "dana_sarpras": 62928000.0
+      },
+      {
+        "npsn": "20214515",
+        "nama_sekolah": "SD NEGERI 2 WATUBELAH",
+        "pagu": 142600000.0,
+        "siswa": 155,
+        "dana_sarpras": 28520000.0
+      },
+      {
+        "npsn": "20215575",
+        "nama_sekolah": "SD NEGERI 1 TUKMUDAL",
+        "pagu": 551080000.0,
+        "siswa": 599,
+        "dana_sarpras": 110216000.0
+      },
+      {
+        "npsn": "20246440",
+        "nama_sekolah": "UPTD SD NEGERI 1 PASALAKAN",
+        "pagu": 576840000.0,
+        "siswa": 627,
+        "dana_sarpras": 115368000.0
+      },
+      {
+        "npsn": "20214680",
+        "nama_sekolah": "SD NEGERI 2 MATANGAJI",
+        "pagu": 222640000.0,
+        "siswa": 242,
+        "dana_sarpras": 44528000.0
+      },
+      {
+        "npsn": "20246443",
+        "nama_sekolah": "SD NEGERI 1 SIDAWANGI",
+        "pagu": 444360000.0,
+        "siswa": 483,
+        "dana_sarpras": 88872000.0
+      },
+      {
+        "npsn": "20215402",
+        "nama_sekolah": "SD NEGERI 2 KENANGA",
+        "pagu": 266800000.0,
+        "siswa": 290,
+        "dana_sarpras": 53360000.0
+      },
+      {
+        "npsn": "20215114",
+        "nama_sekolah": "SD NEGERI 1 MATANGAJI",
+        "pagu": 192280000.0,
+        "siswa": 209,
+        "dana_sarpras": 38456000.0
+      },
+      {
+        "npsn": "20215499",
+        "nama_sekolah": "SD NEGERI 1 PEJAMBON",
+        "pagu": 224480000.0,
+        "siswa": 244,
+        "dana_sarpras": 44896000.0
+      }
+    ],
+    "DUKUPUNTANG": [
+      {
+        "npsn": "20215209",
+        "nama_sekolah": "SD NEGERI 1 BOBOS",
+        "pagu": 63480000.0,
+        "siswa": 69,
+        "dana_sarpras": 12696000.0
+      },
+      {
+        "npsn": "20215379",
+        "nama_sekolah": "SD NEGERI 2 CISAAT",
+        "pagu": 181240000.0,
+        "siswa": 197,
+        "dana_sarpras": 36248000.0
+      },
+      {
+        "npsn": "20215344",
+        "nama_sekolah": "SD NEGERI 2 GIRINATA",
+        "pagu": 161000000.0,
+        "siswa": 175,
+        "dana_sarpras": 32200000.0
+      },
+      {
+        "npsn": "20215289",
+        "nama_sekolah": "SD NEGERI 1 CIPANAS",
+        "pagu": 150880000.0,
+        "siswa": 164,
+        "dana_sarpras": 30176000.0
+      },
+      {
+        "npsn": "20215541",
+        "nama_sekolah": "SD NEGERI 2 CANGKOAK",
+        "pagu": 161000000.0,
+        "siswa": 175,
+        "dana_sarpras": 32200000.0
+      },
+      {
+        "npsn": "20215563",
+        "nama_sekolah": "SD NEGERI 2 BOBOS",
+        "pagu": 116840000.0,
+        "siswa": 127,
+        "dana_sarpras": 23368000.0
+      },
+      {
+        "npsn": "20214744",
+        "nama_sekolah": "SD NEGERI 2 SINDANGJAWA",
+        "pagu": 131560000.0,
+        "siswa": 143,
+        "dana_sarpras": 26312000.0
+      },
+      {
+        "npsn": "20215198",
+        "nama_sekolah": "SD NEGERI 1 CIKALAHANG",
+        "pagu": 174800000.0,
+        "siswa": 190,
+        "dana_sarpras": 34960000.0
+      },
+      {
+        "npsn": "20214682",
+        "nama_sekolah": "SD NEGERI 2 MANDALA",
+        "pagu": 103960000.0,
+        "siswa": 113,
+        "dana_sarpras": 20792000.0
+      },
+      {
+        "npsn": "20215365",
+        "nama_sekolah": "SD NEGERI 2 CIPANAS",
+        "pagu": 138000000.0,
+        "siswa": 150,
+        "dana_sarpras": 27600000.0
+      },
+      {
+        "npsn": "20215116",
+        "nama_sekolah": "SD NEGERI 1 MANDALA",
+        "pagu": 183080000.0,
+        "siswa": 199,
+        "dana_sarpras": 36616000.0
+      },
+      {
+        "npsn": "20215361",
+        "nama_sekolah": "SD NEGERI 2 CIKALAHANG",
+        "pagu": 132480000.0,
+        "siswa": 144,
+        "dana_sarpras": 26496000.0
+      },
+      {
+        "npsn": "20215303",
+        "nama_sekolah": "SD NEGERI 1 DUKUPUNTANG",
+        "pagu": 70840000.0,
+        "siswa": 77,
+        "dana_sarpras": 14168000.0
+      },
+      {
+        "npsn": "20214559",
+        "nama_sekolah": "SD NEGERI 3 SINDANGJAWA",
+        "pagu": 107640000.0,
+        "siswa": 117,
+        "dana_sarpras": 21528000.0
+      },
+      {
+        "npsn": "20214478",
+        "nama_sekolah": "SD NEGERI 3 CISAAT",
+        "pagu": 89240000.0,
+        "siswa": 97,
+        "dana_sarpras": 17848000.0
+      },
+      {
+        "npsn": "20214481",
+        "nama_sekolah": "SD NEGERI 3 CIPANAS",
+        "pagu": 57040000.0,
+        "siswa": 62,
+        "dana_sarpras": 11408000.0
+      },
+      {
+        "npsn": "20215349",
+        "nama_sekolah": "SD NEGERI 2 DUKUPUNTANG",
+        "pagu": 89240000.0,
+        "siswa": 97,
+        "dana_sarpras": 17848000.0
+      },
+      {
+        "npsn": "20215176",
+        "nama_sekolah": "SD NEGERI 1 CANGKOAK",
+        "pagu": 124200000.0,
+        "siswa": 135,
+        "dana_sarpras": 24840000.0
+      },
+      {
+        "npsn": "20215241",
+        "nama_sekolah": "SD NEGERI 1 BALAD",
+        "pagu": 56120000.0,
+        "siswa": 61,
+        "dana_sarpras": 11224000.0
+      },
+      {
+        "npsn": "20215528",
+        "nama_sekolah": "SD NEGERI 2 BALAD",
+        "pagu": 119600000.0,
+        "siswa": 130,
+        "dana_sarpras": 23920000.0
+      },
+      {
+        "npsn": "20214740",
+        "nama_sekolah": "SD NEGERI 2 SINDANGMEKAR",
+        "pagu": 273240000.0,
+        "siswa": 297,
+        "dana_sarpras": 54648000.0
+      },
+      {
+        "npsn": "20215283",
+        "nama_sekolah": "SD NEGERI 1 CISAAT",
+        "pagu": 115000000.0,
+        "siswa": 125,
+        "dana_sarpras": 23000000.0
+      },
+      {
+        "npsn": "20214473",
+        "nama_sekolah": "SD NEGERI 3 DUKUPUNTANG",
+        "pagu": 161000000.0,
+        "siswa": 175,
+        "dana_sarpras": 32200000.0
+      },
+      {
+        "npsn": "20215277",
+        "nama_sekolah": "SD NEGERI 1 GIRINATA",
+        "pagu": 204240000.0,
+        "siswa": 222,
+        "dana_sarpras": 40848000.0
+      },
+      {
+        "npsn": "20215469",
+        "nama_sekolah": "SD NEGERI 1 SINDANGJAWA",
+        "pagu": 115000000.0,
+        "siswa": 125,
+        "dana_sarpras": 23000000.0
+      },
+      {
+        "npsn": "10114917",
+        "nama_sekolah": "SD NEGERI KEPUNDUAN",
+        "pagu": 175720000.0,
+        "siswa": 191,
+        "dana_sarpras": 35144000.0
+      },
+      {
+        "npsn": "20214918",
+        "nama_sekolah": "SD NEGERI 1 KEDONGDONG KIDUL",
+        "pagu": 191360000.0,
+        "siswa": 208,
+        "dana_sarpras": 38272000.0
+      },
+      {
+        "npsn": "20215462",
+        "nama_sekolah": "SD NEGERI 1 SINDANGMEKAR",
+        "pagu": 105800000.0,
+        "siswa": 115,
+        "dana_sarpras": 21160000.0
+      }
+    ],
+    "PALIMANAN": [
+      {
+        "npsn": "20215503",
+        "nama_sekolah": "SD NEGERI 1 PANONGAN",
+        "pagu": 321080000.0,
+        "siswa": 349,
+        "dana_sarpras": 64216000.0
+      },
+      {
+        "npsn": "20215501",
+        "nama_sekolah": "SD NEGERI 1 PEGAGAN",
+        "pagu": 365240000.0,
+        "siswa": 397,
+        "dana_sarpras": 73048000.0
+      },
+      {
+        "npsn": "20215205",
+        "nama_sekolah": "SD NEGERI 1 CIAWI",
+        "pagu": 216200000.0,
+        "siswa": 235,
+        "dana_sarpras": 43240000.0
+      },
+      {
+        "npsn": "20215231",
+        "nama_sekolah": "SD NEGERI 1 BEBERAN",
+        "pagu": 258520000.0,
+        "siswa": 281,
+        "dana_sarpras": 51704000.0
+      },
+      {
+        "npsn": "20214624",
+        "nama_sekolah": "SD NEGERI 2 PALIMANAN TIMUR",
+        "pagu": 241960000.0,
+        "siswa": 263,
+        "dana_sarpras": 48392000.0
+      },
+      {
+        "npsn": "20215364",
+        "nama_sekolah": "SD NEGERI 2 CIAWI",
+        "pagu": 93840000.0,
+        "siswa": 102,
+        "dana_sarpras": 18768000.0
+      },
+      {
+        "npsn": "20214538",
+        "nama_sekolah": "SD NEGERI 3 PEGAGAN",
+        "pagu": 126960000.0,
+        "siswa": 138,
+        "dana_sarpras": 25392000.0
+      },
+      {
+        "npsn": "20214611",
+        "nama_sekolah": "SD NEGERI 3 KEPUH",
+        "pagu": 69000000.0,
+        "siswa": 75,
+        "dana_sarpras": 13800000.0
+      },
+      {
+        "npsn": "20214669",
+        "nama_sekolah": "SD NEGERI 2 LUNGBENDA",
+        "pagu": 207000000.0,
+        "siswa": 225,
+        "dana_sarpras": 41400000.0
+      },
+      {
+        "npsn": "20214540",
+        "nama_sekolah": "SD NEGERI 3 PANONGAN",
+        "pagu": 82800000.0,
+        "siswa": 90,
+        "dana_sarpras": 16560000.0
+      },
+      {
+        "npsn": "20214544",
+        "nama_sekolah": "SD NEGERI 3 PALIMANAN TIMUR",
+        "pagu": 214360000.0,
+        "siswa": 233,
+        "dana_sarpras": 42872000.0
+      },
+      {
+        "npsn": "20215206",
+        "nama_sekolah": "SD NEGERI 1 CENGKUANG",
+        "pagu": 442520000.0,
+        "siswa": 481,
+        "dana_sarpras": 88504000.0
+      },
+      {
+        "npsn": "20215514",
+        "nama_sekolah": "SD NEGERI 1 SEMPLO",
+        "pagu": 163760000.0,
+        "siswa": 178,
+        "dana_sarpras": 32752000.0
+      },
+      {
+        "npsn": "20215145",
+        "nama_sekolah": "SD NEGERI 1 KEPUH",
+        "pagu": 331200000.0,
+        "siswa": 360,
+        "dana_sarpras": 66240000.0
+      },
+      {
+        "npsn": "20215290",
+        "nama_sekolah": "SD NEGERI 1 CILUKRAK",
+        "pagu": 310960000.0,
+        "siswa": 338,
+        "dana_sarpras": 62192000.0
+      },
+      {
+        "npsn": "20215240",
+        "nama_sekolah": "SD NEGERI 1 BALERANTE",
+        "pagu": 460920000.0,
+        "siswa": 501,
+        "dana_sarpras": 92184000.0
+      },
+      {
+        "npsn": "20215582",
+        "nama_sekolah": "SD NEGERI 1 TEGALKARANG",
+        "pagu": 127880000.0,
+        "siswa": 139,
+        "dana_sarpras": 25576000.0
+      },
+      {
+        "npsn": "20214703",
+        "nama_sekolah": "SD NEGERI 2 TEGALKARANG",
+        "pagu": 187680000.0,
+        "siswa": 204,
+        "dana_sarpras": 37536000.0
+      },
+      {
+        "npsn": "20215129",
+        "nama_sekolah": "SD NEGERI 1 PALIMANAN TIMUR",
+        "pagu": 281520000.0,
+        "siswa": 306,
+        "dana_sarpras": 56304000.0
+      },
+      {
+        "npsn": "20215120",
+        "nama_sekolah": "SD NEGERI 1 LUNGBENDA",
+        "pagu": 109480000.0,
+        "siswa": 119,
+        "dana_sarpras": 21896000.0
+      },
+      {
+        "npsn": "20214641",
+        "nama_sekolah": "SD NEGERI 2 PEGAGAN",
+        "pagu": 356040000.0,
+        "siswa": 387,
+        "dana_sarpras": 71208000.0
+      },
+      {
+        "npsn": "20214930",
+        "nama_sekolah": "SD NEGERI 4 PALIMANAN TIMUR",
+        "pagu": 319240000.0,
+        "siswa": 347,
+        "dana_sarpras": 63848000.0
+      }
+    ],
+    "PLUMBON": [
+      {
+        "npsn": "20244359",
+        "nama_sekolah": "SD NEGERI 1 KARANGASEM",
+        "pagu": 94760000.0,
+        "siswa": 103,
+        "dana_sarpras": 18952000.0
+      },
+      {
+        "npsn": "20214622",
+        "nama_sekolah": "SD NEGERI 2 PAMIJAHAN",
+        "pagu": 131560000.0,
+        "siswa": 143,
+        "dana_sarpras": 26312000.0
+      },
+      {
+        "npsn": "20215372",
+        "nama_sekolah": "SD NEGERI 2 DANAMULYA",
+        "pagu": 97520000.0,
+        "siswa": 106,
+        "dana_sarpras": 19504000.0
+      },
+      {
+        "npsn": "20214735",
+        "nama_sekolah": "SD NEGERI 2 PLUMBON",
+        "pagu": 175720000.0,
+        "siswa": 191,
+        "dana_sarpras": 35144000.0
+      },
+      {
+        "npsn": "20214733",
+        "nama_sekolah": "SD NEGERI 2 PURBAWINANGUN",
+        "pagu": 266800000.0,
+        "siswa": 290,
+        "dana_sarpras": 53360000.0
+      },
+      {
+        "npsn": "20244375",
+        "nama_sekolah": "SD NEGERI 1 PURBAWINANGUN",
+        "pagu": 284280000.0,
+        "siswa": 309,
+        "dana_sarpras": 56856000.0
+      },
+      {
+        "npsn": "20244349",
+        "nama_sekolah": "SD NEGERI 1 Cempaka",
+        "pagu": 344080000.0,
+        "siswa": 374,
+        "dana_sarpras": 68816000.0
+      },
+      {
+        "npsn": "20214685",
+        "nama_sekolah": "SD NEGERI 2 LURAH",
+        "pagu": 197800000.0,
+        "siswa": 215,
+        "dana_sarpras": 39560000.0
+      },
+      {
+        "npsn": "20244501",
+        "nama_sekolah": "SD NEGERI 2 KARANGASEM",
+        "pagu": 150880000.0,
+        "siswa": 164,
+        "dana_sarpras": 30176000.0
+      },
+      {
+        "npsn": "20214601",
+        "nama_sekolah": "SD NEGERI 3 LURAH",
+        "pagu": 247480000.0,
+        "siswa": 269,
+        "dana_sarpras": 49496000.0
+      },
+      {
+        "npsn": "20215190",
+        "nama_sekolah": "SD NEGERI 1 BODESARI",
+        "pagu": 165600000.0,
+        "siswa": 180,
+        "dana_sarpras": 33120000.0
+      },
+      {
+        "npsn": "20215492",
+        "nama_sekolah": "SD NEGERI 1 PLUMBON",
+        "pagu": 102120000.0,
+        "siswa": 111,
+        "dana_sarpras": 20424000.0
+      },
+      {
+        "npsn": "20215399",
+        "nama_sekolah": "SD NEGERI 1 KEBAREPAN",
+        "pagu": 211600000.0,
+        "siswa": 230,
+        "dana_sarpras": 42320000.0
+      },
+      {
+        "npsn": "20215036",
+        "nama_sekolah": "SD NEGERI 1 KEDUNGSANA",
+        "pagu": 216200000.0,
+        "siswa": 235,
+        "dana_sarpras": 43240000.0
+      },
+      {
+        "npsn": "20215276",
+        "nama_sekolah": "SD NEGERI 1 GOMBANG",
+        "pagu": 471960000.0,
+        "siswa": 513,
+        "dana_sarpras": 94392000.0
+      },
+      {
+        "npsn": "20244373",
+        "nama_sekolah": "SD NEGERI 1 PESANGGRAHAN",
+        "pagu": 245640000.0,
+        "siswa": 267,
+        "dana_sarpras": 49128000.0
+      },
+      {
+        "npsn": "20215115",
+        "nama_sekolah": "SD NEGERI 1 MARIKANGEN",
+        "pagu": 300840000.0,
+        "siswa": 327,
+        "dana_sarpras": 60168000.0
+      },
+      {
+        "npsn": "20244392",
+        "nama_sekolah": "SD NEGERI 2 BODESARI",
+        "pagu": 128800000.0,
+        "siswa": 140,
+        "dana_sarpras": 25760000.0
+      },
+      {
+        "npsn": "20215310",
+        "nama_sekolah": "SD NEGERI 1 DANAMULYA",
+        "pagu": 126040000.0,
+        "siswa": 137,
+        "dana_sarpras": 25208000.0
+      },
+      {
+        "npsn": "20215044",
+        "nama_sekolah": "SD NEGERI 1 KARANG MULYA",
+        "pagu": 247480000.0,
+        "siswa": 269,
+        "dana_sarpras": 49496000.0
+      },
+      {
+        "npsn": "20215409",
+        "nama_sekolah": "SD NEGERI 2 KEDUNGSANA",
+        "pagu": 168360000.0,
+        "siswa": 183,
+        "dana_sarpras": 33672000.0
+      },
+      {
+        "npsn": "20214582",
+        "nama_sekolah": "SD NEGERI 3 MARIKANGEN",
+        "pagu": 104880000.0,
+        "siswa": 114,
+        "dana_sarpras": 20976000.0
+      },
+      {
+        "npsn": "20215128",
+        "nama_sekolah": "SD NEGERI 1 PAMIJAHAN",
+        "pagu": 288880000.0,
+        "siswa": 314,
+        "dana_sarpras": 57776000.0
+      },
+      {
+        "npsn": "20215119",
+        "nama_sekolah": "SD NEGERI 1 LURAH",
+        "pagu": 215280000.0,
+        "siswa": 234,
+        "dana_sarpras": 43056000.0
+      },
+      {
+        "npsn": "20214754",
+        "nama_sekolah": "SD NEGERI 2 PESANGGRAHAN",
+        "pagu": 112240000.0,
+        "siswa": 122,
+        "dana_sarpras": 22448000.0
+      },
+      {
+        "npsn": "20214681",
+        "nama_sekolah": "SD NEGERI 2 MARIKANGEN",
+        "pagu": 202400000.0,
+        "siswa": 220,
+        "dana_sarpras": 40480000.0
+      },
+      {
+        "npsn": "20244395",
+        "nama_sekolah": "SD NEGERI 2 CEMPAKA",
+        "pagu": 307280000.0,
+        "siswa": 334,
+        "dana_sarpras": 61456000.0
+      },
+      {
+        "npsn": "20215208",
+        "nama_sekolah": "SD NEGERI 1 BODELOR",
+        "pagu": 356960000.0,
+        "siswa": 388,
+        "dana_sarpras": 71392000.0
+      }
+    ],
+    "WERU": [
+      {
+        "npsn": "20214752",
+        "nama_sekolah": "SD NEGERI 2 SETU KULON",
+        "pagu": 428720000.0,
+        "siswa": 466,
+        "dana_sarpras": 85744000.0
+      },
+      {
+        "npsn": "20214940",
+        "nama_sekolah": "SD NEGERI 3 TEGALWANGI",
+        "pagu": 210680000.0,
+        "siswa": 229,
+        "dana_sarpras": 42136000.0
+      },
+      {
+        "npsn": "20214677",
+        "nama_sekolah": "SD NEGERI 2 MEGU CILIK",
+        "pagu": 127880000.0,
+        "siswa": 139,
+        "dana_sarpras": 25576000.0
+      },
+      {
+        "npsn": "20215592",
+        "nama_sekolah": "UPTD SD NEGERI 1 WERU KIDUL",
+        "pagu": 539120000.0,
+        "siswa": 586,
+        "dana_sarpras": 107824000.0
+      },
+      {
+        "npsn": "20244360",
+        "nama_sekolah": "UPTD SD NEGERI 1 KARANGSARI",
+        "pagu": 456320000.0,
+        "siswa": 496,
+        "dana_sarpras": 91264000.0
+      },
+      {
+        "npsn": "20214907",
+        "nama_sekolah": "SD NEGERI 2 TEGALWANGI",
+        "pagu": 379040000.0,
+        "siswa": 412,
+        "dana_sarpras": 75808000.0
+      },
+      {
+        "npsn": "20244379",
+        "nama_sekolah": "SD NEGERI 1 SETU WETAN",
+        "pagu": 150880000.0,
+        "siswa": 164,
+        "dana_sarpras": 30176000.0
+      },
+      {
+        "npsn": "20215591",
+        "nama_sekolah": "UPTD SD NEGERI 1 WERU LOR",
+        "pagu": 544640000.0,
+        "siswa": 592,
+        "dana_sarpras": 108928000.0
+      },
+      {
+        "npsn": "20244381",
+        "nama_sekolah": "SD NEGERI 1 TEGALWANGI",
+        "pagu": 200560000.0,
+        "siswa": 218,
+        "dana_sarpras": 40112000.0
+      },
+      {
+        "npsn": "20214948",
+        "nama_sekolah": "SD NEGERI 4 MEGUGEDE",
+        "pagu": 347760000.0,
+        "siswa": 378,
+        "dana_sarpras": 69552000.0
+      },
+      {
+        "npsn": "20214751",
+        "nama_sekolah": "SD NEGERI 2 SETU WETAN BANK JABAR",
+        "pagu": 379960000.0,
+        "siswa": 413,
+        "dana_sarpras": 75992000.0
+      },
+      {
+        "npsn": "20215142",
+        "nama_sekolah": "SD NEGERI 1 KERTASARI",
+        "pagu": 138920000.0,
+        "siswa": 151,
+        "dana_sarpras": 27784000.0
+      },
+      {
+        "npsn": "20215112",
+        "nama_sekolah": "SD NEGERI 1 MEGUGEDE",
+        "pagu": 455400000.0,
+        "siswa": 495,
+        "dana_sarpras": 91080000.0
+      },
+      {
+        "npsn": "20214686",
+        "nama_sekolah": "SD NEGERI 2 KERTASARI",
+        "pagu": 111320000.0,
+        "siswa": 121,
+        "dana_sarpras": 22264000.0
+      },
+      {
+        "npsn": "20214573",
+        "nama_sekolah": "SD NEGERI 3 SETU WETAN",
+        "pagu": 334880000.0,
+        "siswa": 364,
+        "dana_sarpras": 66976000.0
+      },
+      {
+        "npsn": "20244378",
+        "nama_sekolah": "SD NEGERI 1 SETU KULON",
+        "pagu": 248400000.0,
+        "siswa": 270,
+        "dana_sarpras": 49680000.0
+      },
+      {
+        "npsn": "20215113",
+        "nama_sekolah": "SD NEGERI 1 MEGU CILIK",
+        "pagu": 192280000.0,
+        "siswa": 209,
+        "dana_sarpras": 38456000.0
+      }
+    ],
+    "KEDAWUNG": [
+      {
+        "npsn": "20214665",
+        "nama_sekolah": "SD NEGERI 2 KERTAWINANGUN",
+        "pagu": 138920000.0,
+        "siswa": 151,
+        "dana_sarpras": 27784000.0
+      },
+      {
+        "npsn": "20215576",
+        "nama_sekolah": "SD NEGERI 1 TUK",
+        "pagu": 440680000.0,
+        "siswa": 479,
+        "dana_sarpras": 88136000.0
+      },
+      {
+        "npsn": "20214693",
+        "nama_sekolah": "SD NEGERI 2 SUTAWINANGUN",
+        "pagu": 165600000.0,
+        "siswa": 180,
+        "dana_sarpras": 33120000.0
+      },
+      {
+        "npsn": "20214919",
+        "nama_sekolah": "SD NEGERI 1 KEDAWUNG",
+        "pagu": 115000000.0,
+        "siswa": 125,
+        "dana_sarpras": 23000000.0
+      },
+      {
+        "npsn": "20215476",
+        "nama_sekolah": "SD NEGERI 1 SUTAWINANGUN",
+        "pagu": 109480000.0,
+        "siswa": 119,
+        "dana_sarpras": 21896000.0
+      },
+      {
+        "npsn": "20214736",
+        "nama_sekolah": "SD NEGERI 2 PILANGSARI",
+        "pagu": 175720000.0,
+        "siswa": 191,
+        "dana_sarpras": 35144000.0
+      },
+      {
+        "npsn": "20215411",
+        "nama_sekolah": "SD NEGERI 2 KEDUNGDAWA",
+        "pagu": 200560000.0,
+        "siswa": 218,
+        "dana_sarpras": 40112000.0
+      },
+      {
+        "npsn": "20214607",
+        "nama_sekolah": "SD NEGERI 3 KERTAWINANGUN",
+        "pagu": 179400000.0,
+        "siswa": 195,
+        "dana_sarpras": 35880000.0
+      },
+      {
+        "npsn": "20244362",
+        "nama_sekolah": "SD NEGERI 1 KERTAWINANGUN",
+        "pagu": 211600000.0,
+        "siswa": 230,
+        "dana_sarpras": 42320000.0
+      },
+      {
+        "npsn": "20215494",
+        "nama_sekolah": "SD NEGERI 1 PILANGSARI",
+        "pagu": 161000000.0,
+        "siswa": 175,
+        "dana_sarpras": 32200000.0
+      },
+      {
+        "npsn": "20244514",
+        "nama_sekolah": "SD NEGERI 1 KALIKOA",
+        "pagu": 432400000.0,
+        "siswa": 470,
+        "dana_sarpras": 86480000.0
+      },
+      {
+        "npsn": "20215054",
+        "nama_sekolah": "SD NEGERI 1 KEDUNGJAYA",
+        "pagu": 562120000.0,
+        "siswa": 611,
+        "dana_sarpras": 112424000.0
+      },
+      {
+        "npsn": "20215055",
+        "nama_sekolah": "SD NEGERI 1 KEDUNGDAWA",
+        "pagu": 262200000.0,
+        "siswa": 285,
+        "dana_sarpras": 52440000.0
+      }
+    ],
+    "GUNUNGJATI": [
+      {
+        "npsn": "20215177",
+        "nama_sekolah": "SD NEGERI 1 BUYUT",
+        "pagu": 160080000.0,
+        "siswa": 174,
+        "dana_sarpras": 32016000.0
+      },
+      {
+        "npsn": "20214729",
+        "nama_sekolah": "SD NEGERI 2 SAMBENG",
+        "pagu": 84640000.0,
+        "siswa": 92,
+        "dana_sarpras": 16928000.0
+      },
+      {
+        "npsn": "20215487",
+        "nama_sekolah": "SD NEGERI 1 SIRNABAYA",
+        "pagu": 154560000.0,
+        "siswa": 168,
+        "dana_sarpras": 30912000.0
+      },
+      {
+        "npsn": "20215215",
+        "nama_sekolah": "SD NEGERI 1 ASTANA",
+        "pagu": 379960000.0,
+        "siswa": 413,
+        "dana_sarpras": 75992000.0
+      },
+      {
+        "npsn": "20214558",
+        "nama_sekolah": "SD NEGERI 3 SIRNABAYA",
+        "pagu": 90160000.0,
+        "siswa": 98,
+        "dana_sarpras": 18032000.0
+      },
+      {
+        "npsn": "20215542",
+        "nama_sekolah": "SD NEGERI 2 BUYUT",
+        "pagu": 80960000.0,
+        "siswa": 88,
+        "dana_sarpras": 16192000.0
+      },
+      {
+        "npsn": "20214605",
+        "nama_sekolah": "SD NEGERI 3 KLAYAN",
+        "pagu": 156400000.0,
+        "siswa": 170,
+        "dana_sarpras": 31280000.0
+      },
+      {
+        "npsn": "20214525",
+        "nama_sekolah": "SD NEGERI 3 BUYUT",
+        "pagu": 230920000.0,
+        "siswa": 251,
+        "dana_sarpras": 46184000.0
+      },
+      {
+        "npsn": "20215274",
+        "nama_sekolah": "SD NEGERI 1 GROGOL",
+        "pagu": 254840000.0,
+        "siswa": 277,
+        "dana_sarpras": 50968000.0
+      },
+      {
+        "npsn": "20244364",
+        "nama_sekolah": "UPTD SD NEGERI 1 MAYUNG",
+        "pagu": 437920000.0,
+        "siswa": 476,
+        "dana_sarpras": 87584000.0
+      },
+      {
+        "npsn": "20215085",
+        "nama_sekolah": "SD NEGERI 1 JATIMERTA",
+        "pagu": 148120000.0,
+        "siswa": 161,
+        "dana_sarpras": 29624000.0
+      },
+      {
+        "npsn": "20244371",
+        "nama_sekolah": "SD NEGERI 1 PASINDANGAN",
+        "pagu": 244720000.0,
+        "siswa": 266,
+        "dana_sarpras": 48944000.0
+      },
+      {
+        "npsn": "20214949",
+        "nama_sekolah": "SD NEGERI 4 KLAYAN",
+        "pagu": 241960000.0,
+        "siswa": 263,
+        "dana_sarpras": 48392000.0
+      },
+      {
+        "npsn": "20215084",
+        "nama_sekolah": "SD NEGERI 1 JADIMULYA",
+        "pagu": 224480000.0,
+        "siswa": 244,
+        "dana_sarpras": 44896000.0
+      },
+      {
+        "npsn": "20215091",
+        "nama_sekolah": "SD NEGERI 1 KALISAPU",
+        "pagu": 158240000.0,
+        "siswa": 172,
+        "dana_sarpras": 31648000.0
+      },
+      {
+        "npsn": "20215172",
+        "nama_sekolah": "SD NEGERI 1 KLAYAN",
+        "pagu": 194120000.0,
+        "siswa": 211,
+        "dana_sarpras": 38824000.0
+      },
+      {
+        "npsn": "20215107",
+        "nama_sekolah": "SD NEGERI 1 MERTASINGA",
+        "pagu": 203320000.0,
+        "siswa": 221,
+        "dana_sarpras": 40664000.0
+      },
+      {
+        "npsn": "20214497",
+        "nama_sekolah": "SD NEGERI 3 GROGOL",
+        "pagu": 74520000.0,
+        "siswa": 81,
+        "dana_sarpras": 14904000.0
+      },
+      {
+        "npsn": "20215212",
+        "nama_sekolah": "SD NEGERI 1 BABADAN",
+        "pagu": 90160000.0,
+        "siswa": 98,
+        "dana_sarpras": 18032000.0
+      },
+      {
+        "npsn": "20214663",
+        "nama_sekolah": "SD NEGERI 2 KLAYAN",
+        "pagu": 282440000.0,
+        "siswa": 307,
+        "dana_sarpras": 56488000.0
+      },
+      {
+        "npsn": "20214673",
+        "nama_sekolah": "SD NEGERI 2 MERTASINGA",
+        "pagu": 151800000.0,
+        "siswa": 165,
+        "dana_sarpras": 30360000.0
+      },
+      {
+        "npsn": "20244384",
+        "nama_sekolah": "SD NEGERI 1 WANAKAYA",
+        "pagu": 183080000.0,
+        "siswa": 199,
+        "dana_sarpras": 36616000.0
+      },
+      {
+        "npsn": "20214707",
+        "nama_sekolah": "SD NEGERI 2 WANAKAYA",
+        "pagu": 73600000.0,
+        "siswa": 80,
+        "dana_sarpras": 14720000.0
+      },
+      {
+        "npsn": "20215519",
+        "nama_sekolah": "SD NEGERI 1 SAMBENG",
+        "pagu": 152720000.0,
+        "siswa": 166,
+        "dana_sarpras": 30544000.0
+      },
+      {
+        "npsn": "20215220",
+        "nama_sekolah": "SD NEGERI 1 ADIDHARMA",
+        "pagu": 174800000.0,
+        "siswa": 190,
+        "dana_sarpras": 34960000.0
+      }
+    ],
+    "KAPETAKAN": [
+      {
+        "npsn": "20215545",
+        "nama_sekolah": "SD NEGERI 2 BUNGKO",
+        "pagu": 166520000.0,
+        "siswa": 181,
+        "dana_sarpras": 33304000.0
+      },
+      {
+        "npsn": "20215437",
+        "nama_sekolah": "SD NEGERI 2 KAPETAKAN",
+        "pagu": 162840000.0,
+        "siswa": 177,
+        "dana_sarpras": 32568000.0
+      },
+      {
+        "npsn": "20215179",
+        "nama_sekolah": "SD NEGERI 1 BUNGKO LOR",
+        "pagu": 109480000.0,
+        "siswa": 119,
+        "dana_sarpras": 21896000.0
+      },
+      {
+        "npsn": "20214609",
+        "nama_sekolah": "SD NEGERI 3 KERTASURA",
+        "pagu": 276000000.0,
+        "siswa": 300,
+        "dana_sarpras": 55200000.0
+      },
+      {
+        "npsn": "20214667",
+        "nama_sekolah": "SD NEGERI 2 KERTASURA",
+        "pagu": 216200000.0,
+        "siswa": 235,
+        "dana_sarpras": 43240000.0
+      },
+      {
+        "npsn": "20215544",
+        "nama_sekolah": "SD NEGERI 2 BUNGKO LOR",
+        "pagu": 173880000.0,
+        "siswa": 189,
+        "dana_sarpras": 34776000.0
+      },
+      {
+        "npsn": "20215305",
+        "nama_sekolah": "SD NEGERI 1 DUKUH",
+        "pagu": 305440000.0,
+        "siswa": 332,
+        "dana_sarpras": 61088000.0
+      },
+      {
+        "npsn": "20244342",
+        "nama_sekolah": "SD NEGERI 1 GROGOL",
+        "pagu": 418600000.0,
+        "siswa": 455,
+        "dana_sarpras": 83720000.0
+      },
+      {
+        "npsn": "20244344",
+        "nama_sekolah": "SD NEGERI 1 PEGAGAN KIDUL",
+        "pagu": 527160000.0,
+        "siswa": 573,
+        "dana_sarpras": 105432000.0
+      },
+      {
+        "npsn": "20215040",
+        "nama_sekolah": "SD NEGERI 1 KARANGKENDAL",
+        "pagu": 336720000.0,
+        "siswa": 366,
+        "dana_sarpras": 67344000.0
+      },
+      {
+        "npsn": "20215141",
+        "nama_sekolah": "SD NEGERI 1 KERTASURA",
+        "pagu": 230920000.0,
+        "siswa": 251,
+        "dana_sarpras": 46184000.0
+      },
+      {
+        "npsn": "20214911",
+        "nama_sekolah": "SD NEGERI 4 PEGAGAN KIDUL",
+        "pagu": 245640000.0,
+        "siswa": 267,
+        "dana_sarpras": 49128000.0
+      },
+      {
+        "npsn": "20214922",
+        "nama_sekolah": "SD NEGERI 1 KAPETAKAN",
+        "pagu": 347760000.0,
+        "siswa": 378,
+        "dana_sarpras": 69552000.0
+      },
+      {
+        "npsn": "20215500",
+        "nama_sekolah": "SD NEGERI 1 PEGAGAN LOR",
+        "pagu": 323840000.0,
+        "siswa": 352,
+        "dana_sarpras": 64768000.0
+      },
+      {
+        "npsn": "20215368",
+        "nama_sekolah": "SD NEGERI 2 DUKUH",
+        "pagu": 151800000.0,
+        "siswa": 165,
+        "dana_sarpras": 30360000.0
+      },
+      {
+        "npsn": "20215180",
+        "nama_sekolah": "SD NEGERI 1 BUNGKO",
+        "pagu": 391000000.0,
+        "siswa": 425,
+        "dana_sarpras": 78200000.0
+      },
+      {
+        "npsn": "20214553",
+        "nama_sekolah": "SD NEGERI 3 PEGAGAN KIDUL",
+        "pagu": 70840000.0,
+        "siswa": 77,
+        "dana_sarpras": 14168000.0
+      },
+      {
+        "npsn": "20214639",
+        "nama_sekolah": "SD NEGERI 2 PEGAGAN LOR",
+        "pagu": 210680000.0,
+        "siswa": 229,
+        "dana_sarpras": 42136000.0
+      },
+      {
+        "npsn": "20215416",
+        "nama_sekolah": "SD NEGERI 2 KARANGKENDAL",
+        "pagu": 225400000.0,
+        "siswa": 245,
+        "dana_sarpras": 45080000.0
+      }
+    ],
+    "KLANGENAN": [
+      {
+        "npsn": "20215526",
+        "nama_sekolah": "SD NEGERI 2 BANGODUA",
+        "pagu": 207920000.0,
+        "siswa": 226,
+        "dana_sarpras": 41584000.0
+      },
+      {
+        "npsn": "20214469",
+        "nama_sekolah": "SD NEGERI 3 DANAWINANGUN",
+        "pagu": 187680000.0,
+        "siswa": 204,
+        "dana_sarpras": 37536000.0
+      },
+      {
+        "npsn": "20214574",
+        "nama_sekolah": "SD NEGERI 3 SERANG",
+        "pagu": 120520000.0,
+        "siswa": 131,
+        "dana_sarpras": 24104000.0
+      },
+      {
+        "npsn": "20215498",
+        "nama_sekolah": "SD NEGERI 1 PEKANTINGAN",
+        "pagu": 156400000.0,
+        "siswa": 170,
+        "dana_sarpras": 31280000.0
+      },
+      {
+        "npsn": "20214637",
+        "nama_sekolah": "SD NEGERI 2 PEKANTINGAN",
+        "pagu": 227240000.0,
+        "siswa": 247,
+        "dana_sarpras": 45448000.0
+      },
+      {
+        "npsn": "20215170",
+        "nama_sekolah": "SD NEGERI 1 KREYO",
+        "pagu": 154560000.0,
+        "siswa": 168,
+        "dana_sarpras": 30912000.0
+      },
+      {
+        "npsn": "20214664",
+        "nama_sekolah": "SD NEGERI 2 KLANGENAN",
+        "pagu": 517960000.0,
+        "siswa": 563,
+        "dana_sarpras": 103592000.0
+      },
+      {
+        "npsn": "20215309",
+        "nama_sekolah": "SD NEGERI 1 DANAWINANGUN",
+        "pagu": 173880000.0,
+        "siswa": 189,
+        "dana_sarpras": 34776000.0
+      },
+      {
+        "npsn": "20215460",
+        "nama_sekolah": "SD NEGERI 1 SLANGIT",
+        "pagu": 235520000.0,
+        "siswa": 256,
+        "dana_sarpras": 47104000.0
+      },
+      {
+        "npsn": "20214738",
+        "nama_sekolah": "SD NEGERI 2 SERANG",
+        "pagu": 108560000.0,
+        "siswa": 118,
+        "dana_sarpras": 21712000.0
+      },
+      {
+        "npsn": "20214661",
+        "nama_sekolah": "SD NEGERI 2 KREYO",
+        "pagu": 139840000.0,
+        "siswa": 152,
+        "dana_sarpras": 27968000.0
+      },
+      {
+        "npsn": "20215239",
+        "nama_sekolah": "SD NEGERI 1 BANGODUA",
+        "pagu": 160080000.0,
+        "siswa": 174,
+        "dana_sarpras": 32016000.0
+      },
+      {
+        "npsn": "20215371",
+        "nama_sekolah": "SD NEGERI 2 DANAWINANGUN",
+        "pagu": 204240000.0,
+        "siswa": 222,
+        "dana_sarpras": 40848000.0
+      },
+      {
+        "npsn": "20215510",
+        "nama_sekolah": "SD NEGERI 1 SERANG",
+        "pagu": 179400000.0,
+        "siswa": 195,
+        "dana_sarpras": 35880000.0
+      },
+      {
+        "npsn": "20214554",
+        "nama_sekolah": "SD NEGERI 3 PEKANTINGAN",
+        "pagu": 35880000.0,
+        "siswa": 39,
+        "dana_sarpras": 7176000.0
+      },
+      {
+        "npsn": "20215157",
+        "nama_sekolah": "SD NEGERI 1 KLANGENAN",
+        "pagu": 384560000.0,
+        "siswa": 418,
+        "dana_sarpras": 76912000.0
+      },
+      {
+        "npsn": "20215076",
+        "nama_sekolah": "SD NEGERI 1 JEMARAS LOR",
+        "pagu": 728640000.0,
+        "siswa": 792,
+        "dana_sarpras": 145728000.0
+      },
+      {
+        "npsn": "20215077",
+        "nama_sekolah": "SD NEGERI 1 JEMARAS KIDUL",
+        "pagu": 172960000.0,
+        "siswa": 188,
+        "dana_sarpras": 34592000.0
+      },
+      {
+        "npsn": "20214556",
+        "nama_sekolah": "SD NEGERI 3 SLANGIT",
+        "pagu": 220800000.0,
+        "siswa": 240,
+        "dana_sarpras": 44160000.0
+      },
+      {
+        "npsn": "20215424",
+        "nama_sekolah": "SD NEGERI 2 JEMARAS KIDUL",
+        "pagu": 265880000.0,
+        "siswa": 289,
+        "dana_sarpras": 53176000.0
+      }
+    ],
+    "ARJAWINANGUN": [
+      {
+        "npsn": "20215393",
+        "nama_sekolah": "SD NEGERI 2 KARANGSAMBUNG",
+        "pagu": 79120000.0,
+        "siswa": 86,
+        "dana_sarpras": 15824000.0
+      },
+      {
+        "npsn": "20214903",
+        "nama_sekolah": "SDN 6 ARJAWINANGUN",
+        "pagu": 236440000.0,
+        "siswa": 257,
+        "dana_sarpras": 47288000.0
+      },
+      {
+        "npsn": "20215217",
+        "nama_sekolah": "SD NEGERI 1 ARJAWINANGUN",
+        "pagu": 490360000.0,
+        "siswa": 533,
+        "dana_sarpras": 98072000.0
+      },
+      {
+        "npsn": "20214489",
+        "nama_sekolah": "SD NEGERI 3 JUNGJANG",
+        "pagu": 158240000.0,
+        "siswa": 172,
+        "dana_sarpras": 31648000.0
+      },
+      {
+        "npsn": "20215505",
+        "nama_sekolah": "SD NEGERI 1 RAWAGATEL",
+        "pagu": 87400000.0,
+        "siswa": 95,
+        "dana_sarpras": 17480000.0
+      },
+      {
+        "npsn": "20215037",
+        "nama_sekolah": "SD NEGERI 1 KARANGSAMBUNG",
+        "pagu": 230000000.0,
+        "siswa": 250,
+        "dana_sarpras": 46000000.0
+      },
+      {
+        "npsn": "20215511",
+        "nama_sekolah": "SD NEGERI 1 SENDE",
+        "pagu": 283360000.0,
+        "siswa": 308,
+        "dana_sarpras": 56672000.0
+      },
+      {
+        "npsn": "20214506",
+        "nama_sekolah": "SD NEGERI 3 ARJAWINANGUN",
+        "pagu": 626520000.0,
+        "siswa": 681,
+        "dana_sarpras": 125304000.0
+      },
+      {
+        "npsn": "20214688",
+        "nama_sekolah": "SD NEGERI 2 TEGALGUBUG",
+        "pagu": 106720000.0,
+        "siswa": 116,
+        "dana_sarpras": 21344000.0
+      },
+      {
+        "npsn": "20214737",
+        "nama_sekolah": "SD NEGERI 2 SENDE",
+        "pagu": 193200000.0,
+        "siswa": 210,
+        "dana_sarpras": 38640000.0
+      },
+      {
+        "npsn": "20215537",
+        "nama_sekolah": "SD NEGERI 2 ARJAWINANGUN",
+        "pagu": 186760000.0,
+        "siswa": 203,
+        "dana_sarpras": 37352000.0
+      },
+      {
+        "npsn": "20214942",
+        "nama_sekolah": "SD NEGERI 3 TEGALGUBUG",
+        "pagu": 276000000.0,
+        "siswa": 300,
+        "dana_sarpras": 55200000.0
+      },
+      {
+        "npsn": "20214955",
+        "nama_sekolah": "SD NEGERI 4 JUNGJANG WETAN",
+        "pagu": 90160000.0,
+        "siswa": 98,
+        "dana_sarpras": 18032000.0
+      },
+      {
+        "npsn": "20215248",
+        "nama_sekolah": "SD NEGERI 1 GEYONGAN",
+        "pagu": 391000000.0,
+        "siswa": 425,
+        "dana_sarpras": 78200000.0
+      },
+      {
+        "npsn": "20214906",
+        "nama_sekolah": "SD NEGERI 5 ARJAWINANGUN",
+        "pagu": 422280000.0,
+        "siswa": 459,
+        "dana_sarpras": 84456000.0
+      },
+      {
+        "npsn": "20214905",
+        "nama_sekolah": "SD NEGERI 5 JUNGJANG",
+        "pagu": 305440000.0,
+        "siswa": 332,
+        "dana_sarpras": 61088000.0
+      },
+      {
+        "npsn": "20215074",
+        "nama_sekolah": "SD NEGERI 1 JUNGJANG WETAN",
+        "pagu": 209760000.0,
+        "siswa": 228,
+        "dana_sarpras": 41952000.0
+      },
+      {
+        "npsn": "20215421",
+        "nama_sekolah": "SD NEGERI 2 JUNGJANGWETAN",
+        "pagu": 200560000.0,
+        "siswa": 218,
+        "dana_sarpras": 40112000.0
+      },
+      {
+        "npsn": "20215060",
+        "nama_sekolah": "SD NEGERI 1 KEBONTURI",
+        "pagu": 317400000.0,
+        "siswa": 345,
+        "dana_sarpras": 63480000.0
+      },
+      {
+        "npsn": "20244346",
+        "nama_sekolah": "SD NEGERI 2 JUNGJANG",
+        "pagu": 92920000.0,
+        "siswa": 101,
+        "dana_sarpras": 18584000.0
+      },
+      {
+        "npsn": "20215453",
+        "nama_sekolah": "SD NEGERI 1 TEGALGUBUG",
+        "pagu": 198720000.0,
+        "siswa": 216,
+        "dana_sarpras": 39744000.0
+      },
+      {
+        "npsn": "20215182",
+        "nama_sekolah": "SD NEGERI 1 BULAK",
+        "pagu": 208840000.0,
+        "siswa": 227,
+        "dana_sarpras": 41768000.0
+      },
+      {
+        "npsn": "20215566",
+        "nama_sekolah": "SD NEGERI 1 TEGALGUBUG LOR",
+        "pagu": 515200000.0,
+        "siswa": 560,
+        "dana_sarpras": 103040000.0
+      },
+      {
+        "npsn": "20214956",
+        "nama_sekolah": "SD NEGERI 4 JUNGJANG",
+        "pagu": 97520000.0,
+        "siswa": 106,
+        "dana_sarpras": 19504000.0
+      }
+    ],
+    "PANGURAGAN": [
+      {
+        "npsn": "20214542",
+        "nama_sekolah": "SD NEGERI 3 PANGURAGAN KULON",
+        "pagu": 261280000.0,
+        "siswa": 284,
+        "dana_sarpras": 52256000.0
+      },
+      {
+        "npsn": "20215521",
+        "nama_sekolah": "UPTD SD NEGERI 1 PANGURAGAN WETAN",
+        "pagu": 533600000.0,
+        "siswa": 580,
+        "dana_sarpras": 106720000.0
+      },
+      {
+        "npsn": "20244369",
+        "nama_sekolah": "UPTD SD NEGERI 1 PANGURAGAN",
+        "pagu": 226320000.0,
+        "siswa": 246,
+        "dana_sarpras": 45264000.0
+      },
+      {
+        "npsn": "20214634",
+        "nama_sekolah": "SD NEGERI 2 PANGURAGAN LOR",
+        "pagu": 92920000.0,
+        "siswa": 101,
+        "dana_sarpras": 18584000.0
+      },
+      {
+        "npsn": "20215104",
+        "nama_sekolah": "SD NEGERI 1 PANGURAGAN LOR",
+        "pagu": 216200000.0,
+        "siswa": 235,
+        "dana_sarpras": 43240000.0
+      },
+      {
+        "npsn": "20214654",
+        "nama_sekolah": "SD NEGERI 2 LEMAHTAMBA",
+        "pagu": 194120000.0,
+        "siswa": 211,
+        "dana_sarpras": 38824000.0
+      },
+      {
+        "npsn": "20215086",
+        "nama_sekolah": "SD NEGERI 1 KALIANYAR",
+        "pagu": 224480000.0,
+        "siswa": 244,
+        "dana_sarpras": 44896000.0
+      },
+      {
+        "npsn": "20215420",
+        "nama_sekolah": "SD NEGERI 2 KALIANYAR",
+        "pagu": 94760000.0,
+        "siswa": 103,
+        "dana_sarpras": 18952000.0
+      },
+      {
+        "npsn": "20214541",
+        "nama_sekolah": "SD NEGERI 3 PANGURAGAN WETAN",
+        "pagu": 282440000.0,
+        "siswa": 307,
+        "dana_sarpras": 56488000.0
+      },
+      {
+        "npsn": "20215124",
+        "nama_sekolah": "SD NEGERI 1 PANGURAGAN KULON",
+        "pagu": 285200000.0,
+        "siswa": 310,
+        "dana_sarpras": 57040000.0
+      },
+      {
+        "npsn": "20215160",
+        "nama_sekolah": "SD NEGERI 1 LEMAHTAMBA",
+        "pagu": 200560000.0,
+        "siswa": 218,
+        "dana_sarpras": 40112000.0
+      },
+      {
+        "npsn": "20215273",
+        "nama_sekolah": "UPTD SD NEGERI 1 GUJEG",
+        "pagu": 150880000.0,
+        "siswa": 164,
+        "dana_sarpras": 30176000.0
+      },
+      {
+        "npsn": "20214921",
+        "nama_sekolah": "SD NEGERI 1 KARANGANYAR",
+        "pagu": 305440000.0,
+        "siswa": 332,
+        "dana_sarpras": 61088000.0
+      }
+    ],
+    "CIWARINGIN": [
+      {
+        "npsn": "20215261",
+        "nama_sekolah": "SD NEGERI 1 GINTUNG TENGAH",
+        "pagu": 204240000.0,
+        "siswa": 222,
+        "dana_sarpras": 40848000.0
+      },
+      {
+        "npsn": "20215547",
+        "nama_sekolah": "SD NEGERI 2 BRINGIN",
+        "pagu": 165600000.0,
+        "siswa": 180,
+        "dana_sarpras": 33120000.0
+      },
+      {
+        "npsn": "20215211",
+        "nama_sekolah": "SD NEGERI 1 BABAKAN",
+        "pagu": 414000000.0,
+        "siswa": 450,
+        "dana_sarpras": 82800000.0
+      },
+      {
+        "npsn": "20215247",
+        "nama_sekolah": "SD NEGERI 1 GINTUNG KIDUL",
+        "pagu": 162840000.0,
+        "siswa": 177,
+        "dana_sarpras": 32568000.0
+      },
+      {
+        "npsn": "20215299",
+        "nama_sekolah": "SD NEGERI 1 GALAGAMBA",
+        "pagu": 226320000.0,
+        "siswa": 246,
+        "dana_sarpras": 45264000.0
+      },
+      {
+        "npsn": "20215183",
+        "nama_sekolah": "SD NEGERI 1 BUDUR",
+        "pagu": 292560000.0,
+        "siswa": 318,
+        "dana_sarpras": 58512000.0
+      },
+      {
+        "npsn": "20215327",
+        "nama_sekolah": "SD NEGERI 2 GALAGAMBA",
+        "pagu": 196880000.0,
+        "siswa": 214,
+        "dana_sarpras": 39376000.0
+      },
+      {
+        "npsn": "20215375",
+        "nama_sekolah": "SD NEGERI 2 CIWARINGIN",
+        "pagu": 155480000.0,
+        "siswa": 169,
+        "dana_sarpras": 31096000.0
+      },
+      {
+        "npsn": "20215184",
+        "nama_sekolah": "SD NEGERI 1 BRINGIN",
+        "pagu": 195040000.0,
+        "siswa": 212,
+        "dana_sarpras": 39008000.0
+      },
+      {
+        "npsn": "20215280",
+        "nama_sekolah": "SD NEGERI 1 CIWARINGIN",
+        "pagu": 494960000.0,
+        "siswa": 538,
+        "dana_sarpras": 98992000.0
+      },
+      {
+        "npsn": "20244387",
+        "nama_sekolah": "SD NEGERI 2 BABAKAN",
+        "pagu": 136160000.0,
+        "siswa": 148,
+        "dana_sarpras": 27232000.0
+      },
+      {
+        "npsn": "20215347",
+        "nama_sekolah": "SD NEGERI 2 GINTUNG KIDUL",
+        "pagu": 290720000.0,
+        "siswa": 316,
+        "dana_sarpras": 58144000.0
+      },
+      {
+        "npsn": "20214498",
+        "nama_sekolah": "SD NEGERI 3 GINTUNG KIDUL",
+        "pagu": 139840000.0,
+        "siswa": 152,
+        "dana_sarpras": 27968000.0
+      },
+      {
+        "npsn": "20215262",
+        "nama_sekolah": "SD NEGERI 1 GINTUNG RANJENG",
+        "pagu": 142600000.0,
+        "siswa": 155,
+        "dana_sarpras": 28520000.0
+      }
+    ],
+    "SUSUKAN": [
+      {
+        "npsn": "20214509",
+        "nama_sekolah": "SD NEGERI 2 WIYONG",
+        "pagu": 139840000.0,
+        "siswa": 152,
+        "dana_sarpras": 27968000.0
+      },
+      {
+        "npsn": "20215058",
+        "nama_sekolah": "SD NEGERI 1 KEDONGDONG",
+        "pagu": 336720000.0,
+        "siswa": 366,
+        "dana_sarpras": 67344000.0
+      },
+      {
+        "npsn": "20215181",
+        "nama_sekolah": "SD NEGERI 1 BUNDER",
+        "pagu": 324760000.0,
+        "siswa": 353,
+        "dana_sarpras": 64952000.0
+      },
+      {
+        "npsn": "20214944",
+        "nama_sekolah": "SD NEGERI 3 SUSUKAN",
+        "pagu": 106720000.0,
+        "siswa": 116,
+        "dana_sarpras": 21344000.0
+      },
+      {
+        "npsn": "20215246",
+        "nama_sekolah": "SD NEGERI 1 GINTUNGLOR",
+        "pagu": 289800000.0,
+        "siswa": 315,
+        "dana_sarpras": 57960000.0
+      },
+      {
+        "npsn": "20215408",
+        "nama_sekolah": "SD NEGERI 2 KEJIWAN",
+        "pagu": 361560000.0,
+        "siswa": 393,
+        "dana_sarpras": 72312000.0
+      },
+      {
+        "npsn": "20215103",
+        "nama_sekolah": "SD NEGERI 1 JATIANOM",
+        "pagu": 218960000.0,
+        "siswa": 238,
+        "dana_sarpras": 43792000.0
+      },
+      {
+        "npsn": "20215117",
+        "nama_sekolah": "SD NEGERI 1 LUWUNGKENCANA",
+        "pagu": 189520000.0,
+        "siswa": 206,
+        "dana_sarpras": 37904000.0
+      },
+      {
+        "npsn": "20215474",
+        "nama_sekolah": "SD NEGERI 1 TANGKIL",
+        "pagu": 276920000.0,
+        "siswa": 301,
+        "dana_sarpras": 55384000.0
+      },
+      {
+        "npsn": "20214711",
+        "nama_sekolah": "SD NEGERI 2 UJUNGGEBANG",
+        "pagu": 253920000.0,
+        "siswa": 276,
+        "dana_sarpras": 50784000.0
+      },
+      {
+        "npsn": "20214600",
+        "nama_sekolah": "SD NEGERI 3 LUWUNG KENCANA",
+        "pagu": 118680000.0,
+        "siswa": 129,
+        "dana_sarpras": 23736000.0
+      },
+      {
+        "npsn": "20214936",
+        "nama_sekolah": "SD NEGERI 3 UJUNGGEBANG",
+        "pagu": 185840000.0,
+        "siswa": 202,
+        "dana_sarpras": 37168000.0
+      },
+      {
+        "npsn": "20215587",
+        "nama_sekolah": "SD NEGERI 1 WIYONG",
+        "pagu": 276920000.0,
+        "siswa": 301,
+        "dana_sarpras": 55384000.0
+      },
+      {
+        "npsn": "20215415",
+        "nama_sekolah": "SD NEGERI 2 KEDONGDONG",
+        "pagu": 186760000.0,
+        "siswa": 203,
+        "dana_sarpras": 37352000.0
+      },
+      {
+        "npsn": "20215480",
+        "nama_sekolah": "SD NEGERI 1 SUSUKAN",
+        "pagu": 529000000.0,
+        "siswa": 575,
+        "dana_sarpras": 105800000.0
+      },
+      {
+        "npsn": "20215429",
+        "nama_sekolah": "SD NEGERI 2 JATIANOM",
+        "pagu": 281520000.0,
+        "siswa": 306,
+        "dana_sarpras": 56304000.0
+      },
+      {
+        "npsn": "20214584",
+        "nama_sekolah": "SD NEGERI 3 KEDONGDONG",
+        "pagu": 283360000.0,
+        "siswa": 308,
+        "dana_sarpras": 56672000.0
+      },
+      {
+        "npsn": "20214691",
+        "nama_sekolah": "SD NEGERI 2 TANGKIL",
+        "pagu": 123280000.0,
+        "siswa": 134,
+        "dana_sarpras": 24656000.0
+      },
+      {
+        "npsn": "20215155",
+        "nama_sekolah": "SD NEGERI 1 KEJIWAN",
+        "pagu": 226320000.0,
+        "siswa": 246,
+        "dana_sarpras": 45264000.0
+      },
+      {
+        "npsn": "20214683",
+        "nama_sekolah": "SD NEGERI 2 LUWUNGKENCANA",
+        "pagu": 161920000.0,
+        "siswa": 176,
+        "dana_sarpras": 32384000.0
+      },
+      {
+        "npsn": "20214943",
+        "nama_sekolah": "SD NEGERI 3 TANGKIL",
+        "pagu": 110400000.0,
+        "siswa": 120,
+        "dana_sarpras": 22080000.0
+      },
+      {
+        "npsn": "20215188",
+        "nama_sekolah": "SD NEGERI 1 BOJONGKULON",
+        "pagu": 429640000.0,
+        "siswa": 467,
+        "dana_sarpras": 85928000.0
+      },
+      {
+        "npsn": "20215081",
+        "nama_sekolah": "SD NEGERI 1 JATIPURA",
+        "pagu": 211600000.0,
+        "siswa": 230,
+        "dana_sarpras": 42320000.0
+      },
+      {
+        "npsn": "20214528",
+        "nama_sekolah": "SD NEGERI 3 BOJONGKULON",
+        "pagu": 154560000.0,
+        "siswa": 168,
+        "dana_sarpras": 30912000.0
+      },
+      {
+        "npsn": "20215574",
+        "nama_sekolah": "SD NEGERI 1 UJUNGGEBANG",
+        "pagu": 197800000.0,
+        "siswa": 215,
+        "dana_sarpras": 39560000.0
+      },
+      {
+        "npsn": "20215244",
+        "nama_sekolah": "SD NEGERI 2 GINTUNGLOR",
+        "pagu": 123280000.0,
+        "siswa": 134,
+        "dana_sarpras": 24656000.0
+      }
+    ],
+    "GEGESIK": [
+      {
+        "npsn": "20270536",
+        "nama_sekolah": "SDN 2 Slendra",
+        "pagu": 111320000.0,
+        "siswa": 121,
+        "dana_sarpras": 22264000.0
+      },
+      {
+        "npsn": "20244356",
+        "nama_sekolah": "SD NEGERI 1 JAGAPURA KULON",
+        "pagu": 256680000.0,
+        "siswa": 279,
+        "dana_sarpras": 51336000.0
+      },
+      {
+        "npsn": "20215265",
+        "nama_sekolah": "SD NEGERI 1 JAGAPURA LOR",
+        "pagu": 234600000.0,
+        "siswa": 255,
+        "dana_sarpras": 46920000.0
+      },
+      {
+        "npsn": "20244370",
+        "nama_sekolah": "SD NEGERI 1 PANUNGGUL",
+        "pagu": 345920000.0,
+        "siswa": 376,
+        "dana_sarpras": 69184000.0
+      },
+      {
+        "npsn": "20215413",
+        "nama_sekolah": "SD NEGERI 2 KEDUNGDALEM",
+        "pagu": 161000000.0,
+        "siswa": 175,
+        "dana_sarpras": 32200000.0
+      },
+      {
+        "npsn": "20214501",
+        "nama_sekolah": "SD NEGERI 3 GEGESIK KULON",
+        "pagu": 73600000.0,
+        "siswa": 80,
+        "dana_sarpras": 14720000.0
+      },
+      {
+        "npsn": "20215313",
+        "nama_sekolah": "SD NEGERI 2 JAGAPURA LOR",
+        "pagu": 266800000.0,
+        "siswa": 290,
+        "dana_sarpras": 53360000.0
+      },
+      {
+        "npsn": "20215458",
+        "nama_sekolah": "SD NEGERI 1 SIBUBUT",
+        "pagu": 178480000.0,
+        "siswa": 194,
+        "dana_sarpras": 35696000.0
+      },
+      {
+        "npsn": "20215320",
+        "nama_sekolah": "SD NEGERI 2 GEGESIK KIDUL",
+        "pagu": 180320000.0,
+        "siswa": 196,
+        "dana_sarpras": 36064000.0
+      },
+      {
+        "npsn": "20215523",
+        "nama_sekolah": "SD NEGERI 2 BAYALANGU LOR",
+        "pagu": 113160000.0,
+        "siswa": 123,
+        "dana_sarpras": 22632000.0
+      },
+      {
+        "npsn": "20215459",
+        "nama_sekolah": "SD NEGERI 1 SLENDRA",
+        "pagu": 103960000.0,
+        "siswa": 113,
+        "dana_sarpras": 20792000.0
+      },
+      {
+        "npsn": "20214958",
+        "nama_sekolah": "SD NEGERI 4 JAGAPURA LOR",
+        "pagu": 206080000.0,
+        "siswa": 224,
+        "dana_sarpras": 41216000.0
+      },
+      {
+        "npsn": "20215233",
+        "nama_sekolah": "SD NEGERI 1 BAYALANGU LOR",
+        "pagu": 436080000.0,
+        "siswa": 474,
+        "dana_sarpras": 87216000.0
+      },
+      {
+        "npsn": "20215256",
+        "nama_sekolah": "SD NEGERI 1 GEGESIK LOR",
+        "pagu": 90160000.0,
+        "siswa": 98,
+        "dana_sarpras": 18032000.0
+      },
+      {
+        "npsn": "20215235",
+        "nama_sekolah": "SD NEGERI 1 BAYALANGU KIDUL",
+        "pagu": 202400000.0,
+        "siswa": 220,
+        "dana_sarpras": 40480000.0
+      },
+      {
+        "npsn": "20244355",
+        "nama_sekolah": "SD NEGERI 1 JAGAPURA KIDUL",
+        "pagu": 121440000.0,
+        "siswa": 132,
+        "dana_sarpras": 24288000.0
+      },
+      {
+        "npsn": "20244353",
+        "nama_sekolah": "SD NEGERI 1 GEGESIK WETAN",
+        "pagu": 264040000.0,
+        "siswa": 287,
+        "dana_sarpras": 52808000.0
+      },
+      {
+        "npsn": "20215524",
+        "nama_sekolah": "SD NEGERI 2 BAYALANGU KIDUL",
+        "pagu": 203320000.0,
+        "siswa": 221,
+        "dana_sarpras": 40664000.0
+      },
+      {
+        "npsn": "20214532",
+        "nama_sekolah": "SD NEGERI 3 BAYALANGU KIDUL",
+        "pagu": 92920000.0,
+        "siswa": 101,
+        "dana_sarpras": 18584000.0
+      },
+      {
+        "npsn": "20215264",
+        "nama_sekolah": "SD NEGERI 1 JAGAPURA WETAN",
+        "pagu": 99360000.0,
+        "siswa": 108,
+        "dana_sarpras": 19872000.0
+      },
+      {
+        "npsn": "20215258",
+        "nama_sekolah": "SD NEGERI 1 GEGESIK KIDUL",
+        "pagu": 121440000.0,
+        "siswa": 132,
+        "dana_sarpras": 24288000.0
+      },
+      {
+        "npsn": "20215331",
+        "nama_sekolah": "SD NEGERI 2 JAGAPURA KIDUL",
+        "pagu": 266800000.0,
+        "siswa": 290,
+        "dana_sarpras": 53360000.0
+      },
+      {
+        "npsn": "20244397",
+        "nama_sekolah": "SD NEGERI 2 JAGAPURA WETAN",
+        "pagu": 265880000.0,
+        "siswa": 289,
+        "dana_sarpras": 53176000.0
+      },
+      {
+        "npsn": "20215056",
+        "nama_sekolah": "SD NEGERI 1 KEDUNGDALEM",
+        "pagu": 269560000.0,
+        "siswa": 293,
+        "dana_sarpras": 53912000.0
+      },
+      {
+        "npsn": "20215257",
+        "nama_sekolah": "SD NEGERI 1 GEGESIK KULON",
+        "pagu": 299000000.0,
+        "siswa": 325,
+        "dana_sarpras": 59800000.0
+      }
+    ],
+    "KALIWEDI": [
+      {
+        "npsn": "20215070",
+        "nama_sekolah": "SD NEGERI 1 KALIWEDI KIDUL",
+        "pagu": 122360000.0,
+        "siswa": 133,
+        "dana_sarpras": 24472000.0
+      },
+      {
+        "npsn": "20215336",
+        "nama_sekolah": "SD NEGERI 2 GUWA LOR",
+        "pagu": 167440000.0,
+        "siswa": 182,
+        "dana_sarpras": 33488000.0
+      },
+      {
+        "npsn": "20215419",
+        "nama_sekolah": "SD NEGERI 2 KALIDERES",
+        "pagu": 96600000.0,
+        "siswa": 105,
+        "dana_sarpras": 19320000.0
+      },
+      {
+        "npsn": "20215573",
+        "nama_sekolah": "SD NEGERI 1 UJUNGSEMI",
+        "pagu": 278760000.0,
+        "siswa": 303,
+        "dana_sarpras": 55752000.0
+      },
+      {
+        "npsn": "20215102",
+        "nama_sekolah": "SD NEGERI 1 KALIDERES",
+        "pagu": 207000000.0,
+        "siswa": 225,
+        "dana_sarpras": 41400000.0
+      },
+      {
+        "npsn": "20244509",
+        "nama_sekolah": "SD NEGERI 2 UJUNGSEMI",
+        "pagu": 248400000.0,
+        "siswa": 270,
+        "dana_sarpras": 49680000.0
+      },
+      {
+        "npsn": "20215490",
+        "nama_sekolah": "SD NEGERI 1 PRAJAWINANGUN KULON",
+        "pagu": 210680000.0,
+        "siswa": 229,
+        "dana_sarpras": 42136000.0
+      },
+      {
+        "npsn": "20244374",
+        "nama_sekolah": "SD NEGERI 1 PRAJAWINANGUN WETAN",
+        "pagu": 330280000.0,
+        "siswa": 359,
+        "dana_sarpras": 66056000.0
+      },
+      {
+        "npsn": "20215595",
+        "nama_sekolah": "SD NEGERI 1 WARGABINANGUN",
+        "pagu": 195040000.0,
+        "siswa": 212,
+        "dana_sarpras": 39008000.0
+      },
+      {
+        "npsn": "20215069",
+        "nama_sekolah": "SD NEGERI 1 KALIWEDI LOR",
+        "pagu": 156400000.0,
+        "siswa": 170,
+        "dana_sarpras": 31280000.0
+      },
+      {
+        "npsn": "20215441",
+        "nama_sekolah": "SD NEGERI 2 KALIWEDI LOR",
+        "pagu": 337640000.0,
+        "siswa": 367,
+        "dana_sarpras": 67528000.0
+      },
+      {
+        "npsn": "20215269",
+        "nama_sekolah": "SD NEGERI 1 GUWA KIDUL",
+        "pagu": 210680000.0,
+        "siswa": 229,
+        "dana_sarpras": 42136000.0
+      },
+      {
+        "npsn": "20215337",
+        "nama_sekolah": "SD NEGERI 2 GUWA KIDUL",
+        "pagu": 282440000.0,
+        "siswa": 307,
+        "dana_sarpras": 56488000.0
+      },
+      {
+        "npsn": "20215268",
+        "nama_sekolah": "SD NEGERI 1 GUWA LOR",
+        "pagu": 305440000.0,
+        "siswa": 332,
+        "dana_sarpras": 61088000.0
+      },
+      {
+        "npsn": "20215442",
+        "nama_sekolah": "SD NEGERI 2 KALIWEDI KIDUL",
+        "pagu": 80960000.0,
+        "siswa": 88,
+        "dana_sarpras": 16192000.0
+      }
+    ],
+    "GEBANG": [
+      {
+        "npsn": "20214475",
+        "nama_sekolah": "SD NEGERI 3 GEBANG KULON",
+        "pagu": 159160000.0,
+        "siswa": 173,
+        "dana_sarpras": 31832000.0
+      },
+      {
+        "npsn": "20215307",
+        "nama_sekolah": "SD NEGERI 1 DOMPYONG KULON",
+        "pagu": 161000000.0,
+        "siswa": 175,
+        "dana_sarpras": 32200000.0
+      },
+      {
+        "npsn": "20215259",
+        "nama_sekolah": "SD NEGERI 1 GEBANGUDIK",
+        "pagu": 187680000.0,
+        "siswa": 204,
+        "dana_sarpras": 37536000.0
+      },
+      {
+        "npsn": "20215279",
+        "nama_sekolah": "SD NEGERI 1 GEBANGILIR",
+        "pagu": 214360000.0,
+        "siswa": 233,
+        "dana_sarpras": 42872000.0
+      },
+      {
+        "npsn": "20215324",
+        "nama_sekolah": "SD NEGERI 2 GEBANGILIR",
+        "pagu": 120520000.0,
+        "siswa": 131,
+        "dana_sarpras": 24104000.0
+      },
+      {
+        "npsn": "20215321",
+        "nama_sekolah": "SD NEGERI 2 GEBANG UDIK",
+        "pagu": 159160000.0,
+        "siswa": 173,
+        "dana_sarpras": 31832000.0
+      },
+      {
+        "npsn": "20215306",
+        "nama_sekolah": "UPTD SD NEGERI 1 DOMPYONG WETAN",
+        "pagu": 322920000.0,
+        "siswa": 351,
+        "dana_sarpras": 64584000.0
+      },
+      {
+        "npsn": "20215300",
+        "nama_sekolah": "SD NEGERI 1 GAGASARI",
+        "pagu": 364320000.0,
+        "siswa": 396,
+        "dana_sarpras": 72864000.0
+      },
+      {
+        "npsn": "20215093",
+        "nama_sekolah": "SD NEGERI 1 KALIPASUNG",
+        "pagu": 425040000.0,
+        "siswa": 462,
+        "dana_sarpras": 85008000.0
+      },
+      {
+        "npsn": "20215369",
+        "nama_sekolah": "SD NEGERI 2 DOMPYONG WETAN",
+        "pagu": 205160000.0,
+        "siswa": 223,
+        "dana_sarpras": 41032000.0
+      },
+      {
+        "npsn": "20214485",
+        "nama_sekolah": "SD NEGERI 3 GEBANG MEKAR",
+        "pagu": 263120000.0,
+        "siswa": 286,
+        "dana_sarpras": 52624000.0
+      },
+      {
+        "npsn": "20215098",
+        "nama_sekolah": "SD NEGERI 1 KALIMARO",
+        "pagu": 394680000.0,
+        "siswa": 429,
+        "dana_sarpras": 78936000.0
+      },
+      {
+        "npsn": "20244365",
+        "nama_sekolah": "SD NEGERI 1 MELAKASARI",
+        "pagu": 314640000.0,
+        "siswa": 342,
+        "dana_sarpras": 62928000.0
+      },
+      {
+        "npsn": "20215260",
+        "nama_sekolah": "SD NEGERI 1 GEBANGMEKAR",
+        "pagu": 182160000.0,
+        "siswa": 198,
+        "dana_sarpras": 36432000.0
+      },
+      {
+        "npsn": "20215096",
+        "nama_sekolah": "SD NEGERI 1 KALIMEKAR",
+        "pagu": 235520000.0,
+        "siswa": 256,
+        "dana_sarpras": 47104000.0
+      },
+      {
+        "npsn": "20215493",
+        "nama_sekolah": "SD NEGERI 1 PLAYANGAN",
+        "pagu": 328440000.0,
+        "siswa": 357,
+        "dana_sarpras": 65688000.0
+      },
+      {
+        "npsn": "20215278",
+        "nama_sekolah": "SD NEGERI 1 GEBANG KULON",
+        "pagu": 445280000.0,
+        "siswa": 484,
+        "dana_sarpras": 89056000.0
+      },
+      {
+        "npsn": "20215323",
+        "nama_sekolah": "SD NEGERI 2 GEBANG KULON",
+        "pagu": 188600000.0,
+        "siswa": 205,
+        "dana_sarpras": 37720000.0
+      },
+      {
+        "npsn": "20215297",
+        "nama_sekolah": "SD NEGERI 1 GEBANG",
+        "pagu": 388240000.0,
+        "siswa": 422,
+        "dana_sarpras": 77648000.0
+      }
+    ],
+    "DEPOK": [
+      {
+        "npsn": "20215061",
+        "nama_sekolah": "SD NEGERI 4 KASUGENGAN LOR",
+        "pagu": 90160000.0,
+        "siswa": 98,
+        "dana_sarpras": 18032000.0
+      },
+      {
+        "npsn": "20215073",
+        "nama_sekolah": "SD NEGERI 1 KEJUDEN",
+        "pagu": 225400000.0,
+        "siswa": 245,
+        "dana_sarpras": 45080000.0
+      },
+      {
+        "npsn": "20214518",
+        "nama_sekolah": "SD NEGERI 2 WARUJAYA",
+        "pagu": 170200000.0,
+        "siswa": 185,
+        "dana_sarpras": 34040000.0
+      },
+      {
+        "npsn": "20215407",
+        "nama_sekolah": "SD NEGERI 2 KEJUDEN",
+        "pagu": 184920000.0,
+        "siswa": 201,
+        "dana_sarpras": 36984000.0
+      },
+      {
+        "npsn": "20215599",
+        "nama_sekolah": "SD NEGERI 1 WARUKAWUNG",
+        "pagu": 478400000.0,
+        "siswa": 520,
+        "dana_sarpras": 95680000.0
+      },
+      {
+        "npsn": "20214586",
+        "nama_sekolah": "SD NEGERI 3 KASUGENGAN KIDUL",
+        "pagu": 119600000.0,
+        "siswa": 130,
+        "dana_sarpras": 23920000.0
+      },
+      {
+        "npsn": "20214585",
+        "nama_sekolah": "SD NEGERI 3 KASUGENGAN LOR",
+        "pagu": 154560000.0,
+        "siswa": 168,
+        "dana_sarpras": 30912000.0
+      },
+      {
+        "npsn": "20215057",
+        "nama_sekolah": "SD NEGERI 1 KEDUANAN",
+        "pagu": 231840000.0,
+        "siswa": 252,
+        "dana_sarpras": 46368000.0
+      },
+      {
+        "npsn": "20214924",
+        "nama_sekolah": "SD NEGERI 1 GETASAN",
+        "pagu": 355120000.0,
+        "siswa": 386,
+        "dana_sarpras": 71024000.0
+      },
+      {
+        "npsn": "20214516",
+        "nama_sekolah": "SD NEGERI 2 WARUROYOM",
+        "pagu": 131560000.0,
+        "siswa": 143,
+        "dana_sarpras": 26312000.0
+      },
+      {
+        "npsn": "20244503",
+        "nama_sekolah": "SD NEGERI 2 KARANGWANGI",
+        "pagu": 242880000.0,
+        "siswa": 264,
+        "dana_sarpras": 48576000.0
+      },
+      {
+        "npsn": "20215062",
+        "nama_sekolah": "SD NEGERI 1 KASUGENGAN LOR",
+        "pagu": 269560000.0,
+        "siswa": 293,
+        "dana_sarpras": 53912000.0
+      },
+      {
+        "npsn": "20215063",
+        "nama_sekolah": "SD NEGERI 1 KASUGENGAN KIDUL",
+        "pagu": 157320000.0,
+        "siswa": 171,
+        "dana_sarpras": 31464000.0
+      },
+      {
+        "npsn": "20244361",
+        "nama_sekolah": "SD NEGERI 1 KARANGWANGI",
+        "pagu": 313720000.0,
+        "siswa": 341,
+        "dana_sarpras": 62744000.0
+      },
+      {
+        "npsn": "20215414",
+        "nama_sekolah": "SD NEGERI 2 KEDUANAN",
+        "pagu": 130640000.0,
+        "siswa": 142,
+        "dana_sarpras": 26128000.0
+      },
+      {
+        "npsn": "20215597",
+        "nama_sekolah": "SD NEGERI 1 WARUGEDE",
+        "pagu": 87400000.0,
+        "siswa": 95,
+        "dana_sarpras": 17480000.0
+      },
+      {
+        "npsn": "20215384",
+        "nama_sekolah": "SD NEGERI 2 KASUGENGAN LOR",
+        "pagu": 240120000.0,
+        "siswa": 261,
+        "dana_sarpras": 48024000.0
+      },
+      {
+        "npsn": "20214536",
+        "nama_sekolah": "SD NEGERI 2 WARUGEDE",
+        "pagu": 145360000.0,
+        "siswa": 158,
+        "dana_sarpras": 29072000.0
+      },
+      {
+        "npsn": "20215600",
+        "nama_sekolah": "SD NEGERI 1 WARUROYOM",
+        "pagu": 200560000.0,
+        "siswa": 218,
+        "dana_sarpras": 40112000.0
+      },
+      {
+        "npsn": "20214925",
+        "nama_sekolah": "SD NEGERI 1 DEPOK",
+        "pagu": 293480000.0,
+        "siswa": 319,
+        "dana_sarpras": 58696000.0
+      },
+      {
+        "npsn": "20215596",
+        "nama_sekolah": "SD NEGERI 1 WARUJAYA",
+        "pagu": 148120000.0,
+        "siswa": 161,
+        "dana_sarpras": 29624000.0
+      },
+      {
+        "npsn": "20215385",
+        "nama_sekolah": "SD NEGERI 2 KASUGENGAN KIDUL",
+        "pagu": 245640000.0,
+        "siswa": 267,
+        "dana_sarpras": 49128000.0
+      },
+      {
+        "npsn": "20215196",
+        "nama_sekolah": "SD NEGERI 1 CIKEDUK",
+        "pagu": 418600000.0,
+        "siswa": 455,
+        "dana_sarpras": 83720000.0
+      }
+    ],
+    "PASALEMAN": [
+      {
+        "npsn": "20215579",
+        "nama_sekolah": "UPTD SD NEGERI 1 TONJONG",
+        "pagu": 270480000.0,
+        "siswa": 294,
+        "dana_sarpras": 54096000.0
+      },
+      {
+        "npsn": "20215200",
+        "nama_sekolah": "SD NEGERI 1 CIGOBANG",
+        "pagu": 194120000.0,
+        "siswa": 211,
+        "dana_sarpras": 38824000.0
+      },
+      {
+        "npsn": "20215502",
+        "nama_sekolah": "SD NEGERI 1 PASALEMAN",
+        "pagu": 149960000.0,
+        "siswa": 163,
+        "dana_sarpras": 29992000.0
+      },
+      {
+        "npsn": "20214645",
+        "nama_sekolah": "SD NEGERI 2 PASALEMAN",
+        "pagu": 195040000.0,
+        "siswa": 212,
+        "dana_sarpras": 39008000.0
+      },
+      {
+        "npsn": "20215473",
+        "nama_sekolah": "SD NEGERI 1 TANJUNG ANOM",
+        "pagu": 172960000.0,
+        "siswa": 188,
+        "dana_sarpras": 34592000.0
+      },
+      {
+        "npsn": "20214690",
+        "nama_sekolah": "SD NEGERI 2 TANJUNGANOM",
+        "pagu": 156400000.0,
+        "siswa": 170,
+        "dana_sarpras": 31280000.0
+      },
+      {
+        "npsn": "20214938",
+        "nama_sekolah": "SD NEGERI 3 TONJONG",
+        "pagu": 92000000.0,
+        "siswa": 100,
+        "dana_sarpras": 18400000.0
+      },
+      {
+        "npsn": "20246448",
+        "nama_sekolah": "SD NEGERI 2 CIGOBANG",
+        "pagu": 147200000.0,
+        "siswa": 160,
+        "dana_sarpras": 29440000.0
+      },
+      {
+        "npsn": "20215291",
+        "nama_sekolah": "SD NEGERI 1 CILENGKRANGGIRANG",
+        "pagu": 155480000.0,
+        "siswa": 169,
+        "dana_sarpras": 31096000.0
+      },
+      {
+        "npsn": "20215199",
+        "nama_sekolah": "SD NEGERI 1 CIGOBANGWANGI",
+        "pagu": 287040000.0,
+        "siswa": 312,
+        "dana_sarpras": 57408000.0
+      },
+      {
+        "npsn": "20215292",
+        "nama_sekolah": "SD NEGERI 1 CILENGKRANG",
+        "pagu": 143520000.0,
+        "siswa": 156,
+        "dana_sarpras": 28704000.0
+      }
+    ],
+    "PABUARAN": [
+      {
+        "npsn": "20214628",
+        "nama_sekolah": "SD NEGERI 2 PABUARAN LOR",
+        "pagu": 141680000.0,
+        "siswa": 154,
+        "dana_sarpras": 28336000.0
+      },
+      {
+        "npsn": "20214548",
+        "nama_sekolah": "SD NEGERI 3 PABUARAN LOR",
+        "pagu": 108560000.0,
+        "siswa": 118,
+        "dana_sarpras": 21712000.0
+      },
+      {
+        "npsn": "20215080",
+        "nama_sekolah": "SD NEGERI 1 JATIRENGGANG",
+        "pagu": 156400000.0,
+        "siswa": 170,
+        "dana_sarpras": 31280000.0
+      },
+      {
+        "npsn": "20215426",
+        "nama_sekolah": "SD NEGERI 2 JATIRENGGANG",
+        "pagu": 187680000.0,
+        "siswa": 204,
+        "dana_sarpras": 37536000.0
+      },
+      {
+        "npsn": "20215266",
+        "nama_sekolah": "SD NEGERI 1 HULUBANTENG",
+        "pagu": 145360000.0,
+        "siswa": 158,
+        "dana_sarpras": 29072000.0
+      },
+      {
+        "npsn": "20215334",
+        "nama_sekolah": "SD NEGERI 2 HULUBANTENG",
+        "pagu": 144440000.0,
+        "siswa": 157,
+        "dana_sarpras": 28888000.0
+      },
+      {
+        "npsn": "20244354",
+        "nama_sekolah": "UPTD SD NEGERI 1 HULUBANTENG LOR",
+        "pagu": 298080000.0,
+        "siswa": 324,
+        "dana_sarpras": 59616000.0
+      },
+      {
+        "npsn": "20215455",
+        "nama_sekolah": "SD NEGERI 1 SUKADANA",
+        "pagu": 270480000.0,
+        "siswa": 294,
+        "dana_sarpras": 54096000.0
+      },
+      {
+        "npsn": "20215132",
+        "nama_sekolah": "UPTD SD NEGERI 1 PABUARAN WETAN",
+        "pagu": 322000000.0,
+        "siswa": 350,
+        "dana_sarpras": 64400000.0
+      },
+      {
+        "npsn": "20215134",
+        "nama_sekolah": "SD NEGERI 1 PABUARAN KIDUL",
+        "pagu": 573160000.0,
+        "siswa": 623,
+        "dana_sarpras": 114632000.0
+      },
+      {
+        "npsn": "20214549",
+        "nama_sekolah": "SD NEGERI 3 PABUARAN WETAN",
+        "pagu": 281520000.0,
+        "siswa": 306,
+        "dana_sarpras": 56304000.0
+      },
+      {
+        "npsn": "20215133",
+        "nama_sekolah": "SD NEGERI 1 PABUARAN LOR",
+        "pagu": 317400000.0,
+        "siswa": 345,
+        "dana_sarpras": 63480000.0
+      }
+    ],
+    "KARANGWARENG": [
+      {
+        "npsn": "20214659",
+        "nama_sekolah": "SD NEGERI 2 KUBANGDELEG",
+        "pagu": 111320000.0,
+        "siswa": 121,
+        "dana_sarpras": 22264000.0
+      },
+      {
+        "npsn": "20215229",
+        "nama_sekolah": "SD NEGERI 1 BLENDER",
+        "pagu": 181240000.0,
+        "siswa": 197,
+        "dana_sarpras": 36248000.0
+      },
+      {
+        "npsn": "20244391",
+        "nama_sekolah": "SD NEGERI 2 BLENDER",
+        "pagu": 117760000.0,
+        "siswa": 128,
+        "dana_sarpras": 23552000.0
+      },
+      {
+        "npsn": "20214749",
+        "nama_sekolah": "SD NEGERI 2 SEUSEUPAN",
+        "pagu": 84640000.0,
+        "siswa": 92,
+        "dana_sarpras": 16928000.0
+      },
+      {
+        "npsn": "20215508",
+        "nama_sekolah": "SD NEGERI 1 SEUSEUPAN",
+        "pagu": 79120000.0,
+        "siswa": 86,
+        "dana_sarpras": 15824000.0
+      },
+      {
+        "npsn": "20215041",
+        "nama_sekolah": "UPTD SD NEGERI 1 KARANGASEM",
+        "pagu": 420440000.0,
+        "siswa": 457,
+        "dana_sarpras": 84088000.0
+      },
+      {
+        "npsn": "20215042",
+        "nama_sekolah": "SD NEGERI 1 KARANGANYAR",
+        "pagu": 106720000.0,
+        "siswa": 116,
+        "dana_sarpras": 21344000.0
+      },
+      {
+        "npsn": "20215168",
+        "nama_sekolah": "SD NEGERI 1 KUBANGDELEG",
+        "pagu": 212520000.0,
+        "siswa": 231,
+        "dana_sarpras": 42504000.0
+      },
+      {
+        "npsn": "20215082",
+        "nama_sekolah": "SD NEGERI 1 JATIPIRING",
+        "pagu": 168360000.0,
+        "siswa": 183,
+        "dana_sarpras": 33672000.0
+      },
+      {
+        "npsn": "20215066",
+        "nama_sekolah": "SD NEGERI 1 KARANGWANGI",
+        "pagu": 417680000.0,
+        "siswa": 454,
+        "dana_sarpras": 83536000.0
+      },
+      {
+        "npsn": "20215486",
+        "nama_sekolah": "SD NEGERI 1 SUMURKONDANG",
+        "pagu": 229080000.0,
+        "siswa": 249,
+        "dana_sarpras": 45816000.0
+      }
+    ],
+    "TENGAH TANI": [
+      {
+        "npsn": "20215071",
+        "nama_sekolah": "SD NEGERI 1 KALITENGAH",
+        "pagu": 311880000.0,
+        "siswa": 339,
+        "dana_sarpras": 62376000.0
+      },
+      {
+        "npsn": "69725666",
+        "nama_sekolah": "SD NEGERI 1 Kalibaru",
+        "pagu": 117760000.0,
+        "siswa": 128,
+        "dana_sarpras": 23552000.0
+      },
+      {
+        "npsn": "20215250",
+        "nama_sekolah": "SD NEGERI 1 GESIK",
+        "pagu": 600760000.0,
+        "siswa": 653,
+        "dana_sarpras": 120152000.0
+      },
+      {
+        "npsn": "20215314",
+        "nama_sekolah": "SD NEGERI 2 GESIK",
+        "pagu": 223560000.0,
+        "siswa": 243,
+        "dana_sarpras": 44712000.0
+      },
+      {
+        "npsn": "20214898",
+        "nama_sekolah": "SD NEGERI 1 ASTAPADA",
+        "pagu": 360640000.0,
+        "siswa": 392,
+        "dana_sarpras": 72128000.0
+      },
+      {
+        "npsn": "20215525",
+        "nama_sekolah": "SD NEGERI 2 BATEMBAT",
+        "pagu": 175720000.0,
+        "siswa": 191,
+        "dana_sarpras": 35144000.0
+      },
+      {
+        "npsn": "20215034",
+        "nama_sekolah": "SD NEGERI 1 PALIR",
+        "pagu": 195040000.0,
+        "siswa": 212,
+        "dana_sarpras": 39008000.0
+      },
+      {
+        "npsn": "20215308",
+        "nama_sekolah": "SD NEGERI 1 DAWUAN",
+        "pagu": 253000000.0,
+        "siswa": 275,
+        "dana_sarpras": 50600000.0
+      },
+      {
+        "npsn": "20215236",
+        "nama_sekolah": "SD NEGERI 1 BATEMBAT",
+        "pagu": 214360000.0,
+        "siswa": 233,
+        "dana_sarpras": 42872000.0
+      },
+      {
+        "npsn": "20215151",
+        "nama_sekolah": "UPTD SD NEGERI 1 KEMLAKA GEDE",
+        "pagu": 341320000.0,
+        "siswa": 371,
+        "dana_sarpras": 68264000.0
+      },
+      {
+        "npsn": "20214470",
+        "nama_sekolah": "SD NEGERI 3 DAWUAN",
+        "pagu": 403880000.0,
+        "siswa": 439,
+        "dana_sarpras": 80776000.0
+      },
+      {
+        "npsn": "20214959",
+        "nama_sekolah": "SD NEGERI 4 DAWUAN",
+        "pagu": 137080000.0,
+        "siswa": 149,
+        "dana_sarpras": 27416000.0
+      },
+      {
+        "npsn": "20215404",
+        "nama_sekolah": "SD NEGERI 2 KEMLAKA GEDE",
+        "pagu": 263120000.0,
+        "siswa": 286,
+        "dana_sarpras": 52624000.0
+      }
+    ],
+    "PLERED": [
+      {
+        "npsn": "20215001",
+        "nama_sekolah": "SD NEGERI 1 WOTGALI",
+        "pagu": 266800000.0,
+        "siswa": 290,
+        "dana_sarpras": 53360000.0
+      },
+      {
+        "npsn": "20214727",
+        "nama_sekolah": "SD NEGERI 2 SARABAU",
+        "pagu": 258520000.0,
+        "siswa": 281,
+        "dana_sarpras": 51704000.0
+      },
+      {
+        "npsn": "20215126",
+        "nama_sekolah": "SD NEGERI 1 PANEMBAHAN",
+        "pagu": 525320000.0,
+        "siswa": 571,
+        "dana_sarpras": 105064000.0
+      },
+      {
+        "npsn": "20215581",
+        "nama_sekolah": "SD NEGERI 1 TEGALSARI",
+        "pagu": 397440000.0,
+        "siswa": 432,
+        "dana_sarpras": 79488000.0
+      },
+      {
+        "npsn": "20244377",
+        "nama_sekolah": "SD NEGERI 1 SARABAU",
+        "pagu": 132480000.0,
+        "siswa": 144,
+        "dana_sarpras": 26496000.0
+      },
+      {
+        "npsn": "20215191",
+        "nama_sekolah": "SD NEGERI 1 CANGKRING",
+        "pagu": 258520000.0,
+        "siswa": 281,
+        "dana_sarpras": 51704000.0
+      },
+      {
+        "npsn": "20214704",
+        "nama_sekolah": "SD NEGERI 2 TEGALSARI",
+        "pagu": 113160000.0,
+        "siswa": 123,
+        "dana_sarpras": 22632000.0
+      },
+      {
+        "npsn": "20214619",
+        "nama_sekolah": "SD NEGERI 2 PANGKALAN",
+        "pagu": 108560000.0,
+        "siswa": 118,
+        "dana_sarpras": 21712000.0
+      },
+      {
+        "npsn": "20244368",
+        "nama_sekolah": "SD NEGERI 1 PANGKALAN",
+        "pagu": 195040000.0,
+        "siswa": 212,
+        "dana_sarpras": 39008000.0
+      },
+      {
+        "npsn": "20214941",
+        "nama_sekolah": "SD NEGERI 3 TEGALSARI",
+        "pagu": 152720000.0,
+        "siswa": 166,
+        "dana_sarpras": 30544000.0
+      },
+      {
+        "npsn": "20215440",
+        "nama_sekolah": "SD NEGERI 2 KALIWULU",
+        "pagu": 386400000.0,
+        "siswa": 420,
+        "dana_sarpras": 77280000.0
+      },
+      {
+        "npsn": "20214543",
+        "nama_sekolah": "SD NEGERI 3 PANEMBAHAN",
+        "pagu": 247480000.0,
+        "siswa": 269,
+        "dana_sarpras": 49496000.0
+      },
+      {
+        "npsn": "20215051",
+        "nama_sekolah": "SD NEGERI 1 KALIWULU",
+        "pagu": 290720000.0,
+        "siswa": 316,
+        "dana_sarpras": 58144000.0
+      },
+      {
+        "npsn": "20215578",
+        "nama_sekolah": "SD NEGERI 1 TRUSMI KULON",
+        "pagu": 369840000.0,
+        "siswa": 402,
+        "dana_sarpras": 73968000.0
+      },
+      {
+        "npsn": "20246447",
+        "nama_sekolah": "SD NEGERI 2 CANGKRING",
+        "pagu": 219880000.0,
+        "siswa": 239,
+        "dana_sarpras": 43976000.0
+      },
+      {
+        "npsn": "20214596",
+        "nama_sekolah": "SD NEGERI 3 KALIWULU",
+        "pagu": 215280000.0,
+        "siswa": 234,
+        "dana_sarpras": 43056000.0
+      },
+      {
+        "npsn": "20215577",
+        "nama_sekolah": "SD NEGERI 1 TRUSMI WETAN",
+        "pagu": 283360000.0,
+        "siswa": 308,
+        "dana_sarpras": 56672000.0
+      },
+      {
+        "npsn": "20215298",
+        "nama_sekolah": "SD NEGERI 1 GAMEL",
+        "pagu": 434240000.0,
+        "siswa": 472,
+        "dana_sarpras": 86848000.0
+      }
+    ],
+    "GEMPOL": [
+      {
+        "npsn": "20215572",
+        "nama_sekolah": "SD NEGERI 1 WALAHAR",
+        "pagu": 241040000.0,
+        "siswa": 262,
+        "dana_sarpras": 48208000.0
+      },
+      {
+        "npsn": "20214926",
+        "nama_sekolah": "SD NEGERI 1 CUPANG",
+        "pagu": 249320000.0,
+        "siswa": 271,
+        "dana_sarpras": 49864000.0
+      },
+      {
+        "npsn": "20214710",
+        "nama_sekolah": "SD NEGERI 2 WALAHAR",
+        "pagu": 157320000.0,
+        "siswa": 171,
+        "dana_sarpras": 31464000.0
+      },
+      {
+        "npsn": "20215130",
+        "nama_sekolah": "SD NEGERI 1 PALIMANAN BARAT",
+        "pagu": 297160000.0,
+        "siswa": 323,
+        "dana_sarpras": 59432000.0
+      },
+      {
+        "npsn": "20215173",
+        "nama_sekolah": "SD NEGERI 1 KEDUNGBUNDER",
+        "pagu": 185840000.0,
+        "siswa": 202,
+        "dana_sarpras": 37168000.0
+      },
+      {
+        "npsn": "20215412",
+        "nama_sekolah": "SD NEGERI 2 KEDUNGBUNDER",
+        "pagu": 199640000.0,
+        "siswa": 217,
+        "dana_sarpras": 39928000.0
+      },
+      {
+        "npsn": "20214583",
+        "nama_sekolah": "SD NEGERI 3 KEDUNGBUNDER",
+        "pagu": 211600000.0,
+        "siswa": 230,
+        "dana_sarpras": 42320000.0
+      },
+      {
+        "npsn": "20215358",
+        "nama_sekolah": "SD NEGERI 2 CIKEUSAL",
+        "pagu": 157320000.0,
+        "siswa": 171,
+        "dana_sarpras": 31464000.0
+      },
+      {
+        "npsn": "20215195",
+        "nama_sekolah": "SD NEGERI 1 CIKEUSAL",
+        "pagu": 111320000.0,
+        "siswa": 121,
+        "dana_sarpras": 22264000.0
+      },
+      {
+        "npsn": "20215252",
+        "nama_sekolah": "UPTD NEGERI 1 GEMPOL",
+        "pagu": 206080000.0,
+        "siswa": 224,
+        "dana_sarpras": 41216000.0
+      },
+      {
+        "npsn": "20214625",
+        "nama_sekolah": "SD NEGERI 2 PALIMANAN BARAT",
+        "pagu": 362480000.0,
+        "siswa": 394,
+        "dana_sarpras": 72496000.0
+      },
+      {
+        "npsn": "20214510",
+        "nama_sekolah": "SD NEGERI 2 WINONG",
+        "pagu": 339480000.0,
+        "siswa": 369,
+        "dana_sarpras": 67896000.0
+      },
+      {
+        "npsn": "20215589",
+        "nama_sekolah": "SD NEGERI 1 WINONG",
+        "pagu": 405720000.0,
+        "siswa": 441,
+        "dana_sarpras": 81144000.0
+      },
+      {
+        "npsn": "20214946",
+        "nama_sekolah": "SD NEGERI 3 WINONG",
+        "pagu": 96600000.0,
+        "siswa": 105,
+        "dana_sarpras": 19320000.0
+      },
+      {
+        "npsn": "20215149",
+        "nama_sekolah": "SD NEGERI 1 KEMPEK",
+        "pagu": 350520000.0,
+        "siswa": 381,
+        "dana_sarpras": 70104000.0
+      }
+    ],
+    "GREGED": [
+      {
+        "npsn": "20215050",
+        "nama_sekolah": "SD NEGERI 1 KAMARANG",
+        "pagu": 239200000.0,
+        "siswa": 260,
+        "dana_sarpras": 47840000.0
+      },
+      {
+        "npsn": "20214657",
+        "nama_sekolah": "SD NEGERI 2 LEBAK MEKAR",
+        "pagu": 535440000.0,
+        "siswa": 582,
+        "dana_sarpras": 107088000.0
+      },
+      {
+        "npsn": "20215121",
+        "nama_sekolah": "SD NEGERI 1 NANGGELA",
+        "pagu": 629280000.0,
+        "siswa": 684,
+        "dana_sarpras": 125856000.0
+      },
+      {
+        "npsn": "20215465",
+        "nama_sekolah": "SD NEGERI 1 SINDANGKEMPENG",
+        "pagu": 497720000.0,
+        "siswa": 541,
+        "dana_sarpras": 99544000.0
+      },
+      {
+        "npsn": "20215338",
+        "nama_sekolah": "SD NEGERI 2 GUMULUNG TONGGOH",
+        "pagu": 253920000.0,
+        "siswa": 276,
+        "dana_sarpras": 50784000.0
+      },
+      {
+        "npsn": "20215348",
+        "nama_sekolah": "SD NEGERI 2 DURAJAYA",
+        "pagu": 319240000.0,
+        "siswa": 347,
+        "dana_sarpras": 63848000.0
+      },
+      {
+        "npsn": "20215339",
+        "nama_sekolah": "SD NEGERI 2 GUMULUNGLEBAK",
+        "pagu": 323840000.0,
+        "siswa": 352,
+        "dana_sarpras": 64768000.0
+      },
+      {
+        "npsn": "20215275",
+        "nama_sekolah": "SD NEGERI 1 GREGED",
+        "pagu": 297160000.0,
+        "siswa": 323,
+        "dana_sarpras": 59432000.0
+      },
+      {
+        "npsn": "20215049",
+        "nama_sekolah": "SD NEGERI 1 KAMARANG LEBAK",
+        "pagu": 103040000.0,
+        "siswa": 112,
+        "dana_sarpras": 20608000.0
+      },
+      {
+        "npsn": "20215083",
+        "nama_sekolah": "SD NEGERI 1 JATIPANCUR",
+        "pagu": 379040000.0,
+        "siswa": 412,
+        "dana_sarpras": 75808000.0
+      },
+      {
+        "npsn": "20215163",
+        "nama_sekolah": "SD NEGERI 1 LEBAK MEKAR",
+        "pagu": 567640000.0,
+        "siswa": 617,
+        "dana_sarpras": 113528000.0
+      },
+      {
+        "npsn": "20215272",
+        "nama_sekolah": "SD NEGERI 1 GUMULUNG TONGGOH",
+        "pagu": 409400000.0,
+        "siswa": 445,
+        "dana_sarpras": 81880000.0
+      },
+      {
+        "npsn": "20215251",
+        "nama_sekolah": "SD NEGERI 1 GUMULUNG LEBAK",
+        "pagu": 210680000.0,
+        "siswa": 229,
+        "dana_sarpras": 42136000.0
+      },
+      {
+        "npsn": "20215342",
+        "nama_sekolah": "SD NEGERI 2 GREGED",
+        "pagu": 115000000.0,
+        "siswa": 125,
+        "dana_sarpras": 23000000.0
+      },
+      {
+        "npsn": "20215302",
+        "nama_sekolah": "SD NEGERI 1 DURAJAYA",
+        "pagu": 370760000.0,
+        "siswa": 403,
+        "dana_sarpras": 74152000.0
+      }
+    ],
+    "SURANENGGALA": [
+      {
+        "npsn": "20214945",
+        "nama_sekolah": "SD NEGERI 3 SURANENGGALA KIDUL",
+        "pagu": 207000000.0,
+        "siswa": 225,
+        "dana_sarpras": 41400000.0
+      },
+      {
+        "npsn": "20215483",
+        "nama_sekolah": "SD NEGERI 1 SURANENGGALA KIDUL",
+        "pagu": 369840000.0,
+        "siswa": 402,
+        "dana_sarpras": 73968000.0
+      },
+      {
+        "npsn": "20215482",
+        "nama_sekolah": "SD NEGERI 1 SURANENGGALA KULON",
+        "pagu": 253920000.0,
+        "siswa": 276,
+        "dana_sarpras": 50784000.0
+      },
+      {
+        "npsn": "20215485",
+        "nama_sekolah": "SD NEGERI 1 SURAKARTA",
+        "pagu": 314640000.0,
+        "siswa": 342,
+        "dana_sarpras": 62928000.0
+      },
+      {
+        "npsn": "20214963",
+        "nama_sekolah": "SD NEGERI 3 SURAKARTA",
+        "pagu": 79120000.0,
+        "siswa": 86,
+        "dana_sarpras": 15824000.0
+      },
+      {
+        "npsn": "20215143",
+        "nama_sekolah": "SD NEGERI 1 KERATON",
+        "pagu": 284280000.0,
+        "siswa": 309,
+        "dana_sarpras": 56856000.0
+      },
+      {
+        "npsn": "20215489",
+        "nama_sekolah": "SD NEGERI 1 PURWAWINANGUN",
+        "pagu": 470120000.0,
+        "siswa": 511,
+        "dana_sarpras": 94024000.0
+      },
+      {
+        "npsn": "20214697",
+        "nama_sekolah": "SD NEGERI 2 SURANENGGALA KULON",
+        "pagu": 123280000.0,
+        "siswa": 134,
+        "dana_sarpras": 24656000.0
+      },
+      {
+        "npsn": "20214696",
+        "nama_sekolah": "SD NEGERI 2 SURANENGGALA LOR",
+        "pagu": 297160000.0,
+        "siswa": 323,
+        "dana_sarpras": 59432000.0
+      },
+      {
+        "npsn": "20215394",
+        "nama_sekolah": "SD NEGERI 2 KARANGREJA",
+        "pagu": 119600000.0,
+        "siswa": 130,
+        "dana_sarpras": 23920000.0
+      },
+      {
+        "npsn": "20214672",
+        "nama_sekolah": "SD NEGERI 2 MUARA",
+        "pagu": 232760000.0,
+        "siswa": 253,
+        "dana_sarpras": 46552000.0
+      },
+      {
+        "npsn": "20215038",
+        "nama_sekolah": "SD NEGERI 1 KARANGREJA",
+        "pagu": 208840000.0,
+        "siswa": 227,
+        "dana_sarpras": 41768000.0
+      },
+      {
+        "npsn": "20215484",
+        "nama_sekolah": "SD NEGERI 1 SURANENGGALA",
+        "pagu": 342240000.0,
+        "siswa": 372,
+        "dana_sarpras": 68448000.0
+      },
+      {
+        "npsn": "20214578",
+        "nama_sekolah": "SD NEGERI 3 PURWAWINANGUN",
+        "pagu": 132480000.0,
+        "siswa": 144,
+        "dana_sarpras": 26496000.0
+      },
+      {
+        "npsn": "20215481",
+        "nama_sekolah": "SD NEGERI 1 SURANENGGALA LOR",
+        "pagu": 60720000.0,
+        "siswa": 66,
+        "dana_sarpras": 12144000.0
+      },
+      {
+        "npsn": "20215106",
+        "nama_sekolah": "SD NEGERI 1 MUARA",
+        "pagu": 208840000.0,
+        "siswa": 227,
+        "dana_sarpras": 41768000.0
+      }
+    ],
+    "JAMBLANG": [
+      {
+        "npsn": "20215530",
+        "nama_sekolah": "SD NEGERI 2 BAKUNGKIDUL",
+        "pagu": 110400000.0,
+        "siswa": 120,
+        "dana_sarpras": 22080000.0
+      },
+      {
+        "npsn": "20215461",
+        "nama_sekolah": "SD NEGERI 1 SITIWINANGUN",
+        "pagu": 188600000.0,
+        "siswa": 205,
+        "dana_sarpras": 37720000.0
+      },
+      {
+        "npsn": "20214557",
+        "nama_sekolah": "SD NEGERI 3 SITIWINANGUN",
+        "pagu": 116840000.0,
+        "siswa": 127,
+        "dana_sarpras": 23368000.0
+      },
+      {
+        "npsn": "20244357",
+        "nama_sekolah": "SD NEGERI 1 JAMBLANG",
+        "pagu": 188600000.0,
+        "siswa": 205,
+        "dana_sarpras": 37720000.0
+      },
+      {
+        "npsn": "20215122",
+        "nama_sekolah": "SD NEGERI 1 ORIMALANG",
+        "pagu": 138920000.0,
+        "siswa": 151,
+        "dana_sarpras": 27784000.0
+      },
+      {
+        "npsn": "20215242",
+        "nama_sekolah": "SD NEGERI 1 BAKUNGLOR",
+        "pagu": 121440000.0,
+        "siswa": 132,
+        "dana_sarpras": 24288000.0
+      },
+      {
+        "npsn": "20215594",
+        "nama_sekolah": "SD NEGERI 1 WANGUNHARJA",
+        "pagu": 138000000.0,
+        "siswa": 150,
+        "dana_sarpras": 27600000.0
+      },
+      {
+        "npsn": "20214721",
+        "nama_sekolah": "SD NEGERI 2 SITIWINANGUN",
+        "pagu": 113160000.0,
+        "siswa": 123,
+        "dana_sarpras": 22632000.0
+      },
+      {
+        "npsn": "20215548",
+        "nama_sekolah": "SD NEGERI 2 BOJONG WETAN",
+        "pagu": 299920000.0,
+        "siswa": 326,
+        "dana_sarpras": 59984000.0
+      },
+      {
+        "npsn": "20214535",
+        "nama_sekolah": "SD NEGERI 3 BAKUNGKIDUL",
+        "pagu": 143520000.0,
+        "siswa": 156,
+        "dana_sarpras": 28704000.0
+      },
+      {
+        "npsn": "20214534",
+        "nama_sekolah": "SD NEGERI 3 BAKUNGLOR",
+        "pagu": 166520000.0,
+        "siswa": 181,
+        "dana_sarpras": 33304000.0
+      },
+      {
+        "npsn": "20215243",
+        "nama_sekolah": "SD NEGERI 1 BAKUNG KIDUL",
+        "pagu": 230920000.0,
+        "siswa": 251,
+        "dana_sarpras": 46184000.0
+      },
+      {
+        "npsn": "20214650",
+        "nama_sekolah": "SD NEGERI 2 ORIMALANG",
+        "pagu": 107640000.0,
+        "siswa": 117,
+        "dana_sarpras": 21528000.0
+      },
+      {
+        "npsn": "20215451",
+        "nama_sekolah": "SD NEGERI 2 JAMBLANG",
+        "pagu": 150880000.0,
+        "siswa": 164,
+        "dana_sarpras": 30176000.0
+      },
+      {
+        "npsn": "20215529",
+        "nama_sekolah": "SD NEGERI 2 BAKUNG LOR",
+        "pagu": 96600000.0,
+        "siswa": 105,
+        "dana_sarpras": 19320000.0
+      },
+      {
+        "npsn": "20244393",
+        "nama_sekolah": "SD NEGERI 2 BOJONG LOR",
+        "pagu": 119600000.0,
+        "siswa": 130,
+        "dana_sarpras": 23920000.0
+      },
+      {
+        "npsn": "20215187",
+        "nama_sekolah": "SD NEGERI 1 BOJONG LOR",
+        "pagu": 241960000.0,
+        "siswa": 263,
+        "dana_sarpras": 48392000.0
+      },
+      {
+        "npsn": "20215185",
+        "nama_sekolah": "SD NEGERI 1 BOJONG WETAN",
+        "pagu": 172960000.0,
+        "siswa": 188,
+        "dana_sarpras": 34592000.0
+      },
+      {
+        "npsn": "20214616",
+        "nama_sekolah": "SD NEGERI 2 WANGUNHARJA",
+        "pagu": 137080000.0,
+        "siswa": 149,
+        "dana_sarpras": 27416000.0
+      }
+    ]
+  }
+}

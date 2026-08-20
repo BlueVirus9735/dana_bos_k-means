@@ -56,7 +56,7 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="w-64 flex-shrink-0 flex flex-col border-r" style={{ borderColor: 'var(--border)', background: 'var(--bg-surface)' }}>
+    <aside className="w-64 flex-shrink-0 flex flex-col border-r print:hidden" style={{ borderColor: 'var(--border)', background: 'var(--bg-surface)' }}>
       <div className="h-16 flex items-center px-6 border-b gap-3" style={{ borderColor: 'var(--border)' }}>
         <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white" style={{ background: 'var(--accent)', boxShadow: '0 0 15px rgba(99,102,241,0.5)' }}>
           <Hexagon size={18} className="fill-white/20" />
