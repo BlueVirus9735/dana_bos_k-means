@@ -39,24 +39,24 @@ interface ClusteringResult {
 // ── Warna kategori ────────────────────────────────────────────────────────────
 const KAT = {
   Rendah: {
-    bg: "rgba(52,211,153,0.12)",
-    color: "var(--green)",
-    border: "rgba(52,211,153,0.3)",
-    bar: "var(--green)",
+    bg: "#f0fdf4",
+    color: "#15803d",
+    border: "#bbf7d0",
+    bar: "#16a34a",
     label: "Kebutuhan Rendah",
   },
   Sedang: {
-    bg: "rgba(251,191,36,0.12)",
-    color: "var(--amber)",
-    border: "rgba(251,191,36,0.3)",
-    bar: "var(--amber)",
+    bg: "#fffbeb",
+    color: "#b45309",
+    border: "#fde68a",
+    bar: "#d97706",
     label: "Kebutuhan Sedang",
   },
   Tinggi: {
-    bg: "rgba(239,68,68,0.12)",
-    color: "#ef4444",
-    border: "rgba(239,68,68,0.3)",
-    bar: "#ef4444",
+    bg: "#fef2f2",
+    color: "#b91c1c",
+    border: "#fecaca",
+    bar: "#dc2626",
     label: "Kebutuhan Tinggi",
   },
 } as const;

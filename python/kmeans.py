@@ -277,33 +277,323 @@ def perform_kmeans_custom(data, kecamatan_names, max_iter=100):
             'c3_tinggi': int(np.sum(final_clusters == 3))
         }
     }
-    
+
+    # Hitung Davies-Bouldin Index dari data final
+    dbi_result = compute_dbi(X_norm, final_clusters, centroids, n_clusters=3)
+    results['dbi'] = dbi_result
+
     return results
 
 
+
+def compute_dbi(X_norm, final_clusters, centroids, n_clusters=3):
+    """
+    Menghitung Davies-Bouldin Index (DBI) secara manual.
+
+    DBI = (1/k) * sum_i [ max_{j != i} ( (sigma_i + sigma_j) / d(ci, cj) ) ]
+
+    Di mana:
+    - sigma_i = rata-rata jarak titik dalam cluster i ke centroid-nya
+    - d(ci, cj) = jarak Euclidean antar centroid i dan j
+
+    Returns dict berisi score, sigma per cluster, matriks jarak antar centroid,
+    detail per cluster (Rij_max), dan centroid final.
+    """
+    k = n_clusters
+    X_norm = np.array(X_norm, dtype=float)
+
+    # 1. Hitung sigma_i: rata-rata jarak intra-cluster tiap cluster
+    sigma = np.zeros(k, dtype=float)
+    for i in range(k):
+        cluster_id = i + 1  # cluster id 1-based
+        mask = (final_clusters == cluster_id)
+        members = X_norm[mask]
+        if len(members) == 0:
+            sigma[i] = 0.0
+        else:
+            dists = np.sqrt(np.sum((members - centroids[i]) ** 2, axis=1))
+            sigma[i] = float(np.mean(dists))
+
+    # 2. Hitung matriks jarak antar centroid d(ci, cj)
+    inter_dist = np.zeros((k, k), dtype=float)
+    for i in range(k):
+        for j in range(k):
+            if i != j:
+                diff = centroids[i] - centroids[j]
+                inter_dist[i, j] = float(np.sqrt(np.sum(diff ** 2)))
+
+    # 3. Hitung R_ij dan cari R_max tiap cluster
+    R_max = np.zeros(k, dtype=float)
+    for i in range(k):
+        max_val = 0.0
+        for j in range(k):
+            if i != j and inter_dist[i, j] > 0:
+                r_ij = (sigma[i] + sigma[j]) / inter_dist[i, j]
+                if r_ij > max_val:
+                    max_val = r_ij
+        R_max[i] = max_val
+
+    # 4. DBI = rata-rata R_max
+    dbi_score = float(np.mean(R_max))
+
+    # 5. Hitung jumlah anggota tiap cluster
+    n_members = [int(np.sum(final_clusters == (i + 1))) for i in range(k)]
+
+    # Nama kategori
+    cat_names = {1: 'Rendah', 2: 'Sedang', 3: 'Tinggi'}
+
+    per_cluster = []
+    for i in range(k):
+        per_cluster.append({
+            'cluster_id': i + 1,
+            'kategori': cat_names.get(i + 1, f'C{i+1}'),
+            'n_members': n_members[i],
+            'sigma': round(sigma[i], 4),
+            'rij_max': round(float(R_max[i]), 4),
+            'centroid': np.round(centroids[i], 4).tolist(),
+        })
+
+    # Matriks jarak sebagai list 2D
+    inter_dist_list = np.round(inter_dist, 4).tolist()
+
+    return {
+        'score': round(dbi_score, 4),
+        'sigma': [round(float(s), 4) for s in sigma],
+        'inter_distances': inter_dist_list,
+        'per_cluster': per_cluster,
+        'centroids_final': np.round(centroids, 4).tolist(),
+    }
+
+
+def perform_kmeans_sekolah(data, sekolah_names, max_iter=100):
+    """
+    K-Means clustering pada level sekolah dalam satu kecamatan.
+
+    Perbedaan dari perform_kmeans_custom:
+    - Inisialisasi centroid otomatis: sort by skor kebutuhan (sum normalized),
+      pilih indeks rendah / tengah / tinggi sebagai C1/C2/C3
+    - Handle edge case: jika sekolah < 3, gunakan k = n_sekolah
+    - Label: Mandiri / Perlu Perhatian / Prioritas Utama
+    """
+    X_raw = np.array(data, dtype=float)
+    n_samples, n_features = X_raw.shape
+
+    # Tentukan k berdasarkan jumlah sekolah
+    k = min(3, n_samples)
+    if k < 2:
+        # Hanya 1 sekolah, masukkan ke klaster Prioritas Utama secara default
+        cat_map_single = {1: ('Mandiri', 1), 2: ('Perlu Perhatian', 2), 3: ('Prioritas Utama', 3)}
+        cat_name, cat_id = ('Prioritas Utama', 3)
+        return {
+            'sekolah_results': [{
+                'nama': sekolah_names[0],
+                'cluster_id': 3,
+                'kategori': 'Prioritas Utama',
+                'data': X_raw[0].tolist(),
+                'data_normalized': [0.0] * n_features,
+                'distances': [0.0, 0.0, 0.0],
+                'nilai_cluster': 0.0,
+            }],
+            'n_clusters': 1,
+            'n_iterations': 0,
+            'inertia': 0.0,
+            'summary': {'c1_mandiri': 0, 'c2_perhatian': 0, 'c3_prioritas': 1},
+            'dbi': {'score': 0.0, 'sigma': [0.0], 'inter_distances': [[0.0]], 'per_cluster': [], 'centroids_final': []},
+        }
+
+    # 1. Normalisasi Min-Max (Benefit vs Cost) — sama seperti kecamatan
+    X_norm, min_vals, max_vals = normalize_features(X_raw, FEATURE_TYPES)
+
+    # 2. Inisialisasi centroid: sort by sum of normalized (proxy skor kebutuhan)
+    #    Skor tinggi = kebutuhan tinggi → C3 (Prioritas Utama)
+    #    Skor rendah = kebutuhan rendah → C1 (Mandiri)
+    need_scores = np.sum(X_norm, axis=1)
+    sorted_idx = np.argsort(need_scores)
+
+    if k == 3:
+        idx_c1 = sorted_idx[0]               # Kebutuhan terendah → Mandiri
+        idx_c2 = sorted_idx[len(sorted_idx) // 2]  # Menengah
+        idx_c3 = sorted_idx[-1]              # Kebutuhan tertinggi → Prioritas
+        centroids = np.array([
+            X_norm[idx_c1].copy(),
+            X_norm[idx_c2].copy(),
+            X_norm[idx_c3].copy(),
+        ], dtype=float)
+    else:  # k == 2
+        idx_c1 = sorted_idx[0]
+        idx_c3 = sorted_idx[-1]
+        centroids = np.array([
+            X_norm[idx_c1].copy(),
+            X_norm[idx_c3].copy(),
+        ], dtype=float)
+
+    # 3. Iterasi K-Means
+    iteration_history = []
+    prev_clusters = np.zeros(n_samples, dtype=int)
+    final_clusters = np.zeros(n_samples, dtype=int)
+    final_distances = np.zeros((n_samples, k), dtype=float)
+
+    for it in range(1, max_iter + 1):
+        centroids_before = centroids.copy()
+
+        # Hitung jarak ke tiap centroid
+        distances = np.zeros((n_samples, k), dtype=float)
+        for ki in range(k):
+            diff = X_norm - centroids[ki]
+            distances[:, ki] = np.sqrt(np.sum(diff ** 2, axis=1))
+
+        # Penugasan cluster (1-based)
+        current_clusters = np.argmin(distances, axis=1) + 1
+
+        counts = {ki + 1: int(np.sum(current_clusters == ki + 1)) for ki in range(k)}
+        delta_a = n_samples if it == 1 else int(np.sum(current_clusters != prev_clusters))
+
+        iteration_history.append({
+            'iterasi': it,
+            'centroids': np.round(centroids_before, 4).tolist(),
+            'cluster_counts': counts,
+            'delta_anggota': delta_a,
+        })
+
+        final_clusters = current_clusters.copy()
+        final_distances = distances.copy()
+
+        if it > 1 and delta_a == 0:
+            break
+
+        # Update centroid
+        new_centroids = np.zeros((k, n_features), dtype=float)
+        for ki in range(k):
+            mask = (current_clusters == (ki + 1))
+            if np.sum(mask) > 0:
+                new_centroids[ki] = np.round(np.mean(X_norm[mask], axis=0), 4)
+            else:
+                new_centroids[ki] = centroids[ki]
+
+        centroids = new_centroids
+        prev_clusters = current_clusters.copy()
+
+    # 4. Mapping kategori
+    #    Urutkan centroid berdasarkan skor kebutuhan rata-rata untuk dapat label yg konsisten
+    #    Cluster dengan centroid sum terkecil → Mandiri (1)
+    #    Cluster dengan centroid sum terbesar → Prioritas Utama (k)
+    centroid_sums = np.sum(centroids, axis=1)
+    centroid_rank_order = np.argsort(centroid_sums)  # ascending: [rendah, ..., tinggi]
+
+    # Map: cluster lama (1-based) → label baru
+    if k == 3:
+        cat_labels = ['Mandiri', 'Perlu Perhatian', 'Prioritas Utama']
+    else:  # k == 2
+        cat_labels = ['Mandiri', 'Prioritas Utama']
+
+    # Buat mapping: cluster_id_lama → (label, kategori_id_baru)
+    old_to_new = {}
+    for new_rank, old_cluster_idx in enumerate(centroid_rank_order):
+        old_cluster_id = old_cluster_idx + 1  # 1-based
+        old_to_new[old_cluster_id] = {
+            'kategori': new_rank + 1,
+            'nama': cat_labels[new_rank],
+        }
+
+    # Pastikan k=3 label: Mandiri=1, Perlu Perhatian=2, Prioritas Utama=3
+    # Pastikan k=2 label: Mandiri=1, Prioritas Utama=3 (skip 2)
+    if k == 2:
+        for cid, info in old_to_new.items():
+            if info['kategori'] == 2:
+                old_to_new[cid] = {'kategori': 3, 'nama': 'Prioritas Utama'}
+
+    # 5. Hitung inertia
+    inertia = 0.0
+    for i in range(n_samples):
+        cid = final_clusters[i]
+        c_idx = cid - 1
+        inertia += float(np.sum((X_norm[i] - centroids[c_idx]) ** 2))
+
+    # 6. Susun hasil per sekolah
+    sekolah_results = []
+    for i, name in enumerate(sekolah_names):
+        cid = int(final_clusters[i])
+        c_idx = cid - 1
+        dist_to_centroid = float(final_distances[i, c_idx])
+        mapped = old_to_new.get(cid, {'kategori': 1, 'nama': 'Mandiri'})
+
+        sekolah_results.append({
+            'nama': name,
+            'cluster_id': mapped['kategori'],
+            'kategori': mapped['nama'],
+            'data': X_raw[i].tolist(),
+            'data_normalized': X_norm[i].tolist(),
+            'distances': [float(final_distances[i, ki]) for ki in range(k)],
+            'nilai_cluster': round(dist_to_centroid, 4),
+        })
+
+    # 7. Summary
+    summary = {
+        'c1_mandiri': sum(1 for r in sekolah_results if r['cluster_id'] == 1),
+        'c2_perhatian': sum(1 for r in sekolah_results if r['cluster_id'] == 2),
+        'c3_prioritas': sum(1 for r in sekolah_results if r['cluster_id'] == 3),
+    }
+
+    # 8. DBI
+    # Remap final_clusters ke cluster_id baru untuk DBI
+    remapped_clusters = np.array([old_to_new.get(int(c), {'kategori': 1})['kategori'] for c in final_clusters])
+    # Susun ulang centroid sesuai urutan baru (1,2,3)
+    sorted_centroids = np.zeros((k, n_features), dtype=float)
+    for old_idx, info in old_to_new.items():
+        new_cat = info['kategori']
+        new_idx = new_cat - 1
+        if new_idx < k:
+            sorted_centroids[new_idx] = centroids[old_idx - 1]
+
+    dbi_result = compute_dbi(X_norm, remapped_clusters, sorted_centroids[:k], n_clusters=k)
+
+    return {
+        'sekolah_results': sekolah_results,
+        'cluster_centers_normalized': np.round(centroids, 4).tolist(),
+        'iterations': iteration_history,
+        'n_clusters': k,
+        'n_iterations': len(iteration_history),
+        'inertia': round(inertia, 4),
+        'feature_names': FEATURE_NAMES,
+        'feature_labels': FEATURE_LABELS,
+        'feature_types': FEATURE_TYPES,
+        'summary': summary,
+        'dbi': dbi_result,
+    }
+
+
 def main():
+
     if len(sys.argv) < 2:
         print(json.dumps({'error': 'No input data provided'}))
         sys.exit(1)
-        
+
     try:
         input_data_b64 = sys.argv[1]
         input_data = json.loads(base64.b64decode(input_data_b64).decode('utf-8'))
-        
+
+        mode = input_data.get('mode', 'kecamatan')
         data = input_data.get('data', [])
-        kecamatan_names = input_data.get('kecamatan_names', [])
-        
+
         if not data:
             print(json.dumps({'error': 'Data array is empty'}))
             sys.exit(1)
-            
-        if len(data) != len(kecamatan_names):
-            print(json.dumps({'error': f'Length mismatch: data ({len(data)}) vs names ({len(kecamatan_names)})'}))
-            sys.exit(1)
-            
-        results = perform_kmeans_custom(data, kecamatan_names)
+
+        if mode == 'sekolah':
+            names = input_data.get('sekolah_names', [])
+            if len(data) != len(names):
+                print(json.dumps({'error': f'Length mismatch: data ({len(data)}) vs names ({len(names)})'}))
+                sys.exit(1)
+            results = perform_kmeans_sekolah(data, names)
+        else:
+            names = input_data.get('kecamatan_names', [])
+            if len(data) != len(names):
+                print(json.dumps({'error': f'Length mismatch: data ({len(data)}) vs names ({len(names)})'}))
+                sys.exit(1)
+            results = perform_kmeans_custom(data, names)
+
         print(json.dumps(results))
-        
+
     except Exception as e:
         print(json.dumps({'error': str(e)}))
         sys.exit(1)
@@ -311,4 +601,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

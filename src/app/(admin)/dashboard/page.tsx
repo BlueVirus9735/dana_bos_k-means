@@ -8,7 +8,7 @@ import {
   PieChart, Pie, Cell, ResponsiveContainer, Tooltip,
   BarChart, Bar, XAxis, YAxis, CartesianGrid,
 } from 'recharts';
-import { MapPin, Building2, Database, ArrowRight, TrendingUp } from 'lucide-react';
+import { MapPin, School, Database, ArrowUpRight, TrendingUp, Calendar, Layers } from 'lucide-react';
 
 interface DashboardStats {
   total_kecamatan: number;
@@ -47,16 +47,29 @@ interface RankingData {
   }>;
 }
 
-const CLUSTER_COLORS: Record<string, string> = {
-  Tinggi: '#ef4444',
-  Sedang: '#f59e0b', // amber-500
-  Rendah: '#10b981', // emerald-500
-};
-
-const CLUSTER_BG: Record<string, string> = {
-  Tinggi: 'rgba(239,68,68,0.12)',
-  Sedang: 'rgba(251,191,36,0.12)',
-  Rendah: 'rgba(52,211,153,0.12)',
+// ── Palet warna modern executive (tenang, berbobot, tidak norak) ─────────────
+const KAT_PALETTE: Record<string, { main: string; soft: string; border: string; text: string; label: string }> = {
+  Tinggi: {
+    main: '#e11d48',   // Rose 600
+    soft: '#fff1f2',   // Rose 50
+    border: '#fecdd3', // Rose 200
+    text: '#be123c',   // Rose 700
+    label: 'Kebutuhan Tinggi',
+  },
+  Sedang: {
+    main: '#f59e0b',   // Amber 500
+    soft: '#fffbeb',   // Amber 50
+    border: '#fde68a', // Amber 200
+    text: '#b45309',   // Amber 700
+    label: 'Kebutuhan Sedang',
+  },
+  Rendah: {
+    main: '#10b981',   // Emerald 500
+    soft: '#f0fdf4',   // Emerald 50
+    border: '#bbf7d0', // Emerald 200
+    text: '#15803d',   // Emerald 700
+    label: 'Kebutuhan Rendah',
+  },
 };
 
 function fmt(n: number) {
@@ -64,8 +77,8 @@ function fmt(n: number) {
 }
 
 function fmtRp(n: number) {
-  if (n >= 1_000_000_000) return `Rp ${(n / 1_000_000_000).toFixed(1)}M`;
-  if (n >= 1_000_000) return `Rp ${(n / 1_000_000).toFixed(0)}jt`;
+  if (n >= 1_000_000_000) return `Rp ${(n / 1_000_000_000).toFixed(2)} M`;
+  if (n >= 1_000_000) return `Rp ${(n / 1_000_000).toFixed(1)} jt`;
   return `Rp ${fmt(n)}`;
 }
 
@@ -108,237 +121,418 @@ export default function DashboardPage() {
 
   if (loading && !stats) {
     return (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', color: 'var(--text-muted)', fontSize: 14 }}>
-        Memuat data...
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '55vh', gap: 12 }}>
+        <div style={{ width: 24, height: 24, border: '2.5px solid #2563eb', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
+        <span style={{ color: '#64748b', fontSize: 13, fontWeight: 500 }}>Memuat ringkasan dashboard...</span>
       </div>
     );
   }
 
-  const pieData = (stats?.cluster_distribution ?? []).map(d => ({
+  const dist = stats?.cluster_distribution ?? [];
+  const totalKec = stats?.total_kecamatan ?? 0;
+
+  const pieData = dist.map(d => ({
     name: d.kategori_nama,
     value: d.count,
-    color: CLUSTER_COLORS[d.kategori_nama] ?? '#8b949e',
+    color: KAT_PALETTE[d.kategori_nama]?.main ?? '#94a3b8',
+    soft: KAT_PALETTE[d.kategori_nama]?.soft ?? '#f8fafc',
   }));
 
-  const barData = (stats?.cluster_distribution ?? []).map(d => ({
+  const barData = dist.map(d => ({
     name: d.kategori_nama,
     Siswa: d.total_siswa,
-    fill: CLUSTER_COLORS[d.kategori_nama] ?? '#8b949e',
+    fill: KAT_PALETTE[d.kategori_nama]?.main ?? '#94a3b8',
   }));
 
   const statCards = [
-    { label: 'Total Kecamatan', value: stats?.total_kecamatan ?? 0, icon: MapPin, color: 'var(--accent-hover)' },
-    { label: 'Total Sekolah',   value: stats?.total_sekolah   ?? 0, icon: Building2, color: 'var(--green)' },
-    { label: 'Data Terekam',    value: stats?.total_data_sekolah ?? 0, icon: Database, color: 'var(--amber)' },
+    {
+      title: 'Wilayah Kecamatan',
+      value: stats?.total_kecamatan ?? 0,
+      unit: 'Kecamatan',
+      subtitle: 'Kabupaten Cirebon',
+      icon: MapPin,
+      accentColor: '#2563eb',
+      accentBg: '#eff6ff',
+      accentBorder: '#bfdbfe',
+    },
+    {
+      title: 'Satuan Pendidikan',
+      value: stats?.total_sekolah ?? 0,
+      unit: 'Sekolah',
+      subtitle: 'Jenjang SD & SMP',
+      icon: School,
+      accentColor: '#059669',
+      accentBg: '#f0fdf4',
+      accentBorder: '#bbf7d0',
+    },
+    {
+      title: 'Data Terverifikasi',
+      value: stats?.total_data_sekolah ?? 0,
+      unit: 'Record',
+      subtitle: `Tahun Ajaran ${selectedYear || 'Terbaru'}`,
+      icon: Database,
+      accentColor: '#d97706',
+      accentBg: '#fffbeb',
+      accentBorder: '#fde68a',
+    },
   ];
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
 
-      {/* Toolbar */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10 }}>
+      {/* ── Page Header & Year Filter ────────────────────────────────────── */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
         <div>
-          <h1 style={{ fontSize: 15, fontWeight: 600, color: 'var(--text-primary)' }}>Ringkasan Data</h1>
-          <p style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 2 }}>Analisis K-Means distribusi Dana BOS</p>
+          <h1 style={{ fontSize: 22, fontWeight: 700, color: '#0f172a', letterSpacing: '-0.025em', margin: 0 }}>
+            Dashboard
+          </h1>
         </div>
+
         {(stats?.available_years ?? []).length > 0 && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Tahun Ajaran</label>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#ffffff', padding: '4px 10px 4px 12px', borderRadius: 10, border: '1px solid #e2e8f0', boxShadow: '0 1px 2px rgba(15,23,42,0.03)' }}>
+            <Calendar size={15} color="#64748b" />
+            <span style={{ fontSize: 12, fontWeight: 600, color: '#475569' }}>Tahun:</span>
             <select
               value={selectedYear}
               onChange={e => handleYear(e.target.value)}
               style={{
-                padding: '4px 8px', fontSize: 13,
-                background: 'var(--bg-elevated)', color: 'var(--text-primary)',
-                border: '1px solid var(--border)', borderRadius: 6, outline: 'none',
+                fontSize: 13, fontWeight: 600, color: '#0f172a',
+                background: 'transparent', border: 'none', outline: 'none',
+                cursor: 'pointer', paddingRight: 4,
               }}
             >
-              {stats!.available_years.map(y => <option key={y} value={y}>{y}</option>)}
+              {stats!.available_years.map(y => (
+                <option key={y} value={y}>{y}</option>
+              ))}
             </select>
           </div>
         )}
       </div>
 
-      {/* Stat cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 12 }}>
-        {statCards.map(({ label, value, icon: Icon, color }) => (
-          <div key={label} className="card" style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', gap: 14 }}>
-            <div style={{ width: 36, height: 36, borderRadius: 8, background: 'var(--bg-hover)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-              <Icon size={18} color={color} />
-            </div>
-            <div>
-              <div style={{ fontSize: 22, fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.1, fontVariantNumeric: 'tabular-nums' }}>{fmt(value)}</div>
-              <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 2 }}>{label}</div>
-            </div>
-          </div>
-        ))}
-      </div>
+      {/* ── 3 Modern KPI Stat Cards ───────────────────────────────────────── */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 16 }}>
+        {statCards.map((c) => {
+          const Icon = c.icon;
+          return (
+            <div
+              key={c.title}
+              style={{
+                background: '#ffffff',
+                border: '1px solid #e2e8f0',
+                borderRadius: 14,
+                padding: '20px 22px',
+                boxShadow: '0 1px 3px rgba(15, 23, 42, 0.04)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                position: 'relative',
+                overflow: 'hidden',
+              }}
+            >
+              {/* Subtle top indicator bar */}
+              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: c.accentColor }} />
 
-      {/* Charts row */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 12 }}>
-
-        {/* Pie chart */}
-        <div className="card" style={{ padding: 20 }}>
-          <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 16 }}>Distribusi Cluster</div>
-          {pieData.length > 0 ? (
-            <ResponsiveContainer width="100%" height={220}>
-              <PieChart>
-                <Pie data={pieData} cx="50%" cy="50%" innerRadius={55} outerRadius={85} paddingAngle={3} dataKey="value">
-                  {pieData.map((entry, i) => <Cell key={i} fill={entry.color} />)}
-                </Pie>
-                <Tooltip
-                  formatter={(v: any, n: any) => [`${v} kecamatan`, n]}
-                  contentStyle={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 6, fontSize: 12, color: 'var(--text-primary)' }}
-                />
-              </PieChart>
-            </ResponsiveContainer>
-          ) : (
-            <div style={{ height: 220, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', fontSize: 13 }}>
-              Belum ada data clustering
-            </div>
-          )}
-          {/* Legend manual */}
-          <div style={{ display: 'flex', gap: 16, justifyContent: 'center', marginTop: 8 }}>
-            {pieData.map(d => (
-              <div key={d.name} style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12, color: 'var(--text-secondary)' }}>
-                <div style={{ width: 8, height: 8, borderRadius: '50%', background: d.color }} />
-                {d.name} ({d.value})
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <span style={{ fontSize: 13, fontWeight: 600, color: '#64748b' }}>{c.title}</span>
+                <div style={{ width: 34, height: 34, borderRadius: 9, background: c.accentBg, border: `1px solid ${c.accentBorder}`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Icon size={17} color={c.accentColor} />
+                </div>
               </div>
-            ))}
-          </div>
-        </div>
 
-        {/* Bar chart */}
-        <div className="card" style={{ padding: 20 }}>
-          <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 16 }}>Jumlah Siswa per Kategori</div>
-          {barData.length > 0 ? (
-            <ResponsiveContainer width="100%" height={240}>
-              <BarChart data={barData} margin={{ top: 4, right: 4, left: -16, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--border-muted)" vertical={false} />
-                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'var(--text-secondary)' }} />
-                <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: 'var(--text-muted)' }} />
-                <Tooltip
-                  cursor={{ fill: 'var(--bg-hover)' }}
-                  formatter={(v: any) => [fmt(v || 0) + ' siswa', 'Jumlah Siswa']}
-                  contentStyle={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 6, fontSize: 12, color: 'var(--text-primary)' }}
-                />
-                <Bar dataKey="Siswa" radius={[4, 4, 0, 0]}>
-                  {barData.map((d, i) => <Cell key={i} fill={d.fill} />)}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
+              <div style={{ marginTop: 14 }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
+                  <span style={{ fontSize: 30, fontWeight: 800, color: '#0f172a', letterSpacing: '-0.03em', fontVariantNumeric: 'tabular-nums' }}>
+                    {fmt(c.value)}
+                  </span>
+                  <span style={{ fontSize: 13, fontWeight: 500, color: '#64748b' }}>{c.unit}</span>
+                </div>
+                <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 4 }}>
+                  {c.subtitle}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* ── Charts Row (Donut & Bar) ──────────────────────────────────────── */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: 16 }}>
+
+        {/* Donut Chart — Elegant Minimalist Gauge */}
+        <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: 14, padding: '20px 24px', boxShadow: '0 1px 3px rgba(15, 23, 42, 0.04)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+            <div>
+              <h3 style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', margin: 0 }}>Distribusi Kebutuhan Wilayah</h3>
+              <p style={{ fontSize: 12, color: '#64748b', margin: '2px 0 0 0' }}>Proporsi 40 kecamatan berdasarkan K-Means</p>
+            </div>
+            <div style={{ padding: '4px 8px', background: '#f8fafc', borderRadius: 6, border: '1px solid #e2e8f0', fontSize: 11, fontWeight: 600, color: '#64748b' }}>
+              3 Cluster
+            </div>
+          </div>
+
+          {pieData.length > 0 ? (
+            <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <div style={{ position: 'relative', width: '100%', height: 210 }}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={pieData}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={62}
+                      outerRadius={84}
+                      paddingAngle={4}
+                      dataKey="value"
+                      stroke="none"
+                    >
+                      {pieData.map((entry, i) => (
+                        <Cell key={i} fill={entry.color} />
+                      ))}
+                    </Pie>
+                    <Tooltip
+                      formatter={(v: any, n: any) => [`${v} kecamatan (${((Number(v) / (totalKec || 1)) * 100).toFixed(0)}%)`, n]}
+                      contentStyle={{ background: '#0f172a', border: 'none', borderRadius: 8, fontSize: 12, color: '#ffffff', boxShadow: '0 8px 16px rgba(0,0,0,0.15)' }}
+                      itemStyle={{ color: '#ffffff' }}
+                    />
+                  </PieChart>
+                </ResponsiveContainer>
+
+                {/* Center metric */}
+                <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', pointerEvents: 'none' }}>
+                  <div style={{ fontSize: 24, fontWeight: 800, color: '#0f172a', lineHeight: 1 }}>{totalKec}</div>
+                  <div style={{ fontSize: 10, fontWeight: 600, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: 3 }}>Kecamatan</div>
+                </div>
+              </div>
+
+              {/* Refined Legend Cards */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8, width: '100%', marginTop: 8 }}>
+                {dist.map(d => {
+                  const pal = KAT_PALETTE[d.kategori_nama] ?? KAT_PALETTE['Rendah'];
+                  const pct = totalKec ? ((d.count / totalKec) * 100).toFixed(0) : 0;
+                  return (
+                    <div
+                      key={d.kategori_nama}
+                      style={{
+                        background: pal.soft,
+                        border: `1px solid ${pal.border}`,
+                        borderRadius: 8,
+                        padding: '8px 10px',
+                        textAlign: 'center',
+                      }}
+                    >
+                      <div style={{ fontSize: 11, fontWeight: 700, color: pal.text }}>{d.kategori_nama}</div>
+                      <div style={{ fontSize: 16, fontWeight: 800, color: '#0f172a', marginTop: 2 }}>{d.count} <span style={{ fontSize: 11, fontWeight: 500, color: '#64748b' }}>({pct}%)</span></div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           ) : (
-            <div style={{ height: 240, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', fontSize: 13 }}>
-              Belum ada data clustering
+            <div style={{ height: 240, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontSize: 13 }}>
+              Belum ada data clustering untuk tahun ini
             </div>
           )}
         </div>
-      </div>
 
-      {/* Cluster detail + Ranking */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 12 }}>
-
-        {/* Cluster summary table */}
-        <div className="card" style={{ overflow: 'hidden' }}>
-          <div style={{ padding: '14px 16px', borderBottom: '1px solid var(--border)', fontSize: 13, fontWeight: 600, color: 'var(--text-primary)' }}>
-            Detail Cluster K-Means
+        {/* Bar Chart — Sleek Column View */}
+        <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: 14, padding: '20px 24px', boxShadow: '0 1px 3px rgba(15, 23, 42, 0.04)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+            <div>
+              <h3 style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', margin: 0 }}>Beban Siswa per Kategori</h3>
+              <p style={{ fontSize: 12, color: '#64748b', margin: '2px 0 0 0' }}>Akumulasi siswa penerima BOS di setiap klaster</p>
+            </div>
+            <div style={{ padding: '4px 8px', background: '#f8fafc', borderRadius: 6, border: '1px solid #e2e8f0', fontSize: 11, fontWeight: 600, color: '#64748b' }}>
+              Peserta Didik
+            </div>
           </div>
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
-            <thead>
-              <tr style={{ background: 'var(--bg-elevated)' }}>
-                {['Kategori', 'Kec.', 'Siswa', 'Dana BOS'].map(h => (
-                  <th key={h} style={{ padding: '8px 14px', textAlign: 'left', fontSize: 11, fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em', borderBottom: '1px solid var(--border)' }}>
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {(stats?.cluster_distribution ?? []).length === 0 ? (
-                <tr>
-                  <td colSpan={4} style={{ padding: '24px 16px', textAlign: 'center', color: 'var(--text-muted)', fontSize: 13 }}>
-                    Belum ada data
-                  </td>
-                </tr>
-              ) : (
-                (stats?.cluster_distribution ?? []).map(d => (
-                  <tr key={d.cluster_kategori} style={{ borderBottom: '1px solid var(--border-muted)' }}>
-                    <td style={{ padding: '10px 14px' }}>
-                      <span style={{
-                        display: 'inline-flex', alignItems: 'center', gap: 5,
-                        fontSize: 12, fontWeight: 500,
-                        color: CLUSTER_COLORS[d.kategori_nama],
-                        background: CLUSTER_BG[d.kategori_nama],
-                        border: `1px solid ${CLUSTER_COLORS[d.kategori_nama]}33`,
-                        padding: '2px 8px', borderRadius: 20,
-                      }}>
-                        {d.kategori_nama}
-                      </span>
-                    </td>
-                    <td style={{ padding: '10px 14px', color: 'var(--text-primary)', fontWeight: 600 }}>{d.count}</td>
-                    <td style={{ padding: '10px 14px', color: 'var(--text-secondary)' }}>{fmt(d.total_siswa)}</td>
-                    <td style={{ padding: '10px 14px', color: 'var(--text-secondary)' }}>{fmtRp(d.total_dana_bos)}</td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+
+          {barData.length > 0 ? (
+            <div style={{ height: 260, width: '100%', marginTop: 8 }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={barData} margin={{ top: 12, right: 10, left: -14, bottom: 4 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                  <XAxis
+                    dataKey="name"
+                    axisLine={{ stroke: '#e2e8f0' }}
+                    tickLine={false}
+                    tick={{ fontSize: 12, fill: '#64748b', fontWeight: 600 }}
+                  />
+                  <YAxis
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fontSize: 11, fill: '#94a3b8' }}
+                    tickFormatter={(v) => v >= 1000 ? `${(v / 1000).toFixed(0)}k` : `${v}`}
+                  />
+                  <Tooltip
+                    cursor={{ fill: '#f8fafc' }}
+                    formatter={(v: any) => [fmt(v || 0) + ' Siswa', 'Total Peserta']}
+                    contentStyle={{ background: '#0f172a', border: 'none', borderRadius: 8, fontSize: 12, color: '#ffffff', boxShadow: '0 8px 16px rgba(0,0,0,0.15)' }}
+                    itemStyle={{ color: '#ffffff' }}
+                  />
+                  <Bar dataKey="Siswa" maxBarSize={44} radius={[6, 6, 0, 0]}>
+                    {barData.map((d, i) => (
+                      <Cell key={i} fill={d.fill} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          ) : (
+            <div style={{ height: 260, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontSize: 13 }}>
+              Belum ada data siswa
+            </div>
+          )}
         </div>
 
-        {/* Ranking */}
-        <div className="card" style={{ overflow: 'hidden' }}>
-          <div style={{ padding: '14px 16px', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 6 }}>
-              <TrendingUp size={14} color="var(--accent-hover)" />
-              Top Prioritas Kecamatan
+      </div>
+
+      {/* ── Detail Cluster & Ranking Row ─────────────────────────────────── */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: 16 }}>
+
+        {/* Cluster detail summary */}
+        <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden', boxShadow: '0 1px 3px rgba(15, 23, 42, 0.04)' }}>
+          <div style={{ padding: '16px 20px', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 8 }}>
+            <Layers size={16} color="#2563eb" />
+            <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>Detail Agregasi Klaster</span>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+              <thead>
+                <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+                  {['Kategori', 'Kec.', 'Siswa', 'Alokasi Dana'].map(h => (
+                    <th key={h} style={{ padding: '10px 16px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {dist.length === 0 ? (
+                  <tr>
+                    <td colSpan={4} style={{ padding: '32px 16px', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>
+                      Belum ada data cluster
+                    </td>
+                  </tr>
+                ) : (
+                  dist.map(d => {
+                    const pal = KAT_PALETTE[d.kategori_nama] ?? KAT_PALETTE['Rendah'];
+                    return (
+                      <tr key={d.cluster_kategori} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                        <td style={{ padding: '12px 16px' }}>
+                          <span style={{
+                            fontSize: 11, fontWeight: 700,
+                            color: pal.text,
+                            background: pal.soft,
+                            border: `1px solid ${pal.border}`,
+                            padding: '3px 9px', borderRadius: 20,
+                            whiteSpace: 'nowrap',
+                          }}>
+                            {d.kategori_nama}
+                          </span>
+                        </td>
+                        <td style={{ padding: '12px 16px', color: '#0f172a', fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>
+                          {d.count} <span style={{ fontSize: 11, fontWeight: 400, color: '#94a3b8' }}>kec</span>
+                        </td>
+                        <td style={{ padding: '12px 16px', color: '#475569', fontVariantNumeric: 'tabular-nums' }}>
+                          {fmt(d.total_siswa)}
+                        </td>
+                        <td style={{ padding: '12px 16px', color: '#0f172a', fontWeight: 600, fontVariantNumeric: 'tabular-nums' }}>
+                          {fmtRp(d.total_dana_bos)}
+                        </td>
+                      </tr>
+                    );
+                  })
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Top Priority Ranking */}
+        <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: 14, overflow: 'hidden', boxShadow: '0 1px 3px rgba(15, 23, 42, 0.04)' }}>
+          <div style={{ padding: '16px 20px', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', display: 'flex', alignItems: 'center', gap: 8 }}>
+              <TrendingUp size={16} color="#e11d48" />
+              Prioritas Utama Kecamatan
             </div>
-            <Link href="/hasil" style={{ fontSize: 12, color: 'var(--accent-hover)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 3 }}>
-              Semua <ArrowRight size={12} />
+            <Link
+              href="/hasil"
+              style={{
+                fontSize: 12, fontWeight: 600, color: '#2563eb', textDecoration: 'none',
+                display: 'flex', alignItems: 'center', gap: 4,
+                padding: '4px 8px', borderRadius: 6, background: '#eff6ff', border: '1px solid #bfdbfe',
+              }}
+            >
+              Lihat Semua <ArrowUpRight size={13} />
             </Link>
           </div>
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
-            <thead>
-              <tr style={{ background: 'var(--bg-elevated)' }}>
-                {['#', 'Kecamatan', 'Kategori', 'Skor'].map(h => (
-                  <th key={h} style={{ padding: '8px 14px', textAlign: 'left', fontSize: 11, fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em', borderBottom: '1px solid var(--border)' }}>
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {!ranking || ranking.ranking.length === 0 ? (
-                <tr>
-                  <td colSpan={4} style={{ padding: '24px 16px', textAlign: 'center', color: 'var(--text-muted)', fontSize: 13 }}>
-                    Belum ada data ranking
-                  </td>
+
+          <div className="overflow-x-auto">
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+              <thead>
+                <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+                  {['#', 'Kecamatan', 'Kategori', 'Skor Prioritas'].map(h => (
+                    <th key={h} style={{ padding: '10px 16px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                      {h}
+                    </th>
+                  ))}
                 </tr>
-              ) : (
-                ranking.ranking.slice(0, 6).map(item => (
-                  <tr key={item.id} style={{ borderBottom: '1px solid var(--border-muted)' }}>
-                    <td style={{ padding: '9px 14px', color: 'var(--text-muted)', fontVariantNumeric: 'tabular-nums' }}>{item.rank}</td>
-                    <td style={{ padding: '9px 14px', color: 'var(--text-primary)', fontWeight: 500 }}>{item.nama_kecamatan}</td>
-                    <td style={{ padding: '9px 14px' }}>
-                      <span style={{
-                        fontSize: 11, fontWeight: 500,
-                        color: CLUSTER_COLORS[item.kategori_nama],
-                        background: CLUSTER_BG[item.kategori_nama],
-                        padding: '2px 7px', borderRadius: 20,
-                        border: `1px solid ${CLUSTER_COLORS[item.kategori_nama]}33`,
-                      }}>
-                        {item.kategori_nama}
-                      </span>
-                    </td>
-                    <td style={{ padding: '9px 14px', color: 'var(--text-secondary)', fontVariantNumeric: 'tabular-nums' }}>
-                      {item.priority_score}
+              </thead>
+              <tbody>
+                {!ranking || ranking.ranking.length === 0 ? (
+                  <tr>
+                    <td colSpan={4} style={{ padding: '32px 16px', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>
+                      Belum ada data ranking prioritas
                     </td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+                ) : (
+                  ranking.ranking.slice(0, 5).map((item, idx) => {
+                    const pal = KAT_PALETTE[item.kategori_nama] ?? KAT_PALETTE['Rendah'];
+                    return (
+                      <tr key={item.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                        <td style={{ padding: '11px 16px' }}>
+                          <span style={{
+                            width: 22, height: 22, borderRadius: '50%',
+                            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                            fontSize: 11, fontWeight: 700,
+                            background: idx === 0 ? '#fef2f2' : idx === 1 ? '#fff1f2' : idx === 2 ? '#fff7ed' : '#f8fafc',
+                            color: idx < 3 ? '#e11d48' : '#64748b',
+                            border: idx < 3 ? '1px solid #fecdd3' : '1px solid #e2e8f0',
+                          }}>
+                            {item.rank}
+                          </span>
+                        </td>
+                        <td style={{ padding: '11px 16px', color: '#0f172a', fontWeight: 600 }}>
+                          {item.nama_kecamatan}
+                        </td>
+                        <td style={{ padding: '11px 16px' }}>
+                          <span style={{
+                            fontSize: 11, fontWeight: 700,
+                            color: pal.text,
+                            background: pal.soft,
+                            border: `1px solid ${pal.border}`,
+                            padding: '2px 8px', borderRadius: 20,
+                            whiteSpace: 'nowrap',
+                          }}>
+                            {item.kategori_nama}
+                          </span>
+                        </td>
+                        <td style={{ padding: '11px 16px', color: '#0f172a', fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>
+                          {(item.priority_score * 100).toFixed(1)}%
+                        </td>
+                      </tr>
+                    );
+                  })
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
+
       </div>
+
     </div>
   );
 }
+

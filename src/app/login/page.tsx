@@ -78,27 +78,27 @@ export default function LoginPage() {
         padding: "24px 16px",
         position: "relative",
         overflow: "hidden",
-        backgroundColor: "#09090b",
+        backgroundColor: "#f8fafc",
       }}
     >
       {/* Subtle Ambient Background Accent */}
       <div
         style={{
           position: "absolute",
-          top: "-20%",
+          top: "-15%",
           left: "50%",
           transform: "translateX(-50%)",
-          width: "600px",
-          height: "600px",
+          width: "700px",
+          height: "500px",
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(99, 102, 241, 0) 70%)",
-          filter: "blur(80px)",
+            "radial-gradient(circle, rgba(37, 99, 235, 0.06) 0%, rgba(37, 99, 235, 0) 70%)",
+          filter: "blur(60px)",
           pointerEvents: "none",
         }}
       />
 
-      {/* Main Glass Login Card */}
+      {/* Main Clean Card */}
       <div
         className="animate-in"
         style={{
@@ -106,13 +106,11 @@ export default function LoginPage() {
           zIndex: 10,
           width: "100%",
           maxWidth: "440px",
-          background: "rgba(24, 24, 27, 0.8)",
-          backdropFilter: "blur(24px)",
-          WebkitBackdropFilter: "blur(24px)",
-          border: "1px solid rgba(255, 255, 255, 0.08)",
-          borderRadius: "24px",
+          background: "#ffffff",
+          border: "1px solid #e2e8f0",
+          borderRadius: "20px",
           boxShadow:
-            "0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 40px rgba(99, 102, 241, 0.06)",
+            "0 20px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.04)",
           padding: "40px 32px",
           display: "flex",
           flexDirection: "column",
@@ -125,7 +123,7 @@ export default function LoginPage() {
             flexDirection: "column",
             alignItems: "center",
             textAlign: "center",
-            marginBottom: 32,
+            marginBottom: 28,
           }}
         >
           <div
@@ -133,12 +131,13 @@ export default function LoginPage() {
               width: 64,
               height: 64,
               background: "#ffffff",
-              borderRadius: "18px",
+              borderRadius: "16px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               padding: 6,
-              boxShadow: "0 10px 25px rgba(0, 0, 0, 0.4)",
+              boxShadow: "0 4px 12px rgba(15, 23, 42, 0.08)",
+              border: "1px solid #e2e8f0",
               marginBottom: 16,
             }}
           >
@@ -154,14 +153,14 @@ export default function LoginPage() {
             style={{
               fontSize: "20px",
               fontWeight: 700,
-              color: "#fafafa",
+              color: "#0f172a",
               letterSpacing: "-0.02em",
               marginBottom: 4,
             }}
           >
             Sistem Informasi Dana BOS
           </h1>
-          <p style={{ fontSize: "13px", color: "#a1a1aa", fontWeight: 500 }}>
+          <p style={{ fontSize: "13px", color: "#64748b", fontWeight: 500 }}>
             Dinas Pendidikan Kabupaten Cirebon
           </p>
         </div>
@@ -172,13 +171,13 @@ export default function LoginPage() {
             style={{
               marginBottom: 24,
               padding: "12px 14px",
-              background: "rgba(239, 68, 68, 0.12)",
-              border: "1px solid rgba(239, 68, 68, 0.3)",
+              background: "#fef2f2",
+              border: "1px solid #fecaca",
               borderRadius: "12px",
               display: "flex",
               alignItems: "center",
               gap: 10,
-              color: "#f87171",
+              color: "#b91c1c",
               fontSize: "13px",
               fontWeight: 500,
               animation: "fadeIn 0.2s ease",
@@ -190,7 +189,7 @@ export default function LoginPage() {
         )}
 
         {/* Login Form */}
-        <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+        <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: 18 }}>
           {/* Username Input */}
           <div>
             <label
@@ -198,9 +197,9 @@ export default function LoginPage() {
               style={{
                 display: "block",
                 fontSize: "13px",
-                fontWeight: 500,
-                color: "#a1a1aa",
-                marginBottom: 8,
+                fontWeight: 600,
+                color: "#334155",
+                marginBottom: 6,
               }}
             >
               Username
@@ -212,7 +211,7 @@ export default function LoginPage() {
                   left: 14,
                   top: "50%",
                   transform: "translateY(-50%)",
-                  color: "#71717a",
+                  color: "#94a3b8",
                   display: "flex",
                   pointerEvents: "none",
                 }}
@@ -229,24 +228,24 @@ export default function LoginPage() {
                 autoComplete="username"
                 style={{
                   width: "100%",
-                  background: "#09090b",
-                  border: "1px solid #27272a",
-                  borderRadius: "12px",
-                  padding: "12px 14px 12px 42px",
-                  color: "#fafafa",
+                  background: "#ffffff",
+                  border: "1px solid #cbd5e1",
+                  borderRadius: "10px",
+                  padding: "11px 14px 11px 42px",
+                  color: "#0f172a",
                   fontSize: "14px",
                   outline: "none",
                   transition: "all 0.15s ease",
-                  boxShadow: "inset 0 1px 2px rgba(0, 0, 0, 0.4)",
+                  boxShadow: "0 1px 2px rgba(0, 0, 0, 0.03)",
                 }}
                 onFocus={(e) => {
-                  e.target.style.borderColor = "#6366f1";
+                  e.target.style.borderColor = "#2563eb";
                   e.target.style.boxShadow =
-                    "0 0 0 3px rgba(99, 102, 241, 0.25), inset 0 1px 2px rgba(0, 0, 0, 0.4)";
+                    "0 0 0 3px rgba(37, 99, 235, 0.15)";
                 }}
                 onBlur={(e) => {
-                  e.target.style.borderColor = "#27272a";
-                  e.target.style.boxShadow = "inset 0 1px 2px rgba(0, 0, 0, 0.4)";
+                  e.target.style.borderColor = "#cbd5e1";
+                  e.target.style.boxShadow = "0 1px 2px rgba(0, 0, 0, 0.03)";
                 }}
               />
             </div>
@@ -259,9 +258,9 @@ export default function LoginPage() {
               style={{
                 display: "block",
                 fontSize: "13px",
-                fontWeight: 500,
-                color: "#a1a1aa",
-                marginBottom: 8,
+                fontWeight: 600,
+                color: "#334155",
+                marginBottom: 6,
               }}
             >
               Password
@@ -273,7 +272,7 @@ export default function LoginPage() {
                   left: 14,
                   top: "50%",
                   transform: "translateY(-50%)",
-                  color: "#71717a",
+                  color: "#94a3b8",
                   display: "flex",
                   pointerEvents: "none",
                 }}
@@ -290,24 +289,24 @@ export default function LoginPage() {
                 autoComplete="current-password"
                 style={{
                   width: "100%",
-                  background: "#09090b",
-                  border: "1px solid #27272a",
-                  borderRadius: "12px",
-                  padding: "12px 44px 12px 42px",
-                  color: "#fafafa",
+                  background: "#ffffff",
+                  border: "1px solid #cbd5e1",
+                  borderRadius: "10px",
+                  padding: "11px 44px 11px 42px",
+                  color: "#0f172a",
                   fontSize: "14px",
                   outline: "none",
                   transition: "all 0.15s ease",
-                  boxShadow: "inset 0 1px 2px rgba(0, 0, 0, 0.4)",
+                  boxShadow: "0 1px 2px rgba(0, 0, 0, 0.03)",
                 }}
                 onFocus={(e) => {
-                  e.target.style.borderColor = "#6366f1";
+                  e.target.style.borderColor = "#2563eb";
                   e.target.style.boxShadow =
-                    "0 0 0 3px rgba(99, 102, 241, 0.25), inset 0 1px 2px rgba(0, 0, 0, 0.4)";
+                    "0 0 0 3px rgba(37, 99, 235, 0.15)";
                 }}
                 onBlur={(e) => {
-                  e.target.style.borderColor = "#27272a";
-                  e.target.style.boxShadow = "inset 0 1px 2px rgba(0, 0, 0, 0.4)";
+                  e.target.style.borderColor = "#cbd5e1";
+                  e.target.style.boxShadow = "0 1px 2px rgba(0, 0, 0, 0.03)";
                 }}
               />
               <button
@@ -320,7 +319,7 @@ export default function LoginPage() {
                   transform: "translateY(-50%)",
                   background: "none",
                   border: "none",
-                  color: "#71717a",
+                  color: "#94a3b8",
                   cursor: "pointer",
                   padding: 4,
                   display: "flex",
@@ -329,8 +328,8 @@ export default function LoginPage() {
                   borderRadius: 6,
                   transition: "color 0.15s ease",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#fafafa")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#71717a")}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#0f172a")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "#94a3b8")}
                 title={showPassword ? "Sembunyikan password" : "Tampilkan password"}
               >
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -343,11 +342,11 @@ export default function LoginPage() {
             type="submit"
             disabled={loading}
             style={{
-              marginTop: 8,
+              marginTop: 10,
               width: "100%",
-              padding: "13px 20px",
-              borderRadius: "12px",
-              background: "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)",
+              padding: "12px 20px",
+              borderRadius: "10px",
+              background: "#2563eb",
               color: "#ffffff",
               fontSize: "14px",
               fontWeight: 600,
@@ -358,21 +357,19 @@ export default function LoginPage() {
               justifyContent: "center",
               gap: 8,
               boxShadow:
-                "0 4px 14px rgba(99, 102, 241, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
+                "0 2px 4px 0 rgba(37, 99, 235, 0.25), inset 0 1px 0 0 rgba(255, 255, 255, 0.15)",
               opacity: loading ? 0.75 : 1,
               transition: "all 0.15s ease",
             }}
             onMouseEnter={(e) => {
               if (!loading) {
-                e.currentTarget.style.background =
-                  "linear-gradient(135deg, #4f46e5 0%, #4338ca 100%)";
+                e.currentTarget.style.background = "#1d4ed8";
                 e.currentTarget.style.transform = "translateY(-1px)";
               }
             }}
             onMouseLeave={(e) => {
               if (!loading) {
-                e.currentTarget.style.background =
-                  "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)";
+                e.currentTarget.style.background = "#2563eb";
                 e.currentTarget.style.transform = "translateY(0)";
               }
             }}
@@ -394,12 +391,12 @@ export default function LoginPage() {
         {/* Footer */}
         <div
           style={{
-            marginTop: 32,
-            paddingTop: 20,
-            borderTop: "1px solid rgba(255, 255, 255, 0.06)",
+            marginTop: 28,
+            paddingTop: 18,
+            borderTop: "1px solid #f1f5f9",
             textAlign: "center",
             fontSize: "12px",
-            color: "#71717a",
+            color: "#94a3b8",
           }}
         >
           © 2026 Dinas Pendidikan Kabupaten Cirebon

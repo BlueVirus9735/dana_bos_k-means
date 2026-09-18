@@ -171,11 +171,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    // ── Simpan hasil DBI ke tabel evaluasi_cluster ────────────────────────────
+    $dbi = $python_result['dbi'] ?? null;
+    if ($dbi !== null) {
+        $dbi_score          = floatval($dbi['score'] ?? 0);
+        $n_iterations_val   = intval($python_result['n_iterations'] ?? 0);
+        $sigma_json         = json_encode($dbi['sigma'] ?? []);
+        $inter_dist_json    = json_encode($dbi['inter_distances'] ?? []);
+        $centroids_json     = json_encode($dbi['centroids_final'] ?? []);
+        $per_cluster_json   = json_encode($dbi['per_cluster'] ?? []);
+
+        $eval_stmt = $conn->prepare("
+            INSERT INTO evaluasi_cluster
+                (tahun_ajaran, n_clusters, dbi_score, inertia, n_iterations,
+                 sigma_json, inter_distance_json, centroids_json, per_cluster_json)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ON DUPLICATE KEY UPDATE
+                n_clusters          = VALUES(n_clusters),
+                dbi_score           = VALUES(dbi_score),
+                inertia             = VALUES(inertia),
+                n_iterations        = VALUES(n_iterations),
+                sigma_json          = VALUES(sigma_json),
+                inter_distance_json = VALUES(inter_distance_json),
+                centroids_json      = VALUES(centroids_json),
+                per_cluster_json    = VALUES(per_cluster_json),
+                updated_at          = CURRENT_TIMESTAMP
+        ");
+
+        if ($eval_stmt) {
+            $eval_stmt->bind_param(
+                "siidiisss",
+                $tahun_ajaran,
+                $n_clusters,
+                $dbi_score,
+                $inertia,
+                $n_iterations_val,
+                $sigma_json,
+                $inter_dist_json,
+                $centroids_json,
+                $per_cluster_json
+            );
+            $eval_stmt->execute();
+        }
+    }
+
     sendResponse([
         'message'      => 'Clustering berhasil diproses',
         'results'      => $python_result,
         'tahun_ajaran' => $tahun_ajaran,
     ]);
+
 
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
